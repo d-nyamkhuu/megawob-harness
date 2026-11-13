@@ -3,7 +3,7 @@ import subprocess
 import sys
 import time
 
-from agent_harness.checks import Ledger, StopGate, check_tool, tree_hash
+from megawob_harness.checks import Ledger, StopGate, check_tool, tree_hash
 
 
 def test_tree_hash_follows_content_and_skips_ignored(tmp_path):
@@ -61,7 +61,7 @@ def test_gate_reasons_limits_and_deadline(tmp_path):
 def test_stop_hook_command_speaks_the_hook_protocol(tmp_path):
     ws, state = tmp_path / "ws", tmp_path / "state"
     ws.mkdir()
-    cmd = [sys.executable, "-m", "agent_harness.checks", "stop-hook", "--workspace", str(ws), "--state", str(state)]
+    cmd = [sys.executable, "-m", "megawob_harness.checks", "stop-hook", "--workspace", str(ws), "--state", str(state)]
     out = subprocess.run(cmd, input=json.dumps({"hook_event_name": "Stop", "stop_hook_active": False}),
                          capture_output=True, text=True, check=True).stdout
     assert json.loads(out)["decision"] == "block"

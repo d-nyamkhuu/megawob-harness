@@ -1,0 +1,173 @@
+{
+ "task": "select-text",
+ "identity": "A text document in which the user selects a requested span using native text selection.",
+ "scenarios": [
+  {
+   "name": "paragraph",
+   "screen": "Several paragraphs of text appear in reading order. The requested paragraph is visible as ordinary text, with no selection on it; another span can have a stray selection.",
+   "scene": "The paragraphs appear with no text selected.",
+   "never": [
+    "A paragraph picker is open.",
+    "Paragraphs appear as draggable cards.",
+    "Every paragraph has its own selection checkbox."
+   ],
+   "arrangements": [
+    {
+     "text": "Paragraphs sit one below another in a single text column.",
+     "traits": ""
+    },
+    {
+     "text": "Numbered clause titles sit directly above their paragraphs in a vertical terms document.",
+     "traits": "unit=clause"
+    },
+    {
+     "text": "Messages sit one below another, with each sender and time beside its message text.",
+     "traits": "unit=message"
+    },
+    {
+     "text": "Text sits inside a scrolling document pane, with its scrollbar along the right edge.",
+     "traits": "pane=always"
+    }
+   ],
+   "hint": "Show three readable paragraphs; when canal is named exactly one paragraph discusses a canal. No selection yet. Keep all words legible and paragraphs separated."
+  },
+  {
+   "name": "sentence",
+   "screen": "Several paragraphs of sentences appear in reading order. The target sentence remains part of its paragraph, with no selection on it; another span can have a stray selection.",
+   "scene": "The text appears with no selection.",
+   "never": [
+    "Each sentence is a separate card.",
+    "Sentence selection buttons appear beside the text.",
+    "A sentence chooser is open."
+   ],
+   "arrangements": [
+    {
+     "text": "Sentences flow within paragraphs stacked in one text column.",
+     "traits": ""
+    },
+    {
+     "text": "Numbered clause titles sit above their paragraphs, and sentences flow within each clause.",
+     "traits": "unit=clause"
+    },
+    {
+     "text": "Sentences flow within cells arranged in rows and columns, with row and column labels around the cells.",
+     "traits": "unit=cell"
+    },
+    {
+     "text": "The document sits in a scrolling pane with a scrollbar on its right edge.",
+     "traits": "pane=always"
+    }
+   ],
+   "hint": "Show three paragraphs of exactly three period-terminated sentences each. When cart is named, exactly one sentence mentions cart. Exact requested paragraph/sentence is visible; no selection yet."
+  },
+  {
+   "name": "phrase",
+   "screen": "Several paragraphs contain the requested phrase within the running text. The phrase is not preselected, though another span can have a stray selection; some words can be links or bold text.",
+   "scene": "The document appears with no text selected.",
+   "never": [
+    "The phrase appears in a separate answer box.",
+    "Phrase choices appear as buttons.",
+    "A text selection toolbar is open."
+   ],
+   "arrangements": [
+    {
+     "text": "Paragraphs sit in one column, with the phrase flowing across ordinary text lines.",
+     "traits": ""
+    },
+    {
+     "text": "The text sits inside one multiline text box, with paragraphs stacked within it.",
+     "traits": "native=textarea"
+    },
+    {
+     "text": "The text occupies a single line inside an input field.",
+     "traits": "native=input"
+    },
+    {
+     "text": "The document sits in a scrolling pane with its scrollbar along the right edge.",
+     "traits": "pane=always"
+    }
+   ],
+   "hint": "Show three complete readable paragraphs containing the exact requested phrase once in the requested paragraph. Do not insert quotation marks around the phrase or preselect it."
+  },
+  {
+   "name": "word",
+   "screen": "Several paragraphs of text contain a single occurrence of the target word. The word is not preselected, though another span can have a stray selection.",
+   "scene": "The text appears with no selection.",
+   "never": [
+    "The target word has its own checkbox.",
+    "A list of candidate words is open.",
+    "A separate answer field contains the target word."
+   ],
+   "arrangements": [
+    {
+     "text": "Paragraphs sit one below another, and the word appears within a line of text.",
+     "traits": ""
+    },
+    {
+     "text": "The text sits inside a multiline text box, with the word within one of its lines.",
+     "traits": "native=textarea"
+    },
+    {
+     "text": "The text occupies a single-line input field, with the word among the other words.",
+     "traits": "native=input"
+    },
+    {
+     "text": "Text cells fill a table in rows and columns, with the word inside one cell.",
+     "traits": "unit=cell"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "field",
+   "screen": "A realistic message contains several values, such as an email address, tracking number or total, within its text. The requested value is not preselected, though another span can have a stray selection.",
+   "scene": "The message appears with no text selected.",
+   "never": [
+    "Each value has a separate editable field.",
+    "Entity choices appear in an open menu.",
+    "The requested value is copied into an answer box."
+   ],
+   "arrangements": [
+    {
+     "text": "The message body sits in a single text column, with its values embedded in the lines.",
+     "traits": ""
+    },
+    {
+     "text": "Messages sit in chronological order, with sender and time beside each message body.",
+     "traits": "unit=message"
+    },
+    {
+     "text": "The message sits inside a multiline text box, with its values embedded in the text.",
+     "traits": "native=textarea"
+    },
+    {
+     "text": "The message sits inside a scrolling pane with a scrollbar along its right edge.",
+     "traits": "pane=always"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "tip",
+   "screen": "Paragraphs of text contain a few dotted-underlined words. No tooltip is open at the start, and the target word is not selected; another span can have a stray selection.",
+   "scene": "The paragraphs and dotted-underlined words appear with no tooltip open and no text selected.",
+   "never": [
+    "A tooltip is open before the pointer reaches an underlined word.",
+    "All tooltip hints appear in a separate panel.",
+    "The target word appears in a separate answer field.",
+    "The text sits inside an input field."
+   ],
+   "arrangements": [
+    {
+     "text": "Paragraphs sit one below another in a single text column, with underlined words embedded in their lines.",
+     "traits": ""
+    },
+    {
+     "text": "The paragraphs occupy a narrower text column, so their lines wrap sooner and the underlined words remain within the running text.",
+     "traits": "paragraphs skin text width"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

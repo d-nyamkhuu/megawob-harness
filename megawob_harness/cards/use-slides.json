@@ -1,0 +1,116 @@
+{
+ "task": "use-slides",
+ "identity": "An office editing workspace with a slide deck, shape formatting tools, a document, anchored comments, and revision controls.",
+ "scenarios": [
+  {
+   "name": "reorder",
+   "screen": "A rail holds six slide thumbnails in their starting order, and the active slide appears in the slide canvas. No thumbnail is being dragged.",
+   "scene": "",
+   "never": [
+    "A thumbnail floating under the pointer on load",
+    "Slides already outside the thumbnail rail",
+    "An empty deck",
+    "More slide thumbnails than the deck contains"
+   ],
+   "arrangements": [
+    {
+     "text": "The thumbnail rail runs down the left of the slide canvas.",
+     "traits": ""
+    },
+    {
+     "text": "The thumbnail rail runs beneath the slide canvas.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "align",
+   "screen": "The slide canvas shows four labelled shapes at their starting positions, with the outer shapes at opposite horizontal ends. Alignment and distribution controls are visible; no alignment menu is open.",
+   "scene": "",
+   "never": [
+    "The four shapes already evenly distributed at the requested vertical position",
+    "A shape outside the slide canvas",
+    "An alignment menu open on load",
+    "A fifth shape added to the slide"
+   ],
+   "arrangements": [
+    {
+     "text": "Alignment and distribution controls sit above the slide canvas, which holds the four shapes in one working area.",
+     "traits": ""
+    },
+    {
+     "text": "Alignment and distribution controls sit to the right of the slide canvas, which holds the four shapes in one working area.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "restyle",
+   "screen": "The slide canvas shows labelled text shapes with their starting formatting. Bold, italic, text colour, and point-size controls are visible; the colour picker is closed.",
+   "scene": "",
+   "never": [
+    "The requested text shape already shown with the complete target formatting",
+    "A colour picker open on load",
+    "A point-size menu open on load",
+    "A separate text box for editing the shape's wording"
+   ],
+   "arrangements": [
+    {
+     "text": "The formatting controls run above the slide canvas, and the labelled shapes sit inside the canvas.",
+     "traits": ""
+    },
+    {
+     "text": "The formatting controls form a column beside the slide canvas, and the labelled shapes sit inside the canvas.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "comments",
+   "screen": "The document shows its paragraphs and the phrase that can receive a comment. No text is selected, and the comment composer is closed with an empty draft.",
+   "scene": "",
+   "never": [
+    "The target phrase selected on load",
+    "The comment composer open on load",
+    "The requested comment already posted",
+    "A free-floating comment with no document anchor"
+   ],
+   "arrangements": [
+    {
+     "text": "The document occupies the main reading area, with anchored comments beside the relevant text.",
+     "traits": ""
+    },
+    {
+     "text": "The document sits above an anchored comment list, with each entry tied to a phrase in the document.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "trackchanges",
+   "screen": "The document shows proposed text changes, and a review list presents each change with Accept and Reject controls. The revisions start pending.",
+   "scene": "",
+   "never": [
+    "The named revisions already accepted or rejected",
+    "A revision being dragged",
+    "A comment composer open on load",
+    "A review entry with no corresponding document change"
+   ],
+   "arrangements": [
+    {
+     "text": "The document sits to the left of a review list containing the revisions and their action controls.",
+     "traits": ""
+    },
+    {
+     "text": "The document sits above a review list containing the revisions and their action controls.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

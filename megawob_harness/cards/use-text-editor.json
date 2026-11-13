@@ -1,0 +1,136 @@
+{
+ "task": "use-text-editor",
+ "identity": "A page-owned text editor with a code view or document view, editing controls, and indicators for the current position or document state.",
+ "scenarios": [
+  {
+   "name": "cursor",
+   "screen": "The code view shows numbered lines, a text gutter, syntax-coloured text, a minimap, and a status bar with the current line and column; no text is selected. The document view shows paragraphs beneath a toolbar with an editing-mode control.",
+   "scene": "",
+   "never": [
+    "A browser contenteditable field",
+    "Two separate code files open side by side",
+    "A suggestion card in the code view"
+   ],
+   "arrangements": [
+    {
+     "text": "The code text sits between the line-number gutter on the left and the minimap on the right, with the status bar below.",
+     "traits": ""
+    },
+    {
+     "text": "The document toolbar sits above the paragraphs, with the editing-mode control in the toolbar.",
+     "traits": "doc=prose"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "multiline",
+   "screen": "A single code editor shows numbered lines, a gutter, syntax-coloured text, a minimap, and a line-and-column status bar. The target lines are still in their original form, and no find widget or completion list is open.",
+   "scene": "",
+   "never": [
+    "A document formatting toolbar",
+    "Suggestion cards",
+    "A second editor pane",
+    "Lines already removed from the editor"
+   ],
+   "arrangements": [
+    {
+     "text": "Line numbers run down the left of the code, the minimap runs down the right, and the status bar sits below the editor.",
+     "traits": ""
+    },
+    {
+     "text": "The code editor fills a narrower task area while the gutter remains beside the text, the minimap remains at its right edge, and the status bar remains underneath.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "multicursor",
+   "screen": "A single code editor shows numbered lines, a gutter, syntax-coloured text, a minimap, and a line-and-column status bar. The requested edits have not been made, and no find widget is open.",
+   "scene": "",
+   "never": [
+    "A separate input box for each cursor",
+    "A document formatting toolbar",
+    "Suggestion cards",
+    "A second code pane"
+   ],
+   "arrangements": [
+    {
+     "text": "The gutter is left of the code text, the minimap is right of it, and the status bar is below.",
+     "traits": ""
+    },
+    {
+     "text": "The editor occupies a narrower task area, keeping the gutter beside the code and the minimap along the editor's right edge.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "findreplace",
+   "screen": "The code view shows its numbered editor, minimap, and status bar, while the document view shows paragraphs and a toolbar. In either view, the find-and-replace widget is closed and its query and replacement fields are not visible.",
+   "scene": "",
+   "never": [
+    "A find-and-replace panel already open with filled fields",
+    "Search results in a separate file list",
+    "A replacement preview across multiple documents"
+   ],
+   "arrangements": [
+    {
+     "text": "The code sits between its left gutter and right minimap, with the status bar below and the closed find control at the editor.",
+     "traits": ""
+    },
+    {
+     "text": "The document toolbar sits above the paragraphs, with the closed find control among the document controls.",
+     "traits": "doc=prose"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "autocomplete",
+   "screen": "A single code editor shows numbered lines, syntax-coloured text, a minimap, and a line-and-column status bar. The requested new lines are absent, and the completion list is closed until typing opens it.",
+   "scene": "",
+   "never": [
+    "A completion list containing results from another file",
+    "The requested new lines already present",
+    "A document formatting toolbar",
+    "Suggestion cards"
+   ],
+   "arrangements": [
+    {
+     "text": "The line-number gutter sits left of the code, the minimap sits right of it, and the status bar spans the bottom.",
+     "traits": ""
+    },
+    {
+     "text": "A narrower editor keeps the gutter beside the text and the minimap at the far right, with the status bar directly below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "trackchanges",
+   "screen": "A document editor shows paragraphs beneath a toolbar with Editing, Suggesting, and Viewing modes. In a review task, open suggestions have attributed cards with Accept and Reject controls.",
+   "scene": "",
+   "never": [
+    "A code gutter with line numbers",
+    "A code minimap",
+    "A suggestion already accepted or rejected in the normal unsolved review start",
+    "A separate document for each suggestion"
+   ],
+   "arrangements": [
+    {
+     "text": "The toolbar sits above the document paragraphs, and suggestion cards sit beside their corresponding text.",
+     "traits": ""
+    },
+    {
+     "text": "The toolbar sits above a narrower document column, with suggestion cards in a column to its right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

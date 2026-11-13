@@ -1,0 +1,114 @@
+{
+ "task": "use-chat",
+ "identity": "A team chat and meeting widget with channel messages, threads, channel settings, meeting controls, and breakout room assignments.",
+ "scenarios": [
+  {
+   "name": "thread",
+   "screen": "A channel shows several messages, including the message to reply to, with an empty channel composer below them. The target thread is closed, and no reply draft is open.",
+   "scene": "",
+   "never": [
+    "The target thread open on load.",
+    "The requested reply already posted.",
+    "The requested reply entered in the channel composer."
+   ],
+   "arrangements": [
+    {
+     "text": "Messages run vertically above the channel composer, with each message's thread control beside it.",
+     "traits": ""
+    },
+    {
+     "text": "Messages run vertically above the channel composer, with each message's thread control below its text.",
+     "traits": "skin choice: message controls below text"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "pinreact",
+   "screen": "A channel shows several messages, including the target message, with message actions available beside the conversation. The target is unpinned, its requested reaction is absent, and the emoji picker is closed.",
+   "scene": "",
+   "never": [
+    "The emoji picker open on load.",
+    "The target message already pinned.",
+    "The requested reaction already attached to the target message."
+   ],
+   "arrangements": [
+    {
+     "text": "Messages run vertically, with reaction and more-action controls beside each message.",
+     "traits": ""
+    },
+    {
+     "text": "Messages run vertically, with reaction and more-action controls below each message.",
+     "traits": "skin choice: message controls below text"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "channel",
+   "screen": "The current channel shows its name and several messages, with an empty message composer below the conversation. Channel settings and the invitation picker are closed; the existing name, topic, and membership have not been changed.",
+   "scene": "",
+   "never": [
+    "The channel settings panel open on load.",
+    "The invitation picker open on load.",
+    "The requested new channel name already saved.",
+    "The requested invitees already selected."
+   ],
+   "arrangements": [
+    {
+     "text": "The channel name and settings control sit above the message list, with the composer below it.",
+     "traits": ""
+    },
+    {
+     "text": "The channel name sits above the message list, with the settings control beside the composer below it.",
+     "traits": "skin choice: settings control beside composer"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "meeting",
+   "screen": "A meeting view shows microphone, sharing, and hand controls. The microphone is on, no window is being shared, the hand is down, and the sharing picker is closed.",
+   "scene": "",
+   "never": [
+    "The sharing picker open on load.",
+    "A window already being shared.",
+    "The hand already raised.",
+    "The microphone already muted."
+   ],
+   "arrangements": [
+    {
+     "text": "The microphone, sharing, and hand controls sit in one row below the meeting area.",
+     "traits": ""
+    },
+    {
+     "text": "The microphone, sharing, and hand controls sit in one column beside the meeting area.",
+     "traits": "skin choice: controls beside meeting"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "breakout",
+   "screen": "The breakout manager shows a participant list and three named rooms, with about six participants available to assign. The participants start outside the rooms, and the room lists are empty.",
+   "scene": "",
+   "never": [
+    "Participants already placed in rooms.",
+    "A participant card already outside its list or room.",
+    "More rooms than the three named rooms.",
+    "A room assignment confirmation dialog open on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The participant list sits to the left of three room lists arranged side by side.",
+     "traits": ""
+    },
+    {
+     "text": "Three room lists stack to the left of the participant list.",
+     "traits": "skin choice: stacked rooms on left"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

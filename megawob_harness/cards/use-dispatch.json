@@ -1,0 +1,94 @@
+{
+ "task": "use-dispatch",
+ "identity": "A logistics planning widget with draggable job or item cards, assignment lanes or an ordered stop list, and load and dispatch information.",
+ "scenarios": [
+  {
+   "name": "board",
+   "screen": "About nine delivery cards sit in an unassigned backlog beside driver lanes. Each lane shows its driver, vehicle capacity and delivery window; the screen also shows assigned load, the unassigned count and a dispatch reference.",
+   "scene": "",
+   "never": [
+    "A driver picker is open on load.",
+    "Delivery cards start inside driver lanes.",
+    "Cards start outside the backlog and lanes.",
+    "A route map or stop-order list appears."
+   ],
+   "arrangements": [
+    {
+     "text": "The backlog sits to the left of the driver lanes, with load figures and the dispatch reference above them.",
+     "traits": ""
+    },
+    {
+     "text": "The backlog sits above a row of driver lanes, with load figures and the dispatch reference below the row.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "warehouse",
+   "screen": "About nine item cards sit in an unassigned pool beside storage bins. The cards identify storage needs, the bins show capacity and compatibility details, and the screen shows assigned load, the unassigned count and a dispatch reference.",
+   "scene": "",
+   "never": [
+    "Items start placed in bins.",
+    "A bin picker is open on load.",
+    "An item starts outside the pool and bins.",
+    "Driver shifts or a route map appear."
+   ],
+   "arrangements": [
+    {
+     "text": "The item pool sits to the left of the bins, with load figures and the dispatch reference above the bins.",
+     "traits": ""
+    },
+    {
+     "text": "The item pool runs across the top of the task area, with bins below it and load figures beside the bins.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "reschedule",
+   "screen": "About nine delivery cards are already placed under their old weekdays. Day lanes show daily load limits, while the dispatch reference identifies the requested days and load figures show the current assignments.",
+   "scene": "",
+   "never": [
+    "Every delivery starts unassigned.",
+    "The deliveries already occupy all their requested days.",
+    "A date picker or calendar popup is open.",
+    "A driver roster or stop-order list appears."
+   ],
+   "arrangements": [
+    {
+     "text": "Weekday lanes run left to right, with their load figures above the cards and the dispatch reference above the lanes.",
+     "traits": ""
+    },
+    {
+     "text": "Weekday lanes stack vertically, with each day's load figure beside its cards and the dispatch reference alongside the stack.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "route-order",
+   "screen": "About six stops appear in a shuffled ordered list between a Depot start and Depot finish. The screen shows route distance, remaining vehicle capacity and a dispatch reference for the requested stop order.",
+   "scene": "",
+   "never": [
+    "The stops start in the requested order.",
+    "The stops start in an unassigned pool.",
+    "A stop picker is open on load.",
+    "Driver lanes or warehouse bins appear."
+   ],
+   "arrangements": [
+    {
+     "text": "The ordered stops run vertically between the Depot endpoints, with route figures and the dispatch reference beside the list.",
+     "traits": ""
+    },
+    {
+     "text": "The ordered stops run horizontally between the Depot endpoints, with route figures and the dispatch reference below the sequence.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

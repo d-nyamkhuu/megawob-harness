@@ -1,0 +1,280 @@
+{
+ "task": "choose-option",
+ "identity": "A form task asks the user to choose specific options using controls such as lists, search fields, switches, and rating grids.",
+ "scenarios": [
+  {
+   "name": "dropdown",
+   "screen": "A labeled selection field is closed and shows no chosen option. Its menu contains about 5\u201315 options when opened.",
+   "scene": "The option menu is open, with no option chosen.",
+   "never": [
+    "A permanently visible list of every option beside the field.",
+    "Checkboxes inside the option menu."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the selection field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the selection field.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show the labeled dropdown open with the exact requested option among plausible distractors, not selected."
+  },
+  {
+   "name": "radio",
+   "screen": "A labeled group shows about 3\u20136 radio options, with no option selected. Shipping options can also show a price and delivery time beside each choice.",
+   "scene": "",
+   "never": [
+    "A menu that must be opened to see the options.",
+    "More than one selected radio in the same group.",
+    "A search field for the options."
+   ],
+   "arrangements": [
+    {
+     "text": "The group label sits above a vertical list of radio options.",
+     "traits": ""
+    },
+    {
+     "text": "The group label sits to the left of a horizontal row of radio options.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show the exact requested radio option and several alternatives, all unselected, under the requested group label."
+  },
+  {
+   "name": "checkbox",
+   "screen": "A labeled group shows about 4\u201310 checkboxes. The normal start has no requested options checked.",
+   "scene": "",
+   "never": [
+    "A popup hiding the checkboxes.",
+    "Radio buttons that limit the group to one choice.",
+    "Chips representing the checked options."
+   ],
+   "arrangements": [
+    {
+     "text": "The group label sits above one vertical column of checkboxes.",
+     "traits": ""
+    },
+    {
+     "text": "The group label sits above a dense grid of checkboxes in three to five columns.",
+     "traits": "grid=true"
+    }
+   ],
+   "hint": "Show all exact requested labels plus plausible distractors, initially unchecked; checkboxes must be independent."
+  },
+  {
+   "name": "autocomplete",
+   "screen": "A labeled text field is empty, and its suggestion list is closed. Typing into the field brings up matching suggestions from a larger set of names, places, or languages.",
+   "scene": "The field contains a typed query and its suggestion list is open, with nothing selected.",
+   "never": [
+    "A full datasource displayed as a permanent list.",
+    "A committed choice shown before a suggestion is selected.",
+    "Checkboxes beside the suggestions."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the text field, and suggestions appear directly beneath the field when open.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the text field, and suggestions appear beneath the field when open.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show the named text field with partial typed query and a visible suggestion list including the exact target; Sa...ego means San Diego. No committed selection."
+  },
+  {
+   "name": "listbox",
+   "screen": "A labeled, fixed-height list shows only several rows at once from about 15\u201330 items. A scrollbar gives access to the remaining rows; the list can allow one choice or several.",
+   "scene": "",
+   "never": [
+    "All items spread outside the scrolling list.",
+    "A popup that must be opened before the rows appear.",
+    "Group headers among the rows.",
+    "A search field above the rows."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the scrollable list, with its scrollbar along the list\u2019s right edge.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the scrollable list, with its scrollbar along the list\u2019s right edge.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "grouped",
+   "screen": "A labeled selection field is closed and has no chosen option. Its popup contains a long scrolling list organized under group headings, including unavailable options.",
+   "scene": "The grouped popup is open, with no option chosen.",
+   "never": [
+    "Group headings displayed as separate selection fields.",
+    "Unavailable options shown as selected choices.",
+    "The entire long option list permanently visible beside the field.",
+    "A search field inside the popup."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the selection field, and the grouped list opens below it.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the selection field, and the grouped list opens below it.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "combobox",
+   "screen": "A labeled selection field is closed and has no chosen product. Opening it reveals a search box and a list drawn from about 18\u201335 product names.",
+   "scene": "The selection list is open with its search box empty and no product chosen.",
+   "never": [
+    "The search box visible while the selection list is closed.",
+    "Checkboxes for selecting several products.",
+    "A permanent product list beside the closed field."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the selection field; when open, the search box sits above the option list.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the selection field; when open, the search box sits above the option list.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "chips",
+   "screen": "A labeled multi-select field starts without chosen chips, and its option list is closed. Chosen options appear as removable chips inside the field.",
+   "scene": "",
+   "never": [
+    "A separate chip tray away from the selection field.",
+    "A text search box for filtering options.",
+    "An option list permanently open beside the field."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the chip field, and its option list opens beneath it.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the chip field, and its option list opens beneath it.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "tags",
+   "screen": "A labeled tag field contains an empty text input and no chosen chips. Matching suggestions appear after text is entered; chosen tags become removable chips before the input.",
+   "scene": "",
+   "never": [
+    "A full tag list permanently visible.",
+    "A '+N more' chip when no tags have been chosen.",
+    "Checkboxes beside tag suggestions."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the tag field, with chips before the input and suggestions beneath the field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the tag field, with chips before the input and suggestions beneath the field.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "toggles",
+   "screen": "A settings list shows about 5\u20138 labeled switches in their starting on or off states. Some rows include a short description, and some labels describe disabling or hiding a feature.",
+   "scene": "",
+   "never": [
+    "A popup containing the settings.",
+    "One switch controlling the entire list.",
+    "A search field for settings."
+   ],
+   "arrangements": [
+    {
+     "text": "Settings run down the page, with each label on the left and its switch on the right.",
+     "traits": ""
+    },
+    {
+     "text": "Settings run down the page, with each switch on the left and its label and description to the right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "tree",
+   "screen": "One or two named groups each contain a parent control and several child checkboxes. The parent shows whether none, some, or all children are checked; another form uses Select all and Clear links for each group.",
+   "scene": "",
+   "never": [
+    "Children displayed without their group.",
+    "A separate popup for each child.",
+    "Radio buttons in place of child checkboxes."
+   ],
+   "arrangements": [
+    {
+     "text": "Groups stack vertically, with each parent above an indented column of child checkboxes.",
+     "traits": ""
+    },
+    {
+     "text": "Groups stack vertically, with Select all and Clear beside each group name and the children underneath.",
+     "traits": "links=true"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "dependent",
+   "screen": "Two labeled selection fields ask for Country and City. Country has no choice yet, and City is disabled until a country is chosen.",
+   "scene": "",
+   "never": [
+    "An enabled City field before a country is chosen.",
+    "Every country\u2019s cities displayed at once.",
+    "A third location selection field."
+   ],
+   "arrangements": [
+    {
+     "text": "Country sits above City, with each label above its selection field.",
+     "traits": ""
+    },
+    {
+     "text": "Country sits to the left of City, with each label above its selection field.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "matrix",
+   "screen": "A rating grid has about 3\u20135 statement rows and a column for each response on a shared scale. Each row offers one radio choice per column.",
+   "scene": "",
+   "never": [
+    "A separate dropdown for each statement.",
+    "More than one selected rating in the same row.",
+    "A popup containing the rating scale."
+   ],
+   "arrangements": [
+    {
+     "text": "Statement labels form the left column, scale labels run across the top, and radio choices fill the grid.",
+     "traits": ""
+    },
+    {
+     "text": "Scale labels run across the top, with the statement column to their left and each row\u2019s radio choices aligned beneath the scale.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

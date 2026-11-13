@@ -1,0 +1,279 @@
+{
+ "task": "read-figure",
+ "identity": "A figure or group of items appears with a question, and the user answers by clicking an item or choice, selecting several items, or typing a number.",
+ "scenarios": [
+  {
+   "name": "color",
+   "screen": "A palette of about six swatches is visible. The question names a color or shows a sample swatch to match; no answer is selected.",
+   "scene": "",
+   "never": [
+    "An open color picker",
+    "A swatch already marked as the answer",
+    "Thirteen swatches"
+   ],
+   "arrangements": [
+    {
+     "text": "The swatches sit in a row across the task area.",
+     "traits": ""
+    },
+    {
+     "text": "A sample swatch sits above a grid of answer swatches.",
+     "traits": "sample mode; site skin: stacked palette"
+    }
+   ],
+   "hint": "Show requested target color as one of several flat color boxes; when matching sample, include a distinct sample and exactly one match. No texture or lighting on task colors."
+  },
+  {
+   "name": "shades",
+   "screen": "A grid of about twelve colored tiles contains shades from several hue families. Every tile starts unselected.",
+   "scene": "",
+   "never": [
+    "A tile already selected",
+    "A separate color picker",
+    "A sample image beside the grid"
+   ],
+   "arrangements": [
+    {
+     "text": "The tile grid sits in the middle of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The tile grid sits toward the left side of the task area.",
+     "traits": "site skin: left placement"
+    }
+   ],
+   "hint": "Show a tile grid with several true shades of requested color and clearly different hues; no decorative colored tiles outside the scored grid."
+  },
+  {
+   "name": "shape",
+   "screen": "A board contains letters, digits, or shapes in separate cells. No item has a selection ring.",
+   "scene": "",
+   "never": [
+    "An item already ringed as the answer",
+    "A separate answer list",
+    "Items placed outside the board cells"
+   ],
+   "arrangements": [
+    {
+     "text": "The cell board sits in the middle of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The cell board sits toward the left side of the task area.",
+     "traits": "site skin: left placement"
+    }
+   ],
+   "hint": "Show a set of easily distinguished geometric shapes/letters, correct requested color and size with one unambiguous target; large purple T must really be a T."
+  },
+  {
+   "name": "identify",
+   "screen": "One large figure appears with several answer buttons that describe possible figures. No button is selected.",
+   "scene": "",
+   "never": [
+    "A second figure to identify",
+    "An answer button already selected",
+    "A text field for the answer"
+   ],
+   "arrangements": [
+    {
+     "text": "The figure sits above a row of answer buttons.",
+     "traits": ""
+    },
+    {
+     "text": "The figure sits to the left of a vertical list of answer buttons.",
+     "traits": "site skin: side options"
+    }
+   ],
+   "hint": "Show one unambiguous geometric figure in a frame and answer buttons including its correct name, with plausible distractors; no answer highlighted."
+  },
+  {
+   "name": "count",
+   "screen": "The task area shows either a board of shapes to count or one polygon whose sides must be counted. Number buttons or an empty number field sit by the figure.",
+   "scene": "",
+   "never": [
+    "A count already entered or chosen",
+    "Both number buttons and a number field for the same answer",
+    "A second polygon in the sides task"
+   ],
+   "arrangements": [
+    {
+     "text": "The figure sits above the number answer controls.",
+     "traits": ""
+    },
+    {
+     "text": "The figure sits to the left of the number answer controls.",
+     "traits": "site skin: side answers"
+    }
+   ],
+   "hint": "No decorative shapes that could count."
+  },
+  {
+   "name": "greatest",
+   "screen": "About four numbered cards sit together. In the face-down task their values are covered at the start; in the open task all values are visible.",
+   "scene": "",
+   "never": [
+    "A face-up card in the face-down task's initial state",
+    "Two face-up cards at once in the face-down task",
+    "A separate number entry field"
+   ],
+   "arrangements": [
+    {
+     "text": "The cards sit in a row across the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The cards sit in a compact grid in the task area.",
+     "traits": "site skin: card grid"
+    }
+   ],
+   "hint": "Show cards bearing different signed or unsigned numbers with one unique greatest value; no card selected."
+  },
+  {
+   "name": "grid",
+   "screen": "A labeled coordinate plane shows dots at its grid points. None of the dots is selected.",
+   "scene": "",
+   "never": [
+    "A dot already selected",
+    "A movable point outside the plane",
+    "A text field for coordinates"
+   ],
+   "arrangements": [
+    {
+     "text": "The coordinate plane sits in the middle of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The coordinate plane sits toward the left side of the task area.",
+     "traits": "site skin: left placement"
+    }
+   ],
+   "hint": "Show a Cartesian grid with correctly numbered axes, origin and negative coordinates; requested coordinate is available, not already marked."
+  },
+  {
+   "name": "addition",
+   "screen": "Two groups of blocks are visible beside an empty number field for their total.",
+   "scene": "",
+   "never": [
+    "A total already typed",
+    "A third block group",
+    "Number buttons in place of the text field"
+   ],
+   "arrangements": [
+    {
+     "text": "The two block groups sit side by side above the number field.",
+     "traits": ""
+    },
+    {
+     "text": "The two block groups sit one above the other, with the number field below them.",
+     "traits": "site skin: stacked groups"
+    }
+   ],
+   "hint": "Show two small distinct groups of identical blocks with a plus symbol between them and an empty total textbox. All blocks countable, no occlusion."
+  },
+  {
+   "name": "ascending",
+   "screen": "Several numbered tiles occupy positions in a board. All numbers are visible, and no tile has been clicked.",
+   "scene": "",
+   "never": [
+    "A number hidden before the first click",
+    "A tile already recorded in the sequence",
+    "A separate list of sorted numbers"
+   ],
+   "arrangements": [
+    {
+     "text": "The numbered board sits in the middle of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The numbered board sits toward the left side of the task area.",
+     "traits": "site skin: left placement"
+    }
+   ],
+   "hint": "Show scattered distinct number buttons in a scrambled arrangement, all unclicked. No duplicate values."
+  },
+  {
+   "name": "number-checkboxes",
+   "screen": "An example digit or pattern appears beside a grid of checkboxes to copy it into. The answer grid starts unchecked.",
+   "scene": "",
+   "never": [
+    "A box in the answer grid already checked",
+    "A typed digit field",
+    "A second answer grid"
+   ],
+   "arrangements": [
+    {
+     "text": "The example sits to the left of the checkbox grid.",
+     "traits": ""
+    },
+    {
+     "text": "The example sits above the checkbox grid.",
+     "traits": "site skin: stacked example"
+    }
+   ],
+   "hint": "Show a small filled-cell reference digit exactly matching requested number and an adjacent same-sized blank checkbox grid; every reference cell aligns to a target checkbox."
+  },
+  {
+   "name": "spatial",
+   "screen": "A board holds glyphs or icons in rows and columns. The question identifies an item by its position relative to another item or by its place in a row or column; nothing is selected.",
+   "scene": "",
+   "never": [
+    "An item already ringed as the answer",
+    "A separate map of arrows between items",
+    "Items outside the board"
+   ],
+   "arrangements": [
+    {
+     "text": "The item board sits in the middle of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The item board sits toward the left side of the task area.",
+     "traits": "site skin: left placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "icon",
+   "screen": "A board contains several clickable icons, some with different colors or repeated kinds. No icon is selected.",
+   "scene": "",
+   "never": [
+    "An icon already marked as the answer",
+    "An open icon menu",
+    "A separate text field for the icon name"
+   ],
+   "arrangements": [
+    {
+     "text": "The icon board sits in the middle of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The icon board sits toward the left side of the task area.",
+     "traits": "site skin: left placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "scroll-count",
+   "screen": "A scrollable list pane shows the first few rows of a longer list, with an icon and label in each row. Number buttons or an empty number field provide the answer; no answer is chosen.",
+   "scene": "",
+   "never": [
+    "The list already scrolled halfway down",
+    "A number already chosen or typed",
+    "Both number buttons and a number field for the same answer"
+   ],
+   "arrangements": [
+    {
+     "text": "The list pane sits above the number answer controls.",
+     "traits": ""
+    },
+    {
+     "text": "The list pane sits to the left of the number answer controls.",
+     "traits": "site skin: side answers"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

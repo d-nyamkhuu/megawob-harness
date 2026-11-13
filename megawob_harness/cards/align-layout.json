@@ -1,0 +1,101 @@
+{
+ "task": "align-layout",
+ "identity": "A canvas task with draggable cards, resizable boxes, or table dividers that must be placed to match a guide or target layout.",
+ "scenarios": [
+  {
+   "name": "align",
+   "screen": "Four cards sit at different positions on a canvas beside a dashed guide line. Their movable edges or centres are visibly off the guide; no picker or popup is open.",
+   "scene": "",
+   "never": [
+    "A card already dragged outside the canvas",
+    "A numeric readout of each card\u2019s alignment error",
+    "A snap-to-guide control"
+   ],
+   "arrangements": [
+    {
+     "text": "Cards run from top to bottom beside a vertical dashed guide.",
+     "traits": ""
+    },
+    {
+     "text": "Cards spread from left to right around a horizontal dashed guide.",
+     "traits": ""
+    },
+    {
+     "text": "A locked card sits among the other cards, which are offset from one of its edges or its centre.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "spacing",
+   "screen": "Four different-sized cards form a row on the canvas, with uneven gaps between their edges. The end cards are fixed and the cards between them can be dragged; no picker or popup is open.",
+   "scene": "",
+   "never": [
+    "Cards starting outside the canvas",
+    "A live gap measurement beside each card",
+    "A reorder list or sorting control",
+    "An open settings panel for spacing"
+   ],
+   "arrangements": [
+    {
+     "text": "The cards form a horizontal row, with fixed cards at the left and right ends.",
+     "traits": ""
+    },
+    {
+     "text": "The cards form a vertical column, with fixed cards at the top and bottom.",
+     "traits": ""
+    },
+    {
+     "text": "A fixed first card sits at the left of a horizontal row of movable cards.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "mockup",
+   "screen": "Three labelled boxes sit on a canvas, and a smaller mockup beside it shows their target positions and sizes. Rulers accompany the canvas and mockup; the boxes start away from their targets and have corner resize handles, with no popup open.",
+   "scene": "",
+   "never": [
+    "More than four boxes",
+    "A box already outside the canvas",
+    "An open image picker or layer panel",
+    "A numeric overlap score on the canvas"
+   ],
+   "arrangements": [
+    {
+     "text": "The canvas is on the left and the half-size mockup is on the right, with rulers beside both.",
+     "traits": ""
+    },
+    {
+     "text": "The half-size mockup is on the left and the canvas is on the right, with rulers beside both.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "columns",
+   "screen": "A table shows four named columns, cell chips, and draggable dividers at the column edges. The columns start at widths that miss their targets; no picker or popup is open.",
+   "scene": "",
+   "never": [
+    "More than five columns",
+    "A numeric width readout attached to a divider",
+    "A column reorder handle",
+    "An open column settings panel"
+   ],
+   "arrangements": [
+    {
+     "text": "The column names sit in a header row above their cell chips, with dividers between columns.",
+     "traits": ""
+    },
+    {
+     "text": "The column names sit in a header row above several rows of cell chips, with dividers running down from the header.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

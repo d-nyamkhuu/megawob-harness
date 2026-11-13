@@ -1,0 +1,132 @@
+{
+ "task": "use-project-board",
+ "identity": "A team project workspace with a dated task timeline and a delivery board for moving work between columns and team lanes.",
+ "scenarios": [
+  {
+   "name": "gantt-move",
+   "screen": "A calendar timeline shows named task rows with dated bars, a date scale, and a few project rollups. About six tasks are visible at their current start dates; no detail panel or popup is open.",
+   "scene": "",
+   "never": [
+    "A date picker already open over the timeline.",
+    "Task bars detached from their rows.",
+    "A delivery board in place of the timeline."
+   ],
+   "arrangements": [
+    {
+     "text": "Task names sit to the left of their bars, dates run across the top, and project rollups sit above the timeline.",
+     "traits": ""
+    },
+    {
+     "text": "Task names sit to the left of their bars, dates run across the top, and project rollups sit below the timeline.",
+     "traits": "rollups=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "gantt-resize",
+   "screen": "A calendar timeline shows named task rows, bars spanning calendar days, and a resize grip at each bar\u2019s right end. About six tasks are visible with their current durations; no detail panel or popup is open.",
+   "scene": "",
+   "never": [
+    "A duration dialog already open.",
+    "Bars extending outside the calendar grid.",
+    "A delivery board in place of the timeline."
+   ],
+   "arrangements": [
+    {
+     "text": "Task names sit left of the calendar grid, dates run across its top, and the right resize grips line up with the ends of the bars.",
+     "traits": ""
+    },
+    {
+     "text": "The calendar grid sits beside the task names, with project rollups below the task rows and resize grips still at the bars\u2019 right ends.",
+     "traits": "rollups=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "dependency",
+   "screen": "A dated task timeline shows named bars, connection points at their ends, and lines for the current finish-to-start links. About six tasks are visible, with no connection menu or detail panel open.",
+   "scene": "",
+   "never": [
+    "A connection menu already open.",
+    "A dependency line with an endpoint floating away from a task.",
+    "A separate dependency matrix replacing the timeline."
+   ],
+   "arrangements": [
+    {
+     "text": "Task names form a list on the left, dated bars occupy the grid on the right, and link lines run between bar endpoints.",
+     "traits": ""
+    },
+    {
+     "text": "The task list and dated grid remain side by side, with the link count and other project rollups below the grid.",
+     "traits": "rollups=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "swimlane",
+   "screen": "A delivery board has status columns crossed with team lanes, with named task cards placed in their current cells. About six cards are visible; no card detail panel or move menu is open.",
+   "scene": "",
+   "never": [
+    "A card already outside the board\u2019s columns.",
+    "An open card detail panel.",
+    "A dated Gantt chart replacing the board."
+   ],
+   "arrangements": [
+    {
+     "text": "Status headings run across the top, team names run down the left, and cards sit where each column and lane meet.",
+     "traits": ""
+    },
+    {
+     "text": "Status headings run across the top and team names down the left, with board rollups below the card grid.",
+     "traits": "rollups=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "wip",
+   "screen": "A delivery board shows named task cards in status columns, with each column\u2019s work-in-progress limit and current card count visible. About six cards are present, including the board\u2019s current column assignments; no card detail panel or move menu is open.",
+   "scene": "",
+   "never": [
+    "Cards already floating between columns.",
+    "An open card detail panel.",
+    "A team-lane grid replacing the WIP columns."
+   ],
+   "arrangements": [
+    {
+     "text": "Status columns sit side by side, with each limit and count beside its column heading and cards stacked beneath.",
+     "traits": ""
+    },
+    {
+     "text": "Status columns sit side by side, with limits and counts below their headings and cards stacked beneath those figures.",
+     "traits": "limits=below-headings"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "milestone",
+   "screen": "A calendar timeline shows named milestone rows and dated diamond markers, with a date scale and project rollups. About six milestones are visible at their current dates; no date picker or detail panel is open.",
+   "scene": "",
+   "never": [
+    "A date picker already open.",
+    "Milestones drawn as duration bars.",
+    "Diamond markers detached from their task rows."
+   ],
+   "arrangements": [
+    {
+     "text": "Milestone names sit left of the calendar grid, dates run across the top, and diamonds align with their rows and dates.",
+     "traits": ""
+    },
+    {
+     "text": "Milestone names remain beside the dated grid, while project rollups sit below the diamond rows.",
+     "traits": "rollups=below"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

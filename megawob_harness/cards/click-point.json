@@ -1,0 +1,210 @@
+{
+ "task": "click-point",
+ "identity": "A drawing board shows a figure, scale, chart, map, route, or field of markers where the user clicks one precise point.",
+ "scenarios": [
+  {
+   "name": "center",
+   "screen": "The board shows one circle, ring, filled disc, or circular arc. No clicked point is marked, and no picker or popup is open.",
+   "scene": "",
+   "never": [
+    "A center marker already placed on the board.",
+    "Several separate figures to choose between.",
+    "A shape picker open over the board."
+   ],
+   "arrangements": [
+    {
+     "text": "One complete circle sits near the middle of the board.",
+     "traits": ""
+    },
+    {
+     "text": "A circular arc sits in the left portion of the board, with its implied center inside that portion.",
+     "traits": "shapes=arc, placement=left"
+    },
+    {
+     "text": "One ring sits in the upper portion of the board, leaving open board space below it.",
+     "traits": "placement=top"
+    }
+   ],
+   "hint": "Show the requested circle or circular arc only; do not mark or reveal its true center. Empty canvas surrounds it."
+  },
+  {
+   "name": "midpoint",
+   "screen": "The board shows two marked endpoints, sometimes labeled A and B, with space between them for the midpoint click. No clicked point is marked.",
+   "scene": "",
+   "never": [
+    "A midpoint marker already placed between the endpoints.",
+    "Three or more endpoints in the same problem.",
+    "A draggable handle on the segment."
+   ],
+   "arrangements": [
+    {
+     "text": "The two endpoints lie diagonally across the middle of the board.",
+     "traits": ""
+    },
+    {
+     "text": "A sits to the left of B on one horizontal line.",
+     "traits": "orient=horizontal"
+    },
+    {
+     "text": "Both endpoints sit in the lower portion of the board, with open board space above.",
+     "traits": "placement=bottom"
+    }
+   ],
+   "hint": "Show two distinct labeled endpoints A and B without marking their midpoint. Preserve straight Euclidean geometry."
+  },
+  {
+   "name": "bisect",
+   "screen": "Two rays meet at one vertex, and a dotted circle surrounds the vertex. The board has no clicked point or movable angle tool.",
+   "scene": "",
+   "never": [
+    "A point already placed on the angle bisector.",
+    "A filled wedge showing the answer.",
+    "Multiple unrelated angles on the board."
+   ],
+   "arrangements": [
+    {
+     "text": "The vertex sits near the middle, with two rays extending away from it and a dotted circle around it.",
+     "traits": ""
+    },
+    {
+     "text": "The vertex, rays, and dotted circle occupy the left portion of the board.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "The vertex, rays, and dotted circle occupy the upper portion of the board.",
+     "traits": "placement=top"
+    }
+   ],
+   "hint": "Show two rays meeting at V, labeled A and B, and a small dotted exclusion circle centered at V; do not reveal the bisector answer."
+  },
+  {
+   "name": "right-angle",
+   "screen": "The board shows points A and B joined by a segment, with a dotted circle around B. No third point has been placed.",
+   "scene": "",
+   "never": [
+    "Point C already placed on the board.",
+    "A completed right-angle marker at B.",
+    "Several candidate points offered as buttons."
+   ],
+   "arrangements": [
+    {
+     "text": "A and B sit across the middle of the board, with the dotted circle centered on B.",
+     "traits": ""
+    },
+    {
+     "text": "A sits left of B on a horizontal segment, and the dotted circle surrounds B.",
+     "traits": "orient=horizontal"
+    },
+    {
+     "text": "A, B, and the dotted circle occupy the right portion of the board.",
+     "traits": "placement=right"
+    }
+   ],
+   "hint": "Show segment AB with filled dot at B and a small dotted exclusion circle about B; leave space for a point C perpendicular to AB outside the circle. No solution marker."
+  },
+  {
+   "name": "axis",
+   "screen": "The board shows one labeled ruler or one chart with axes and plotted data. The target position has no clicked marker, and no menu or popup is open.",
+   "scene": "",
+   "never": [
+    "A marker already placed at the requested value.",
+    "An editable numeric answer field.",
+    "A ruler and a chart shown together as separate tasks."
+   ],
+   "arrangements": [
+    {
+     "text": "A horizontal ruler runs across the board with scale labels beside its ticks.",
+     "traits": ""
+    },
+    {
+     "text": "A vertical ruler runs through the board with scale labels beside its ticks.",
+     "traits": "kind=ruler, orient=v"
+    },
+    {
+     "text": "A line chart fills a plot rectangle, with values along the bottom axis and a series running through it.",
+     "traits": "kind=line"
+    },
+    {
+     "text": "A coordinate chart fills a plot rectangle, with labeled horizontal and vertical axes.",
+     "traits": "kind=coord"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "map",
+   "screen": "The board shows either a labeled latitude and longitude grid or a map of named streets. No location pin has been placed, and no map picker is open.",
+   "scene": "",
+   "never": [
+    "A pin already placed at the target location.",
+    "A search box for entering an address.",
+    "Several separate maps to choose between."
+   ],
+   "arrangements": [
+    {
+     "text": "Latitude lines cross longitude lines across the board, with their labels at the grid edges.",
+     "traits": ""
+    },
+    {
+     "text": "Named streets cross within the board, with their names placed along the streets.",
+     "traits": "mode=intersection"
+    },
+    {
+     "text": "A wide latitude and longitude grid spans the board, with more horizontal room between its left and right edges.",
+     "traits": "aspect=1.8"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "path-mid",
+   "screen": "A grid-aligned route connects A and B through several turns. There is no clicked marker on the route.",
+   "scene": "",
+   "never": [
+    "A halfway marker already placed on the route.",
+    "A freehand curve replacing the grid-aligned route.",
+    "A second route offered as an alternative."
+   ],
+   "arrangements": [
+    {
+     "text": "The route winds across the middle of the board from A to B.",
+     "traits": ""
+    },
+    {
+     "text": "The entire route occupies the left portion of the board.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "The entire route occupies the lower portion of the board.",
+     "traits": "placement=bottom"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "dense",
+   "screen": "The board contains roughly 40 small markers, identified by labels or by one marker with a different shape or color. No marker has been selected by a click.",
+   "scene": "",
+   "never": [
+    "A selection marker already placed on a dot.",
+    "Hundreds of markers on the board.",
+    "A list of answer buttons replacing the dot field."
+   ],
+   "arrangements": [
+    {
+     "text": "Small labeled dots are spread across the board.",
+     "traits": ""
+    },
+    {
+     "text": "The marker field occupies the right portion of the board.",
+     "traits": "placement=right"
+    },
+    {
+     "text": "The marker field occupies the upper portion of the board, with one square among the dots.",
+     "traits": "placement=top, by=odd, odd=square"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

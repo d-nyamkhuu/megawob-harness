@@ -1,0 +1,258 @@
+{
+ "task": "use-file-manager",
+ "identity": "A desktop file explorer with a folder tree, breadcrumb path, file pane, toolbar, context menu, and Undo control.",
+ "scenarios": [
+  {
+   "name": "navigate",
+   "screen": "The folder tree and breadcrumb show the current folder, which is in a different branch from the target. The main pane shows its folders and files; the context menu and file viewer are closed.",
+   "scene": "",
+   "never": [
+    "The target folder is already the current folder.",
+    "A file viewer is open.",
+    "A context menu is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "open",
+   "screen": "The tree and breadcrumb show a folder away from the requested file. The main pane shows the current folder's items, with no file viewer or context menu open.",
+   "scene": "",
+   "never": [
+    "The requested file is already open in a viewer.",
+    "The requested file's folder is the current folder.",
+    "A context menu is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "rename",
+   "screen": "The main pane shows the file under its original name alongside other items. The breadcrumb and folder tree show its location; the inline name field and context menu are closed.",
+   "scene": "",
+   "never": [
+    "The file already bears the requested new name.",
+    "An inline filename field is open.",
+    "A Rename context menu is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "delete",
+   "screen": "The requested files are present in the explorer, and the main pane shows the current folder's items. The trash control is on the toolbar; no context menu or Undo toast is open.",
+   "scene": "",
+   "never": [
+    "A requested file is already in a browsable trash folder.",
+    "A delete confirmation dialog is open.",
+    "An Undo toast reports a completed deletion."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "select",
+   "screen": "The current folder's files are grouped by kind in the main pane. The selection is empty, and no context menu or drag selection rectangle is open.",
+   "scene": "",
+   "never": [
+    "The requested files are already selected.",
+    "A rubber band selection rectangle is already visible.",
+    "A file viewer is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of kind groups in an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of kind groups shown as file rows, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "move",
+   "screen": "The source files remain in their original folder. The folder tree, breadcrumb, main pane, and toolbar are visible; no drag, context menu, or operation toast is active.",
+   "scene": "",
+   "never": [
+    "A source file is already inside the destination folder.",
+    "File cards are already outside their folder pane.",
+    "A drag target is highlighted by an active drag."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "multimove",
+   "screen": "The source folder contains the files named for the batch move. The selection is empty, and the tree, breadcrumb, main pane, and toolbar are visible without an active drag or operation toast.",
+   "scene": "",
+   "never": [
+    "The batch is already selected.",
+    "Any batch file is already shown in the destination.",
+    "A drag is in progress."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "multidelete",
+   "screen": "The current folder shows the files named for deletion among its other items. Nothing is selected, and the context menu and Undo toast are closed.",
+   "scene": "",
+   "never": [
+    "The named batch is already selected.",
+    "The named files are already deleted.",
+    "A deletion confirmation dialog is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "copy",
+   "screen": "The original files are visible in their source folder. The destination is represented in the folder tree or main pane; no drag or copy toast is active.",
+   "scene": "",
+   "never": [
+    "A copy is already present in the destination.",
+    "The originals have been removed from their source folder.",
+    "An Alt-drag is already in progress."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with the breadcrumb and toolbar above the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows with details columns, with the breadcrumb and toolbar above the rows.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "dblrename",
+   "screen": "The file appears under its original name in the main pane. Its name is plain text, with no inline editor, viewer, or context menu open.",
+   "scene": "",
+   "never": [
+    "The inline filename field is already open.",
+    "The file already bears the requested new name.",
+    "A Rename menu item is displayed."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with filenames beneath their icons and the breadcrumb and toolbar above.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows, with filenames in the first details column and the breadcrumb and toolbar above.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "range",
+   "screen": "The source folder shows a contiguous run of files that includes the two named endpoints. Nothing is selected, and no drag, context menu, or operation toast is active.",
+   "scene": "",
+   "never": [
+    "The endpoint range is already selected.",
+    "A drag is already in progress.",
+    "The requested operation has already been completed."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with files in display order and the breadcrumb and toolbar above.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows in display order, with details columns and the breadcrumb and toolbar above.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "rangemix",
+   "screen": "The source folder shows the named run and the files used to adjust that selection. Nothing is selected, and no drag, context menu, or operation toast is active.",
+   "scene": "",
+   "never": [
+    "The corrected selection is already made.",
+    "An excluded file is already removed from a visible selection.",
+    "The requested operation has already been completed."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree sits left of an icon grid, with files in display order and the breadcrumb and toolbar above.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits left of file rows in display order, with details columns and the breadcrumb and toolbar above.",
+     "traits": "view=list"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

@@ -1,0 +1,119 @@
+{
+ "task": "rotate-object",
+ "identity": "A rotation task shows one object and a target orientation, with controls for turning the object until it matches the target.",
+ "scenarios": [
+  {
+   "name": "cube",
+   "screen": "A cube with six colored, labeled faces sits in a drag area, with its target face turned away from a squarely front-facing position. Up to three faces are visible at once.",
+   "scene": "",
+   "never": [
+    "All six faces visible at once",
+    "A face picker open beside the cube",
+    "A rotation slider or angle field"
+   ],
+   "arrangements": [
+    {
+     "text": "The cube sits in the center of its drag area.",
+     "traits": ""
+    },
+    {
+     "text": "A product with printed labels on its sides sits in the center of a turntable area and spins around its vertical axis.",
+     "traits": "turntable=true"
+    }
+   ],
+   "hint": "Show one rotatable 3D cube with colored labeled faces; target face is partly visible at an angle, not already directly forward. Preserve the exact requested label/color, including HAT when named."
+  },
+  {
+   "name": "dial",
+   "screen": "One knob has a grip, tick labels, and a current reading that differs from the target; a value dial has a gap at the bottom of its scale. A readout is filled when this dial has one, and no menu is open.",
+   "scene": "",
+   "never": [
+    "Several knobs to adjust in the same task",
+    "A value scale that continues through its bottom gap",
+    "An open value picker",
+    "A blank readout on a dial that displays its reading"
+   ],
+   "arrangements": [
+    {
+     "text": "The knob sits below its label, with the readout directly beneath the knob.",
+     "traits": ""
+    },
+    {
+     "text": "The knob sits beside its label and readout, with the readout to its right.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show a pointer-operated rotary knob with coherent labeled scale, target units and a read-only current number clearly different from target. No editable numeric input."
+  },
+  {
+   "name": "orient",
+   "screen": "A rotatable shape sits beside a target reference shape, a star, or a stated heading. The shape starts at an angle that misses the target, with a rotation grip on its handle or central pivot; a rotation field shows its current angle in keyboard episodes.",
+   "scene": "",
+   "never": [
+    "The reference shape, star, and heading target all shown together",
+    "A palette of shapes to choose from",
+    "A rotation menu open on load",
+    "Multiple shapes awaiting rotation"
+   ],
+   "arrangements": [
+    {
+     "text": "The shape sits on the left with its rotation handle outside it, and the reference shape sits on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The reference shape sits above the shape, whose rotation handle extends away from its center.",
+     "traits": ""
+    },
+    {
+     "text": "The shape sits beside its reference, with the rotation grip at the shape\u2019s center.",
+     "traits": "grip=hub"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "photo",
+   "screen": "One rotated photo has a rotation handle and an angle readout showing its current angle. A Straighten slider and left and right 90\u00b0 rotation buttons sit near the photo; the image begins tilted, sideways, or at an angle other than the requested one.",
+   "scene": "",
+   "never": [
+    "A photo picker open on load",
+    "A stack of editable layers",
+    "Crop handles around the photo",
+    "Several photos awaiting rotation"
+   ],
+   "arrangements": [
+    {
+     "text": "The photo sits above the Straighten slider, with the 90\u00b0 buttons and angle readout below the slider.",
+     "traits": ""
+    },
+    {
+     "text": "The photo sits left of the Straighten slider, with the 90\u00b0 buttons and angle readout beneath the slider.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "compass",
+   "screen": "A rotatable map shows several named place pins, a rotation ring handle, a compass rose, and a bearing readout. The map begins at a bearing that leaves the requested place or direction away from its target.",
+   "scene": "",
+   "never": [
+    "A place-search popup open on load",
+    "A route drawn between pins",
+    "Pins outside the map",
+    "A separate map for each place"
+   ],
+   "arrangements": [
+    {
+     "text": "The map sits in the center, with its rotation ring around it, the compass rose beside it, and the bearing readout below.",
+     "traits": ""
+    },
+    {
+     "text": "The map and rotation ring sit on the left, with the compass rose and bearing readout to the right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

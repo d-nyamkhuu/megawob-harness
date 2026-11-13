@@ -1,0 +1,237 @@
+{
+ "task": "draw-shape",
+ "identity": "A drawing board with dots, guides, shapes, or map features that the user marks using pointer actions and, in some variants, drawing controls.",
+ "scenarios": [
+  {
+   "name": "line",
+   "screen": "A board shows either two labeled dots to join or a dot with a direction guide. The board has no drawn attempt.",
+   "scene": "",
+   "never": [
+    "A line already joining the two dots.",
+    "A drawing toolbar.",
+    "A popup over the board."
+   ],
+   "arrangements": [
+    {
+     "text": "The dots or guide sit within the central board area.",
+     "traits": ""
+    },
+    {
+     "text": "The dots or guide sit in the left portion of the board, leaving more board space to the right.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "The dots or guide sit in the lower portion of the board, leaving more board space above.",
+     "traits": "placement=bottom"
+    }
+   ],
+   "hint": "No completed stroke."
+  },
+  {
+   "name": "circle",
+   "screen": "A board shows a filled center dot and either a dashed circular guide or a hollow dot on the intended rim. No circle has been drawn.",
+   "scene": "",
+   "never": [
+    "A completed ink circle.",
+    "A radius slider.",
+    "A drawing toolbar."
+   ],
+   "arrangements": [
+    {
+     "text": "The center dot and its rim guide occupy the middle of the board.",
+     "traits": ""
+    },
+    {
+     "text": "The circle guide sits toward the right side of the board.",
+     "traits": "placement=right"
+    },
+    {
+     "text": "The circle guide sits in the upper portion of the board.",
+     "traits": "placement=top"
+    }
+   ],
+   "hint": "Show a filled center dot and hollow circumference dot, or the requested dashed circle guide. No completed stroke. Geometry must support the requested circle."
+  },
+  {
+   "name": "trace",
+   "screen": "A board shows a dashed route with a start dot and an arrow tip, usually turning at several corners. No ink follows the route yet.",
+   "scene": "",
+   "never": [
+    "A completed trace over the dashes.",
+    "A drawing toolbar.",
+    "A route selection popup."
+   ],
+   "arrangements": [
+    {
+     "text": "The dashed route runs across the board from its start dot to its arrow tip.",
+     "traits": ""
+    },
+    {
+     "text": "A smooth dashed wave runs from left to right across most of the board.",
+     "traits": "guide=wave"
+    },
+    {
+     "text": "The dashed route and its endpoints occupy the upper portion of the board.",
+     "traits": "placement=top"
+    }
+   ],
+   "hint": "Show a single clear curved guide path from a start dot to one arrow tip. No extra arrows or already-drawn solution."
+  },
+  {
+   "name": "tool",
+   "screen": "A drawing app shows a board with a target line, box, oval, or pen route indicated by dots or a guide. A toolbar contains pen, line, rectangle, ellipse, and Undo; a tool other than the needed one is selected, and the canvas has no drawn item.",
+   "scene": "",
+   "never": [
+    "The needed tool already selected.",
+    "A completed target shape on the canvas.",
+    "An open tool picker popup.",
+    "A Clear control."
+   ],
+   "arrangements": [
+    {
+     "text": "The toolbar sits above the board, and the target marks lie within the board.",
+     "traits": ""
+    },
+    {
+     "text": "The toolbar sits beside the board, and the target marks lie within the board.",
+     "traits": "skin toolbar placement"
+    },
+    {
+     "text": "The toolbar sits above the board, and the target marks occupy its right portion.",
+     "traits": "placement=right"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "signature",
+   "screen": "A document shows a title, text lines, and an empty bordered signature field with the signer\u2019s name beneath it. Clear and Accept controls accompany the field.",
+   "scene": "",
+   "never": [
+    "Ink already in the signature field.",
+    "An accepted or locked signature field.",
+    "A pen color picker.",
+    "A drawing toolbar with shape tools."
+   ],
+   "arrangements": [
+    {
+     "text": "The document text sits above the signature field, with the signer\u2019s name beneath the field and Clear and Accept nearby.",
+     "traits": ""
+    },
+    {
+     "text": "The signature field occupies the left portion of the document, with its signer name directly below.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "The signature field occupies the lower portion of the document, beneath the text lines.",
+     "traits": "placement=bottom"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "connect",
+   "screen": "A node diagram shows several labeled nodes with input and output ports. Some episodes begin with links that must be kept; the requested new link is absent.",
+   "scene": "",
+   "never": [
+    "The requested link already present.",
+    "Nodes sitting outside the diagram board.",
+    "A drawing toolbar.",
+    "A link selection popup."
+   ],
+   "arrangements": [
+    {
+     "text": "Labeled nodes are spaced across the board, with links running between their ports.",
+     "traits": ""
+    },
+    {
+     "text": "Labeled nodes are spaced across a narrower board with fewer node columns.",
+     "traits": "aspect=0.8"
+    },
+    {
+     "text": "Labeled nodes are spaced across a wider board with more room between columns.",
+     "traits": "aspect=2.4"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "erase",
+   "screen": "A whiteboard contains several colored doodle strokes, including the stroke or strokes to erase. Pen, eraser, and Undo controls are present, with no new strokes drawn.",
+   "scene": "",
+   "never": [
+    "A completely empty board.",
+    "The target stroke already erased.",
+    "A shape tool palette.",
+    "An open confirmation dialog."
+   ],
+   "arrangements": [
+    {
+     "text": "The doodles are spread across the board, with pen, eraser, and Undo controls beside it.",
+     "traits": ""
+    },
+    {
+     "text": "The doodles occupy fewer columns on a narrow board, with the controls above it.",
+     "traits": "aspect=0.8; skin control placement"
+    },
+    {
+     "text": "The doodles spread across a wider board, with the controls below it.",
+     "traits": "aspect=2.4; skin control placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "multi",
+   "screen": "A board shows two or three separate targets made from labeled line endpoints and dashed circles. No strokes have been drawn; Undo and Clear controls are available.",
+   "scene": "",
+   "never": [
+    "A target already inked.",
+    "An extra freehand target outside the displayed set.",
+    "A shape tool palette.",
+    "A popup over the board."
+   ],
+   "arrangements": [
+    {
+     "text": "The line endpoints and circle guides occupy separate areas of the board.",
+     "traits": ""
+    },
+    {
+     "text": "All target marks occupy separate areas within the left portion of the board.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "All target marks occupy separate areas within the upper portion of the board.",
+     "traits": "placement=top"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "polygon",
+   "screen": "A map shows streets and sometimes a river. It presents either numbered pins for a polygon or a named lake or park to outline; the Draw area, Undo point, and Clear controls serve the pin task, and no area has been drawn.",
+   "scene": "",
+   "never": [
+    "A completed area outline.",
+    "A polygon already closed.",
+    "A map layer picker popup.",
+    "Pins placed outside the map board."
+   ],
+   "arrangements": [
+    {
+     "text": "Numbered pins sit over the map among the streets, with area controls beside the map.",
+     "traits": ""
+    },
+    {
+     "text": "The numbered pins occupy the left portion of the map while streets continue across it.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "The named region occupies the central map area, with streets extending around it.",
+     "traits": "placement=center; outline mode"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

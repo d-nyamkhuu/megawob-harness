@@ -1,0 +1,162 @@
+{
+ "task": "complete-goals",
+ "identity": "A page combines two or three independent task widgets in cards, each with its own control to set.",
+ "scenarios": [
+  {
+   "name": "booking",
+   "screen": "Two or three cards show blank text fields, a choice control, and a date or time control. A dropdown or autocomplete list is closed, and a calendar popup is closed; the requested entries and selections are not yet set.",
+   "scene": "",
+   "never": [
+    "A calendar popup already open.",
+    "A dropdown or autocomplete list already open.",
+    "A slider or color picker.",
+    "A fourth widget card."
+   ],
+   "arrangements": [
+    {
+     "text": "The text card sits above the choice card, with the date card below it.",
+     "traits": ""
+    },
+    {
+     "text": "The text card sits to the left of the choice card, and the date card sits to their right.",
+     "traits": ""
+    },
+    {
+     "text": "The text and choice cards share the top row, with the date card centered beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "filters",
+   "screen": "Two or three cards show a slider, a choice control, and a blank search field. The slider starts away from its requested setting; visible checkbox or radio choices are unselected, while a dropdown or listbox shows no requested choice.",
+   "scene": "",
+   "never": [
+    "A date picker or color picker.",
+    "A dropdown list already open.",
+    "Checkboxes already checked for the requested answer.",
+    "A search field already filled with the requested text."
+   ],
+   "arrangements": [
+    {
+     "text": "The slider card sits above the choice card, with the search field card below it.",
+     "traits": ""
+    },
+    {
+     "text": "The slider card sits to the left of the choice card, and the search field card sits to their right.",
+     "traits": ""
+    },
+    {
+     "text": "The slider and choice cards share the top row, with the search field card beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "profile",
+   "screen": "Two or three cards show blank profile text fields, a choice control, and a color control. A dropdown or autocomplete list is closed, and the selected color has not been set to the requested color.",
+   "scene": "",
+   "never": [
+    "A calendar or time picker.",
+    "A slider.",
+    "A dropdown or autocomplete list already open.",
+    "The selected color already matching the requested color."
+   ],
+   "arrangements": [
+    {
+     "text": "The text card sits above the choice card, with the color card below it.",
+     "traits": ""
+    },
+    {
+     "text": "The text card sits to the left of the choice card, and the color card sits to their right.",
+     "traits": ""
+    },
+    {
+     "text": "The text and choice cards share the top row, with the color card beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "appearance",
+   "screen": "Two or three cards show a color control, a slider, and a choice control. The selected color and slider setting are away from their requested values, and a dropdown list is closed when the choice uses a dropdown.",
+   "scene": "",
+   "never": [
+    "A text entry form.",
+    "A date or time picker.",
+    "A dropdown list already open.",
+    "Slider handles already at the requested setting."
+   ],
+   "arrangements": [
+    {
+     "text": "The color card sits above the slider card, with the choice card below it.",
+     "traits": ""
+    },
+    {
+     "text": "The color card sits to the left of the slider card, and the choice card sits to their right.",
+     "traits": ""
+    },
+    {
+     "text": "The color and slider cards share the top row, with the choice card beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "planner",
+   "screen": "Three cards show a date or date range control, a slider, and a choice control. The requested date, slider setting, and choice are not yet set; calendar and dropdown popups are closed.",
+   "scene": "",
+   "never": [
+    "A calendar popup already open.",
+    "A dropdown list already open.",
+    "A color picker or text entry form.",
+    "Only two widget cards."
+   ],
+   "arrangements": [
+    {
+     "text": "The date card sits above the slider card, with the choice card below it.",
+     "traits": ""
+    },
+    {
+     "text": "The date card sits to the left of the slider card, and the choice card sits to their right.",
+     "traits": ""
+    },
+    {
+     "text": "The date and slider cards share the top row, with the choice card beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "event",
+   "screen": "Three cards show blank text fields, a date or time control, and a color control. The requested entries, date or time, and color are not yet set, and a calendar popup is closed when the date uses one.",
+   "scene": "",
+   "never": [
+    "A calendar popup already open.",
+    "A slider or choice control.",
+    "Text fields already filled with the requested details.",
+    "Only two widget cards."
+   ],
+   "arrangements": [
+    {
+     "text": "The text card sits above the date card, with the color card below it.",
+     "traits": ""
+    },
+    {
+     "text": "The text card sits to the left of the date card, and the color card sits to their right.",
+     "traits": ""
+    },
+    {
+     "text": "The text and date cards share the top row, with the color card beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

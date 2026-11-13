@@ -1,0 +1,201 @@
+{
+ "task": "set-date",
+ "identity": "A form control for entering or choosing a date, time, date range, month, week, or duration.",
+ "scenarios": [
+  {
+   "name": "calendar",
+   "screen": "An empty date field sits beside its label. Its month picker is closed.",
+   "scene": "The picker is open on the target month, with no day selected.",
+   "never": [
+    "A closed, non-inline picker showing its day grid on the page",
+    "Two months displayed side by side",
+    "A time dial beside the date field"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the date field, and the opened picker sits directly below the field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the field, and the month grid sits below the field throughout the task.",
+     "traits": "inline=true"
+    },
+    {
+     "text": "The label sits above the field, and the opened picker places month and year menus above the day grid.",
+     "traits": "headers=['selects']"
+    }
+   ],
+   "hint": "Show an application-drawn calendar open at the target month/year with correct weekday alignment and all real dates. Target date remains unselected."
+  },
+  {
+   "name": "typed",
+   "screen": "A labeled, empty date text field shows the locale's date-format placeholder. There is no picker panel.",
+   "scene": "",
+   "never": [
+    "An open calendar grid",
+    "Separate day, month, and year boxes",
+    "A date already typed into the field"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above one date field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of one date field, with other form rows above and below it.",
+     "traits": "sceneRows=8"
+    },
+    {
+     "text": "The label sits above a single field whose placeholder is a written month-and-day example.",
+     "traits": "typedFormat=long"
+    }
+   ],
+   "hint": "No calendar-only path."
+  },
+  {
+   "name": "segmented",
+   "screen": "One labeled date control contains three empty day, month, and year segments in locale order, with separators between them. Up and down buttons sit at the field's edge.",
+   "scene": "",
+   "never": [
+    "A calendar popup",
+    "A fourth date segment",
+    "All three segments filled with the target date"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the segmented field, and the up and down buttons sit on its right edge.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the segmented field, with other form rows above and below it.",
+     "traits": "sceneRows=8"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "time",
+   "screen": "A labeled time control shows one of these forms: hour and minute spinners with AM and PM, a closed three-column picker, a 24-hour text field, or a closed clock-face picker. The dropdown form shows three unset selectors for hour, minute, and AM or PM.",
+   "scene": "The columns picker is open with nothing chosen; the dropdown form has all three selectors unset.",
+   "never": [
+    "The columns popup and clock face open together",
+    "A minute choice of 60",
+    "A date calendar attached to the time control"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the hour and minute spinners, with AM and PM beside them.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits above one field, and the opened picker places hour, minute, and AM or PM columns side by side below it.",
+     "traits": "timeControls=['columns']"
+    },
+    {
+     "text": "The label sits to the left of three adjacent hour, minute, and AM or PM dropdowns.",
+     "traits": "timeControls=['dropdowns']"
+    },
+    {
+     "text": "The label sits above one field, and the opened clock face sits below it with its time header above the dial.",
+     "traits": "timeControls=['clock']"
+    }
+   ],
+   "hint": "Show readable hour, minute and AM/PM controls or text fields with an initial value different from the requested time. Preserve AM/PM."
+  },
+  {
+   "name": "range",
+   "screen": "Labeled start and end date fields are empty. Their two-month range picker is closed.",
+   "scene": "The range picker is open on the target start month, with no dates selected; the split-calendar form opens both calendars on that month.",
+   "never": [
+    "A non-inline range picker open on load",
+    "Three or more month grids in the picker",
+    "A completed range highlighted before either date is chosen"
+   ],
+   "arrangements": [
+    {
+     "text": "The start field sits to the left of the end field, and the opened two-month picker sits below them.",
+     "traits": ""
+    },
+    {
+     "text": "The start and end fields stack vertically, with the two-month picker visible beneath them throughout the task.",
+     "traits": "inline=true"
+    },
+    {
+     "text": "The start field sits above its own calendar, and the end field sits above a separate calendar to its right.",
+     "traits": "splitCals=true"
+    }
+   ],
+   "hint": "Show two labeled start/end date controls and readable calendar month views. Start and end remain unset."
+  },
+  {
+   "name": "duration",
+   "screen": "A labeled duration control shows either hour and minute spinners, two number fields, or preset choices with minus and plus buttons. The control has no popup.",
+   "scene": "",
+   "never": [
+    "A calendar grid",
+    "An AM or PM selector",
+    "A clock-face popup",
+    "A range with start and end dates"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above adjacent hour and minute spinners.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of separate hour and minute number fields, with other form rows around them.",
+     "traits": "sceneRows=8"
+    },
+    {
+     "text": "The label sits above a row of preset choices, with minus and plus buttons beside the current duration.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "month",
+   "screen": "An empty, labeled month field is visible. Its panel of twelve months is closed.",
+   "scene": "",
+   "never": [
+    "A month panel open on load",
+    "A day-by-day calendar grid",
+    "A selected month already shown in the field",
+    "More than twelve month choices in one year"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the month field, and the opened panel places the year and arrows above a four-column, three-row month grid.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the month field, with other form rows above and below it; the opened month panel sits beneath the field.",
+     "traits": "sceneRows=8"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "week",
+   "screen": "An empty, labeled week field is visible. Its one-month calendar is closed.",
+   "scene": "",
+   "never": [
+    "A week calendar open on load",
+    "Two month grids displayed together",
+    "A week already highlighted",
+    "A list of numbered weeks replacing the day grid"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the week field, and the opened month grid sits below the field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the week field, with other form rows above and below it; the opened month grid sits beneath the field.",
+     "traits": "sceneRows=8"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

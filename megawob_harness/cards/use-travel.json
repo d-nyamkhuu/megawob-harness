@@ -1,0 +1,111 @@
+{
+ "task": "use-travel",
+ "identity": "A travel booking widget with seat maps, stay dates, flight and hotel results, and controls for changing an existing booking.",
+ "scenarios": [
+  {
+   "name": "seat",
+   "screen": "A seat map shows numbered rows with six lettered seats per row, including occupied seats and exit rows. The passenger and flight details are filled in; no seat is selected.",
+   "scene": "",
+   "never": [
+    "A seat is already selected for the passenger.",
+    "An occupied seat is shown as available.",
+    "A hotel calendar or hotel results list is open."
+   ],
+   "arrangements": [
+    {
+     "text": "Row numbers sit beside the seat grid, with seat letters above it and the seat details beside the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The seat grid sits above the seat details, with row numbers along its left edge and seat letters across its top.",
+     "traits": "seat details below grid"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "daterange",
+   "screen": "The destination and guest are filled in, while the check-in and check-out fields are empty. The two-month date picker is closed.",
+   "scene": "",
+   "never": [
+    "The date picker is open.",
+    "A check-in or check-out date is selected.",
+    "A stay total is shown as a completed booking."
+   ],
+   "arrangements": [
+    {
+     "text": "The check-in field sits to the left of the check-out field, with the destination and guest details above them.",
+     "traits": ""
+    },
+    {
+     "text": "The check-in field sits above the check-out field, with the destination and guest details above both fields.",
+     "traits": "date fields stacked"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "flights",
+   "screen": "The route appears above a list of flight options, each with an airline, departure time, stops and price. No flight is selected, and the airline menu is closed.",
+   "scene": "",
+   "never": [
+    "A flight is already selected or booked.",
+    "The airline menu is open.",
+    "A hotel amenity checklist appears in the flight results."
+   ],
+   "arrangements": [
+    {
+     "text": "Flight controls sit above the results, and the flight options run down the page beneath them.",
+     "traits": ""
+    },
+    {
+     "text": "Flight controls sit beside the results, and the flight options run down the page in the adjoining column.",
+     "traits": "flight controls beside results"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "hotels",
+   "screen": "The destination appears with price, rating and amenity filters beside a list of hotel options. Each option shows a nightly price, guest rating and amenities; no hotel is selected.",
+   "scene": "",
+   "never": [
+    "A hotel is already booked.",
+    "An amenity menu is open.",
+    "Hotel cards sit outside the results area."
+   ],
+   "arrangements": [
+    {
+     "text": "Price, rating and amenity filters run down one side of the hotel list, with hotel options stacked in the wider area beside them.",
+     "traits": ""
+    },
+    {
+     "text": "Price, rating and amenity filters sit above the hotel list, with hotel options stacked below.",
+     "traits": "hotel filters above results"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "change",
+   "screen": "The existing booking shows its reference, passenger, departure date and seat, with an edit control. The booking has not been changed, and the edit and review pages are closed.",
+   "scene": "",
+   "never": [
+    "The date picker is open.",
+    "The seat editor is open.",
+    "A review of changed details is already displayed."
+   ],
+   "arrangements": [
+    {
+     "text": "The booking reference and passenger sit above the departure date and seat, with the edit control below the booking details.",
+     "traits": ""
+    },
+    {
+     "text": "The booking reference and passenger sit beside the departure date and seat, with the edit control beneath that row.",
+     "traits": "booking details in columns"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

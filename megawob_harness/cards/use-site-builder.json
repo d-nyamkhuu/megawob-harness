@@ -1,0 +1,111 @@
+{
+ "task": "use-site-builder",
+ "identity": "A publishing workspace with draft content or settings, editing controls, and a final publication action.",
+ "scenarios": [
+  {
+   "name": "page",
+   "screen": "A palette of labeled blocks sits beside a page draft with two empty rows of left and right positions. Publication status, a content count, and a Publish changes control are visible; no picker is open.",
+   "scene": "",
+   "never": [
+    "A block already occupying a page position.",
+    "A block card floating outside the two-column draft.",
+    "An open block picker."
+   ],
+   "arrangements": [
+    {
+     "text": "The block palette sits to the left of the draft, whose positions form two columns across two rows.",
+     "traits": ""
+    },
+    {
+     "text": "The block palette sits above the draft, whose positions remain in two columns across two rows.",
+     "traits": "palette above draft"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "email",
+   "screen": "A palette of labeled blocks sits beside four empty, numbered positions in an email draft. The Subject and Preheader fields are empty, and publication status, a content count, and a Send campaign control are visible; no picker is open.",
+   "scene": "",
+   "never": [
+    "A block already placed in a numbered position.",
+    "A filled Subject or Preheader field.",
+    "An open block picker."
+   ],
+   "arrangements": [
+    {
+     "text": "The block palette sits to the left of a vertical list of numbered draft positions, with Subject and Preheader above the list.",
+     "traits": ""
+    },
+    {
+     "text": "Subject and Preheader sit beside the vertical draft positions, with the block palette below them.",
+     "traits": "fields beside draft"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "seo",
+   "screen": "Empty SEO title, Meta description, and URL slug fields appear with their character limits and live counters. Publication status and a Publish changes control are visible; no field editor is open.",
+   "scene": "",
+   "never": [
+    "A completed SEO title or URL slug.",
+    "A counter showing entered characters while its field is empty.",
+    "A separate metadata preview panel."
+   ],
+   "arrangements": [
+    {
+     "text": "The three fields form a vertical list, with each counter beside its field.",
+     "traits": ""
+    },
+    {
+     "text": "The SEO title and URL slug sit above the wider Meta description field, with each counter below its field.",
+     "traits": "field placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "social",
+   "screen": "Four draft posts are available beside an empty weekday calendar with time slots. Publication status, a scheduled-post count, and an Activate schedule control are visible; no slot picker is open.",
+   "scene": "",
+   "never": [
+    "A post already assigned to a calendar cell.",
+    "A post card floating between calendar cells.",
+    "An open time-slot picker."
+   ],
+   "arrangements": [
+    {
+     "text": "The draft posts form a list to the left of the calendar, with weekdays across columns and times down rows.",
+     "traits": ""
+    },
+    {
+     "text": "The draft posts form a row above the calendar, with weekdays across columns and times down rows.",
+     "traits": "drafts above calendar"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "blockedit",
+   "screen": "A list of existing blocks appears with one block selected and its Text, Link URL, Alignment, and Padding controls shown in an inspector. The selected block's properties have current values, and publication status and a Publish changes control are visible.",
+   "scene": "",
+   "never": [
+    "An inspector with no selected block.",
+    "All property fields empty.",
+    "A popup covering the block list."
+   ],
+   "arrangements": [
+    {
+     "text": "The block list sits to the left of the selected block's property inspector.",
+     "traits": ""
+    },
+    {
+     "text": "The block list sits above the selected block's property inspector.",
+     "traits": "inspector below blocks"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

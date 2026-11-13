@@ -1,0 +1,221 @@
+{
+ "task": "use-shop",
+ "identity": "A set of small shopping and booking screens with search fields, item lists, selection controls, bags, and purchase or return forms.",
+ "scenarios": [
+  {
+   "name": "search",
+   "screen": "An empty search box and Search button are visible. No results or result preview are open.",
+   "scene": "The requested query has been submitted and its results are listed on the target\u2019s page; nothing is open. In the infinite list, the first batch is visible.",
+   "never": [
+    "A result preview already open",
+    "Results for a submitted query",
+    "A loading batch of infinite results"
+   ],
+   "arrangements": [
+    {
+     "text": "The search box sits beside the Search button, with results appearing below them.",
+     "traits": ""
+    },
+    {
+     "text": "The search box sits above the Search button, with an infinite results pane below.",
+     "traits": "infinite"
+    }
+   ],
+   "hint": "Show query entry and an ordered, scrollable results area with at least the requested result ordinal."
+  },
+  {
+   "name": "ticket",
+   "screen": "A Sort by control sits above a scrollable list of about eight tickets. Each ticket shows its name, place, date, time, duration, price, and Buy button; no confirmation dialog is open.",
+   "scene": "",
+   "never": [
+    "A purchase confirmation dialog already open",
+    "A purchase receipt banner",
+    "Tickets positioned outside their scrolling list"
+   ],
+   "arrangements": [
+    {
+     "text": "The Sort by control sits above the ticket list, with one ticket per row.",
+     "traits": ""
+    },
+    {
+     "text": "The Sort by control sits to the left of the ticket list, with the list\u2019s scrollbar on its right edge.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show at least four ticket options with operator, price and duration; the requested minimum or maximum must be unique, and Polar Coach must be present when named."
+  },
+  {
+   "name": "food",
+   "screen": "Category tabs sit over menu cards showing dish names, notes, prices, diet tags, and Add buttons. The cart is empty, its total is zero, and no item option dialog is open.",
+   "scene": "",
+   "never": [
+    "An item option dialog already open",
+    "Items already in the cart",
+    "An order confirmation or Cancel order control"
+   ],
+   "arrangements": [
+    {
+     "text": "Category tabs and menu cards occupy the left side, with the cart beside them on the right.",
+     "traits": ""
+    },
+    {
+     "text": "Category tabs run above the menu cards, with the cart below the menu.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show every requested food and size, quantity controls and a basket; put all requested items within readable view. Basket remains incomplete."
+  },
+  {
+   "name": "flight",
+   "screen": "The booking form shows empty From, To, and Depart fields and a Search button. No airport suggestions, calendar, or flight results are open.",
+   "scene": "The requested route and date have been searched, and the flight results are listed with no flight booked.",
+   "never": [
+    "An airport suggestion list already open",
+    "A departure calendar already open",
+    "Flight results or a booking confirmation"
+   ],
+   "arrangements": [
+    {
+     "text": "From, To, and Depart appear in one row, with Search after the fields.",
+     "traits": ""
+    },
+    {
+     "text": "From and To sit above Depart, with Search below the fields.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "checkout",
+   "screen": "The shop shows an empty search field, category checkboxes, a price range slider at its full range, and product cards or rows with quantity controls and Add to cart buttons. The cart is empty; products without stock have disabled add controls.",
+   "scene": "The goal\u2019s search has been submitted or its category has been checked, matching products are listed, and the cart is empty.",
+   "never": [
+    "A filled checkout address form",
+    "An order confirmation with an order number",
+    "A tracked order result",
+    "Products already in the cart"
+   ],
+   "arrangements": [
+    {
+     "text": "Category checkboxes and the price slider sit beside a scrollable pane of product rows.",
+     "traits": ""
+    },
+    {
+     "text": "Category checkboxes and the price slider sit above a page of product cards in a grid.",
+     "traits": "layout=page"
+    },
+    {
+     "text": "Category checkboxes and the price slider sit beside a scrollable pane of product cards.",
+     "traits": "layout=pane"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "variantpick",
+   "screen": "A product selection area shows size, colour, and material choices, a quantity control, and Add to bag. No combination has been added to the bag.",
+   "scene": "",
+   "never": [
+    "A requested combination already in the bag",
+    "A payment receipt",
+    "An unavailable combination shown as successfully added"
+   ],
+   "arrangements": [
+    {
+     "text": "Size, colour, and material choices stack above the quantity control and Add to bag.",
+     "traits": ""
+    },
+    {
+     "text": "The three choice groups sit in columns, with quantity and Add to bag beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "compare",
+   "screen": "Three or four packs are shown with price, capacity, weight, and warranty information and a control to select one. No pack has been added to the bag.",
+   "scene": "",
+   "never": [
+    "A pack already selected and added",
+    "A payment receipt",
+    "More than four comparison products"
+   ],
+   "arrangements": [
+    {
+     "text": "The packs sit side by side, with each pack\u2019s specifications and selection control in its column.",
+     "traits": ""
+    },
+    {
+     "text": "The packs stack as rows, with matching specification labels aligned across the rows.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "returns",
+   "screen": "An order list starts the return flow, with controls to choose an order and its item. No reason, refund method, or drop-off choice has been submitted.",
+   "scene": "",
+   "never": [
+    "A return review already open",
+    "A return number already issued",
+    "A refund marked complete"
+   ],
+   "arrangements": [
+    {
+     "text": "Orders appear in a vertical list, with the selected order\u2019s items shown beside the list.",
+     "traits": ""
+    },
+    {
+     "text": "Orders appear across the top, with the selected order\u2019s items below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "cartedit",
+   "screen": "A prefilled bag shows item lines with quantities and controls to increase, decrease, remove, or save each line for later. The requested edits have not been made.",
+   "scene": "",
+   "never": [
+    "The bag starting empty",
+    "The requested line already removed",
+    "A payment receipt"
+   ],
+   "arrangements": [
+    {
+     "text": "Bag lines stack vertically, with quantity and line actions beside each item.",
+     "traits": ""
+    },
+    {
+     "text": "Bag lines form a table, with items on the left and quantity and line actions in columns to the right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "coupon",
+   "screen": "A prefilled bag shows its items and total, a coupon entry field with Apply, and available offer information. No coupon has been applied and no coupon message is showing.",
+   "scene": "",
+   "never": [
+    "A coupon already applied",
+    "An invalid-code error already showing",
+    "A payment receipt"
+   ],
+   "arrangements": [
+    {
+     "text": "Bag lines sit above the total and coupon field, with Apply beside the field.",
+     "traits": ""
+    },
+    {
+     "text": "Bag lines sit beside a total and coupon area, with Apply below the field.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

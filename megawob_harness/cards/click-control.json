@@ -1,0 +1,396 @@
+{
+ "task": "click-control",
+ "identity": "A page of controls where the user must find and use the control named in the instruction.",
+ "scenarios": [
+  {
+   "name": "button",
+   "screen": "The page shows clickable controls with distinct labels, sometimes alongside sentences or labeled text fields. A typical set has several buttons, and some labels can be similar or appear on disabled controls.",
+   "scene": "",
+   "never": [
+    "A button already pressed in a sequence.",
+    "A menu or dialog open over the buttons.",
+    "An Undo control before a choice is made."
+   ],
+   "arrangements": [
+    {
+     "text": "Several labeled controls sit among short text and fields in the main task area.",
+     "traits": ""
+    },
+    {
+     "text": "A row of similar controls runs across the top of a compact task area.",
+     "traits": "layout=toolbar"
+    },
+    {
+     "text": "Similar controls sit together inside a card.",
+     "traits": "layout=card"
+    },
+    {
+     "text": "Similar controls run along the bottom of the task area.",
+     "traits": "layout=footer"
+    }
+   ],
+   "hint": "Show the exact requested button label, or a single obvious button when no label is specified. Do not substitute a link."
+  },
+  {
+   "name": "sequence",
+   "screen": "Two to four labeled buttons are scattered across the task area. None has been pressed yet.",
+   "scene": "",
+   "never": [
+    "A completed press shown on load.",
+    "A popup containing the next button.",
+    "More than four sequence buttons."
+   ],
+   "arrangements": [
+    {
+     "text": "The buttons occupy separated positions across the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The buttons form two loose rows with space between their positions.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": "Show all named buttons in a scrambled spatial arrangement; task specifies sequence, none has been clicked."
+  },
+  {
+   "name": "link",
+   "screen": "Paragraphs contain inline links among ordinary words, or a related-items list contains links presented as text, buttons, or chips. All links are visible at the start.",
+   "scene": "",
+   "never": [
+    "A link preview already open.",
+    "A tab hiding the target link.",
+    "A Back control before a link is followed."
+   ],
+   "arrangements": [
+    {
+     "text": "Paragraphs stack vertically, with links embedded in their lines.",
+     "traits": ""
+    },
+    {
+     "text": "A related-items list sits beneath its heading, with one linked item per row.",
+     "traits": "mode=list"
+    }
+   ],
+   "hint": "Show the exact target word as an underlined link embedded among other readable text and links."
+  },
+  {
+   "name": "tab",
+   "screen": "A strip of tabs sits above one visible content panel. In tab selection tasks the target tab starts inactive; in link tasks, only the active tab's text and links are visible.",
+   "scene": "In link tasks, the tab containing the target link is active and its content is visible.",
+   "never": [
+    "Every tab panel visible at once.",
+    "A link from an inactive tab floating outside its panel.",
+    "The target tab already active in a tab selection task."
+   ],
+   "arrangements": [
+    {
+     "text": "Tab headers run horizontally above the active panel's text.",
+     "traits": ""
+    },
+    {
+     "text": "Tab headers stack beside the active panel's text.",
+     "traits": "skin tab placement"
+    }
+   ],
+   "hint": "Show tabs including the requested number or one open tab containing the requested exact link. Link and tab labels must be readable."
+  },
+  {
+   "name": "menu",
+   "screen": "The task shows either a visible menu of people or a Menu button with its app menu closed. Nested submenu choices are closed at the normal start.",
+   "scene": "The menu is open through every submenu on the target path, with the target item visible and unselected; the button version also has its main panel open.",
+   "never": [
+    "A target menu item already selected.",
+    "All nested submenus open at once.",
+    "The button version's menu panel open at the normal start."
+   ],
+   "arrangements": [
+    {
+     "text": "People's names sit in a menu bar across the task area.",
+     "traits": ""
+    },
+    {
+     "text": "A Menu button sits above the area where its menu panel opens.",
+     "traits": "mode=button"
+    }
+   ],
+   "hint": "No selection yet."
+  },
+  {
+   "name": "collapsible",
+   "screen": "A vertical list of section headers is visible, with their contents collapsed. In link tasks, the links are inside those hidden sections.",
+   "scene": "In link tasks, the target's section is open and its link is visible. In section expansion tasks, a different section is open while the target remains closed.",
+   "never": [
+    "Every section expanded on load.",
+    "A link from a closed section visible outside it.",
+    "The target section already open in a section expansion task."
+   ],
+   "arrangements": [
+    {
+     "text": "Section headers stack vertically, and an open section's content sits directly below its header.",
+     "traits": ""
+    },
+    {
+     "text": "Section headers occupy a narrow column, with each open section's content aligned beside its header.",
+     "traits": "skin section placement"
+    }
+   ],
+   "hint": "Show section headers with expansion affordances. Required section or link must exist; for numbered section 44 use an internally scrolled panel with that header visible."
+  },
+  {
+   "name": "dialog",
+   "screen": "A dialog shows a title, body text, a close button, and zero, two, or three action buttons. In opener cases, a page button is visible and the dialog starts closed.",
+   "scene": "The dialog is open with its close button and any action buttons visible, including in opener cases.",
+   "never": [
+    "Four or more dialog action buttons.",
+    "Two dialogs stacked together.",
+    "A dialog already dismissed on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The dialog title sits above its text, with the close button at the top edge and action buttons below the text.",
+     "traits": ""
+    },
+    {
+     "text": "A page button sits above the area occupied by the dialog after it opens.",
+     "traits": "opener"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "pie",
+   "screen": "The page has a place to open a radial menu; its labeled slices are closed at the normal start.",
+   "scene": "The radial menu is expanded, showing its labeled slices around the center with none selected.",
+   "never": [
+    "Pie slices already visible at the normal start.",
+    "A slice already selected.",
+    "A separate list of pie items beside the closed menu."
+   ],
+   "arrangements": [
+    {
+     "text": "The menu's opening spot sits near the center of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The menu's opening spot sits off center with room around it for the slices.",
+     "traits": "skin menu placement"
+    }
+   ],
+   "hint": "Show an expanded radial pie menu with the requested letter in one clearly clickable sector and other letters around it."
+  },
+  {
+   "name": "widget",
+   "screen": "Five visible controls include a radio button, checkbox, single-line text field, multi-line text box, and button. The task asks for a click on one control type.",
+   "scene": "",
+   "never": [
+    "A widget type picker open on load.",
+    "Text already entered as the result of this task.",
+    "A hidden control that must be revealed."
+   ],
+   "arrangements": [
+    {
+     "text": "The five controls stack vertically with their associated text beside them.",
+     "traits": ""
+    },
+    {
+     "text": "The controls occupy two columns, with text fields on one side and selection controls on the other.",
+     "traits": "skin form placement"
+    }
+   ],
+   "hint": "Show a small collection of actual widget types with visibly recognizable shapes: button, text entry, radio, checkbox and link. Target type is unambiguous."
+  },
+  {
+   "name": "focus",
+   "screen": "Several labeled text fields are visible. No target field has been focused by the task yet, and the fields do not require typing.",
+   "scene": "",
+   "never": [
+    "A keyboard open over the fields.",
+    "Typed task text in the target field.",
+    "A field selection menu."
+   ],
+   "arrangements": [
+    {
+     "text": "Labeled fields stack vertically in top-to-bottom order.",
+     "traits": ""
+    },
+    {
+     "text": "Each label sits to the left of its field in a vertical form.",
+     "traits": "skin label placement"
+    }
+   ],
+   "hint": "Show enough input textboxes for the requested ordinal, aligned in unambiguous reading order. No target focus ring yet."
+  },
+  {
+   "name": "hover",
+   "screen": "Several squares occupy fixed positions in the task area. One square is highlighted, and the pointer has not yet accumulated hover time on it.",
+   "scene": "",
+   "never": [
+    "A completed hover timer on load.",
+    "A popup opened by the highlighted square.",
+    "The squares outside the task area."
+   ],
+   "arrangements": [
+    {
+     "text": "Squares sit at separated positions across the task area.",
+     "traits": ""
+    },
+    {
+     "text": "Squares occupy separated positions in two loose rows.",
+     "traits": "skin shape placement"
+    }
+   ],
+   "hint": "Show one blue square, pointer outside it, a dwell counter below the requested total, and a clear movement area. Movement is explained in notes, not multiple duplicate squares."
+  },
+  {
+   "name": "tooltip-inspect",
+   "screen": "An icon task shows several icon-only toolbar buttons; an ID task shows rows of names with action buttons. No tooltip is showing at the normal start.",
+   "scene": "",
+   "never": [
+    "Every tooltip visible at once.",
+    "A target tooltip already open on load.",
+    "The icon task's button names printed beside all icons."
+   ],
+   "arrangements": [
+    {
+     "text": "Icon-only buttons run in a toolbar across the task area.",
+     "traits": ""
+    },
+    {
+     "text": "Names form a vertical list, with each row's action button to the right.",
+     "traits": "mode=id"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "rows",
+   "screen": "A table lists people or files in labeled columns. Each row has actions that appear when that row is hovered; no row actions are showing at the normal start.",
+   "scene": "",
+   "never": [
+    "Every row's actions visible on load.",
+    "An overflow menu for a row.",
+    "A row already removed or archived."
+   ],
+   "arrangements": [
+    {
+     "text": "Column headings sit above a vertical stack of rows, with names at the left and other cells to the right.",
+     "traits": ""
+    },
+    {
+     "text": "File names sit in the first column, followed by other file details across each row.",
+     "traits": "kind=files"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "context",
+   "screen": "Files appear in a browser as a grid or list. No context menu is open and no file has been right-clicked at the normal start.",
+   "scene": "",
+   "never": [
+    "A context menu open on load.",
+    "A context menu detached from its file.",
+    "The target action already applied."
+   ],
+   "arrangements": [
+    {
+     "text": "Files occupy cells in a grid across the task area.",
+     "traits": ""
+    },
+    {
+     "text": "Files stack in rows with their details aligned in columns.",
+     "traits": "layout=list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "open",
+   "screen": "A file browser shows files in a grid or list. Files start unopened; toolbar-route tasks also show an Open button for the selected file.",
+   "scene": "",
+   "never": [
+    "The target file already open.",
+    "A file preview covering the browser.",
+    "A context menu open over a file."
+   ],
+   "arrangements": [
+    {
+     "text": "Files occupy cells in a grid.",
+     "traits": ""
+    },
+    {
+     "text": "Files stack in rows with names and details aligned.",
+     "traits": "layout=list"
+    },
+    {
+     "text": "An Open button sits in a toolbar above the files.",
+     "traits": "route=toolbar"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "hover-menu",
+   "screen": "Top-level navigation entries are visible in the page header. Their grouped link dropdowns are closed until an entry is hovered.",
+   "scene": "",
+   "never": [
+    "A dropdown open at the normal start.",
+    "Every navigation group visible at once.",
+    "A target link shown outside its dropdown."
+   ],
+   "arrangements": [
+    {
+     "text": "Top-level entries run horizontally, with each dropdown positioned beneath its entry when open.",
+     "traits": ""
+    },
+    {
+     "text": "Top-level entries occupy one side of the header, with the opened group extending inward below them.",
+     "traits": "skin header placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "flyout",
+   "screen": "A department-menu trigger is visible. The department list and its nested category panels are closed at the normal start.",
+   "scene": "",
+   "never": [
+    "All submenu levels open on load.",
+    "A category panel visible without its department list.",
+    "A target already selected."
+   ],
+   "arrangements": [
+    {
+     "text": "The trigger sits at the left of the task area, where successive menu panels extend to the right.",
+     "traits": ""
+    },
+    {
+     "text": "The trigger sits higher in the task area, with the department list below it and deeper panels extending right.",
+     "traits": "skin trigger placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "row-reveal",
+   "screen": "A table lists people or files. Each row's quick actions and overflow button appear only on row hover, and no overflow menu is open at the normal start.",
+   "scene": "",
+   "never": [
+    "Quick actions visible on every row at load.",
+    "An overflow menu already open.",
+    "A target action already applied."
+   ],
+   "arrangements": [
+    {
+     "text": "Rows stack below column headings, with each row's name at the left and its other cells to the right.",
+     "traits": ""
+    },
+    {
+     "text": "File rows place the file name in the first column and file details in columns beside it.",
+     "traits": "kind=files"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

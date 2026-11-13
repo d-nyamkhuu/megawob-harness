@@ -1,0 +1,273 @@
+{
+ "task": "use-data-grid",
+ "identity": "An enterprise data grid with column headers, rows, selection controls, and controls for finding, changing, and arranging records.",
+ "scenarios": [
+  {
+   "name": "sort",
+   "screen": "A table of about a dozen records shows labeled columns and sortable headers. The rows are in their initial order, no sort is active, and the header menus are closed.",
+   "scene": "",
+   "never": [
+    "A column menu already open",
+    "A header already showing the requested sort direction",
+    "Rows floating outside the table",
+    "A bulk-action confirmation dialog"
+   ],
+   "arrangements": [
+    {
+     "text": "The headers run across the top of the table, with rows directly beneath them.",
+     "traits": ""
+    },
+    {
+     "text": "The headers and rows keep the same grid order, while any table controls sit to the right above the headers.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "filter",
+   "screen": "A table of products or other records has a quick search box and column filter controls. About a dozen rows are visible; the search box is empty, no filter is applied, and every filter menu is closed.",
+   "scene": "",
+   "never": [
+    "A filter checklist already open",
+    "A value already entered in quick search",
+    "Filter values already checked in an open menu",
+    "Only the goal rows shown before filtering"
+   ],
+   "arrangements": [
+    {
+     "text": "The search box sits above the table, and filter controls sit in the column headers.",
+     "traits": ""
+    },
+    {
+     "text": "The search box sits beside the table's other controls above the right end of the headers; filter controls remain in the headers.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "paginate",
+   "screen": "A paged table shows one page of records with row checkboxes, a quick search box, page-size control, and a pager with Prev, page numbers, and Next. About a dozen rows appear on the first page, and no row is selected.",
+   "scene": "",
+   "never": [
+    "All records displayed on one page",
+    "A target row already checked",
+    "A page other than the first already selected",
+    "An open column menu"
+   ],
+   "arrangements": [
+    {
+     "text": "Search and page size sit above the table, with the pager below its rows.",
+     "traits": ""
+    },
+    {
+     "text": "Search sits above the left end of the table, page size above the right end, and the pager below the right end.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "select",
+   "screen": "A single page of about seven rows has a checkbox beside each row and a select-all checkbox in the header. All checkboxes start clear, and no selection action is open.",
+   "scene": "",
+   "never": [
+    "Rows already checked",
+    "A range already highlighted",
+    "A second page of rows",
+    "A bulk-action confirmation dialog"
+   ],
+   "arrangements": [
+    {
+     "text": "The select-all checkbox heads the leftmost checkbox column, beside the table's data columns.",
+     "traits": ""
+    },
+    {
+     "text": "Selection controls sit above the table, while the checkbox column remains at the left of the rows.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "bulk",
+   "screen": "A single page of about seven rows has row checkboxes, a select-all checkbox, and toolbar actions for changing status, archiving, or deleting records. No row is selected, the status menu and confirmation dialog are closed, and there is no Undo toast.",
+   "scene": "",
+   "never": [
+    "A status menu already open",
+    "A delete confirmation dialog already open",
+    "An Undo toast from an action",
+    "Goal rows already changed",
+    "Rows already checked"
+   ],
+   "arrangements": [
+    {
+     "text": "Bulk actions sit above the table, and checkboxes form its leftmost column.",
+     "traits": ""
+    },
+    {
+     "text": "Bulk actions sit above the right end of the table, with the checkbox column at the left of the rows.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "resize",
+   "screen": "A table shows labeled columns at their initial widths and about a dozen records. The right edges of its headers are resize targets; no edge is being dragged.",
+   "scene": "",
+   "never": [
+    "A column already at its requested new width",
+    "A resize drag in progress",
+    "A floating width guide",
+    "An open bulk-action dialog"
+   ],
+   "arrangements": [
+    {
+     "text": "Column headers span the top of the table, with each resize edge between neighboring headers.",
+     "traits": ""
+    },
+    {
+     "text": "Table controls sit above the right end of the headers; the resize edges stay at the headers' right boundaries.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "reorder",
+   "screen": "A table of about a dozen records shows its columns in their initial order. Headers can be dragged to move columns, and no header is being dragged.",
+   "scene": "",
+   "never": [
+    "A header already detached for dragging",
+    "An insertion marker already visible",
+    "Columns already in the requested order",
+    "A confirmation dialog"
+   ],
+   "arrangements": [
+    {
+     "text": "The headers form one row above the records, with each column's cells directly below its header.",
+     "traits": ""
+    },
+    {
+     "text": "Table controls sit above the headers on the right; headers and their cells remain aligned in columns.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "multirow",
+   "screen": "A single page of about eight rows shows a table and toolbar bulk actions. Rows are selected by clicking their bodies rather than checkboxes; no row is selected and no action menu or confirmation dialog is open.",
+   "scene": "",
+   "never": [
+    "A checkbox beside each row",
+    "A select-all checkbox",
+    "A range already selected",
+    "A bulk action already applied",
+    "A confirmation dialog already open"
+   ],
+   "arrangements": [
+    {
+     "text": "Bulk actions sit above the table, whose full-width row bodies are the selection targets.",
+     "traits": ""
+    },
+    {
+     "text": "Bulk actions sit above the right end of the table, with selectable rows extending across the columns below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "cellEdit",
+   "screen": "A single page of about six records shows ordinary text and number cells in their default order. No cell is being edited and no input field is open inside the table.",
+   "scene": "",
+   "never": [
+    "A cell editor already open",
+    "A draft value already typed into a cell",
+    "A save dialog",
+    "A second page of records"
+   ],
+   "arrangements": [
+    {
+     "text": "Column headers sit above the rows, with editable values in cells directly below their headers.",
+     "traits": ""
+    },
+    {
+     "text": "Table controls sit above the right end of the grid; editable cells remain in the rows beneath the headers.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "crm",
+   "screen": "A ticket table shows named records with columns that include Owner and Subject. About six rows are visible, and every cell shows its saved value with no editor open.",
+   "scene": "",
+   "never": [
+    "An Owner or Subject cell already in edit mode",
+    "A new value already entered",
+    "Another record already changed",
+    "A separate ticket detail panel"
+   ],
+   "arrangements": [
+    {
+     "text": "Ticket headers run across the top, and each ticket occupies a row beneath them.",
+     "traits": ""
+    },
+    {
+     "text": "Table controls sit above the right end of the ticket grid; Owner and Subject values remain in their columns.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "colfilter",
+   "screen": "A ticket table has value-filter controls in its headers and toolbar bulk actions. The rows are unfiltered and unselected, filter menus are closed, and no bulk action has been applied.",
+   "scene": "",
+   "never": [
+    "A Priority filter checklist already open",
+    "Only High or Urgent tickets already visible",
+    "Rows already selected for a bulk action",
+    "A status action already applied",
+    "An Undo toast"
+   ],
+   "arrangements": [
+    {
+     "text": "Bulk actions sit above the ticket table, and value-filter controls sit in its headers.",
+     "traits": ""
+    },
+    {
+     "text": "Bulk actions sit above the right end of the table, while filter controls remain beside their column labels.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "virtual",
+   "screen": "A ticket table shows a scrollable window of rows from a longer record list, with columns that include editable values such as Owner. The window starts at the top of the list, and no cell editor is open.",
+   "scene": "",
+   "never": [
+    "Every record rendered as a row at once",
+    "The table already scrolled to the target record",
+    "An Owner cell already in edit mode",
+    "A new cell value already entered"
+   ],
+   "arrangements": [
+    {
+     "text": "Headers sit above a scrollable row viewport, with the first records visible beneath them.",
+     "traits": ""
+    },
+    {
+     "text": "Table controls sit above the right end of the grid; the scrollable row viewport remains directly below the headers.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

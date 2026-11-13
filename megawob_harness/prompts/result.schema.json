@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "done",
+    "fidelity",
+    "remaining_differences",
+    "deviations",
+    "notes"
+  ],
+  "properties": {
+    "done": {
+      "type": "boolean",
+      "description": "true when the site renders without errors and matches the design image as closely as you can make it"
+    },
+    "fidelity": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "5 = mistaken for the design image at a glance, 4 = same layout/palette/type/frame with small detail differences, 3 = same design with missing or misplaced elements, 2 = palette only, 1 = unrelated"
+    },
+    "remaining_differences": {
+      "type": "array",
+      "description": "concrete visible differences you could not close, each naming the region and what differs",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "what",
+          "cause"
+        ],
+        "properties": {
+          "what": {
+            "type": "string",
+            "description": "region and what differs, e.g. 'toolbar: design image has 9 distinct icons, render uses 5 generic squares'"
+          },
+          "cause": {
+            "type": "string",
+            "enum": [
+              "site",
+              "kit",
+              "seed",
+              "font"
+            ],
+            "description": "site = fixable by editing the site files; kit = needs a kit/task change (KIT_REQUESTS.md); seed = seeded content; font = exact typeface only"
+          }
+        }
+      }
+    },
+    "deviations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "intentional departures the env contract forced (e.g. seeded content instead of the depicted names)"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

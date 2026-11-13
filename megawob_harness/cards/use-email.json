@@ -1,0 +1,346 @@
+{
+ "task": "use-email",
+ "identity": "A web mail client with folders, a search field, an email list with row checkboxes, a message view, and a composer.",
+ "scenarios": [
+  {
+   "name": "delete",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and message actions. No message, confirmation dialog, or composer is open.",
+   "scene": "The target message is open, with its row scrolled into the list; no confirmation dialog is open.",
+   "never": [
+    "A delete confirmation dialog already open",
+    "The target already in Trash",
+    "An Undo toast for deleting the target"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; each row has a checkbox on the left and message actions beside its details.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; each row places its checkbox before the sender and its message actions at the far right.",
+     "traits": "skin: search and row control placement"
+    }
+   ],
+   "hint": "Show the named sender in an inbox; provide a clearly recognizable trash icon. Selected email is still present."
+  },
+  {
+   "name": "star",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and star controls. No message or composer is open.",
+   "scene": "The target message is open, with its row scrolled into the list and its star still unset.",
+   "never": [
+    "The target already starred",
+    "A message composer already open",
+    "A star picker or popup open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; each row has a checkbox on the left and a star beside the message details.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; each row has its checkbox before the sender and its star at the far right.",
+     "traits": "skin: search and row control placement"
+    }
+   ],
+   "hint": "Show the named sender and an unfilled star toggle on their message. Do not pre-star the target."
+  },
+  {
+   "name": "important",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and importance controls. No message or composer is open.",
+   "scene": "The target message is open, with its row scrolled into the list and its importance flag still unset.",
+   "never": [
+    "The target already marked important",
+    "An importance menu open",
+    "A message composer already open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; each row has a checkbox on the left and an importance control beside the message details.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; each row has its checkbox before the sender and its importance control at the far right.",
+     "traits": "skin: search and row control placement"
+    }
+   ],
+   "hint": "Show the named sender with an inactive importance marker and an accessible Mark important action."
+  },
+  {
+   "name": "reply",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes. No message is open and no reply draft is present.",
+   "scene": "The target message is open, with its row scrolled into the list. An untouched reply composer is open, addressed to the sender with an empty body.",
+   "never": [
+    "A reply draft already filled with the requested text",
+    "A reply already sent",
+    "The target message open in the normal unsolved start"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list, and checkboxes run down the left edge of the rows.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area, and the checkboxes run down the left edge beside the senders.",
+     "traits": "skin: search placement"
+    }
+   ],
+   "hint": "Show the named sender and a reply composer addressed to that sender; body is empty."
+  },
+  {
+   "name": "forward",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes. No message is open and no forward draft is present.",
+   "scene": "The target message is open, with its row scrolled into the list. An untouched forward composer is open with an empty recipient field.",
+   "never": [
+    "A forward draft already addressed to the requested contact",
+    "The message already forwarded",
+    "A contact picker open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list, and checkboxes run down the left edge of the rows.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area, and the checkboxes run down the left edge beside the senders.",
+     "traits": "skin: search placement"
+    }
+   ],
+   "hint": "Show the target original email and a forward composer with empty recipient field; make the named destination available. Preserve original email content."
+  },
+  {
+   "name": "star-reply",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and star controls. The target is unstarred, and no message or reply draft is open.",
+   "scene": "The target message is open, with its row scrolled into the list and its star unset. An untouched reply composer is open, addressed to the sender with an empty body.",
+   "never": [
+    "The target already starred",
+    "A reply draft already containing the requested text",
+    "A reply already sent"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; each row has a checkbox on the left and a star beside its details.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; each row has a checkbox before the sender and a star at the far right.",
+     "traits": "skin: search and row control placement"
+    }
+   ],
+   "hint": "Show the target email, inactive star control and empty reply composer together; both requested actions remain to be done."
+  },
+  {
+   "name": "nl",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and message actions. No message, draft, or popup is open.",
+   "scene": "The target message is open, with its row scrolled into the list. For a reply or forward task, the corresponding untouched composer is open.",
+   "never": [
+    "The requested message already sent",
+    "The requested message already moved to Trash",
+    "A confirmation dialog open",
+    "A move menu open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; checkboxes and message actions sit within each row.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; checkboxes precede the senders and message actions follow the row details.",
+     "traits": "skin: search and row control placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "archive",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and message actions. No message or popup is open.",
+   "scene": "The target message is open, with its row scrolled into the list; it is still in the Inbox.",
+   "never": [
+    "The target already in Archive",
+    "An Undo toast for archiving the target",
+    "A move menu already open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; each row has a checkbox on the left and message actions beside its details.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; each row has a checkbox before the sender and message actions at the far right.",
+     "traits": "skin: search and row control placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "move",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes. The named destination appears in the folder list; no message or Move to menu is open.",
+   "scene": "The target message is open, with its row scrolled into the list. The Move to menu is closed.",
+   "never": [
+    "The Move to menu already open",
+    "The target already in the destination folder",
+    "A folder creation dialog"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list, and checkboxes run down the left edge of the rows.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area, and the checkboxes run down the left edge beside the senders.",
+     "traits": "skin: search placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "unread",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and read status. The target is read, and no message or popup is open.",
+   "scene": "The target message is open, with its row scrolled into the list; it is still marked read.",
+   "never": [
+    "The target already marked unread",
+    "A bulk toolbar visible without selected rows",
+    "A message composer open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; checkboxes line the left edge and read status appears in the message rows.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; checkboxes precede the senders and read status appears with the row details.",
+     "traits": "skin: search placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "bulk",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about ten emails shows row checkboxes and a select-all checkbox. No rows are selected, so the bulk toolbar is hidden; no message is open.",
+   "scene": "The inbox list is shown with no rows selected and no bulk toolbar.",
+   "never": [
+    "All matching rows already checked",
+    "The bulk toolbar visible before any selection",
+    "A message detail view open",
+    "More than one inbox page worth of rows visible at once"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the list; the select-all checkbox sits above a vertical column of row checkboxes.",
+     "traits": ""
+    },
+    {
+     "text": "The select-all checkbox sits at the upper left of the list and the search field at the upper right; row checkboxes align beneath the select-all checkbox.",
+     "traits": "skin: search and checkbox placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "reply-all",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes. The target message has Cc recipients, but no message or reply draft is open.",
+   "scene": "The target message is open, with its row scrolled into the list. An untouched reply composer is open; its recipient fields reflect whether the task calls for Reply or Reply all, and its body is empty.",
+   "never": [
+    "A reply already sent",
+    "A reply draft already filled with the requested text",
+    "The target message open in the normal unsolved start"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list, and checkboxes run down the left edge of the rows.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area, and the checkboxes run down the left edge beside the senders.",
+     "traits": "skin: search placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "compose",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails is visible beside the folders. No new-message composer is open.",
+   "scene": "An empty new-message composer is open with blank recipient, subject, and body fields.",
+   "never": [
+    "A new-message composer already filled in",
+    "The requested message already sent",
+    "A recipient picker open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list, and the rows fill the list area.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area, above rows with checkboxes along their left edge.",
+     "traits": "skin: search placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "search",
+   "screen": "The Inbox folder is selected, the search field is empty, and a longer list of about twenty emails shows row checkboxes. No search results filter is applied, and no message is open.",
+   "scene": "The target message is open, with its row scrolled into the list.",
+   "never": [
+    "The requested search text already entered",
+    "A filtered results list already shown",
+    "The target already marked unread",
+    "A separate search results popup"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list, and the rows scroll within the list pane.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area, above rows that scroll within the list pane.",
+     "traits": "skin: search placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "attachment",
+   "screen": "The Inbox folder is selected, the search field is empty, and a list of about eight emails shows row checkboxes and message details. The target is identified by its attachment; no message or attachment viewer is open.",
+   "scene": "The target message is open, with its row scrolled into the list and its attachment shown in the message view.",
+   "never": [
+    "The attachment opened in a preview window",
+    "The target already moved or forwarded",
+    "A message composer already filled in"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the email list; checkboxes line the left edge and attachment indicators appear with the row details.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area; checkboxes precede the senders and attachment indicators follow the row details.",
+     "traits": "skin: search and row detail placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "undo",
+   "screen": "The Inbox folder is selected and the search field is empty. About eight emails are listed, but the target is absent because it starts in Trash, Archive, Spam, or a custom folder; no message or Undo toast is open unless this episode starts with the documented toast.",
+   "scene": "The folder holding the target is selected, and the target message is open there. Other messages in that folder remain in the list.",
+   "never": [
+    "The target already restored to the Inbox",
+    "Every message in the target's folder already selected",
+    "A move menu open",
+    "A confirmation dialog open"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the Inbox list, whose rows have checkboxes along the left edge.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits at the upper right of the list area, and the Inbox rows align their checkboxes beneath the select-all checkbox.",
+     "traits": "skin: search and checkbox placement"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

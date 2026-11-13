@@ -1,0 +1,113 @@
+{
+ "task": "reorder-items",
+ "identity": "A reorder task shows items that can be dragged into a target sequence or moved among category columns.",
+ "scenarios": [
+  {
+   "name": "list",
+   "screen": "About six labeled items appear in one vertical list, with drag grips on movable items. The items start out of order; a sorting key appears when the rule uses tags. No popup is open.",
+   "scene": "",
+   "never": [
+    "A card grid replaces the vertical list.",
+    "Category columns or an unassigned tray appear.",
+    "A pinned item has a drag grip.",
+    "A picker is open over the list."
+   ],
+   "arrangements": [
+    {
+     "text": "The items form one vertical list in the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The vertical list sits to the left of a sorting key that shows the tag order.",
+     "traits": "legend rule"
+    },
+    {
+     "text": "A sorting key sits above the vertical list.",
+     "traits": "legend rule"
+    }
+   ],
+   "hint": "Show a vertical list in scrambled order. If calendar order is requested, use month names; if alphabetical use distinct words. Clear drag handles, no sorting button."
+  },
+  {
+   "name": "grid",
+   "screen": "About a dozen labeled cards start out of order in a grid that is read row by row. The grid has three to five columns, and the cards can be dragged to new positions. No popup is open.",
+   "scene": "",
+   "never": [
+    "Cards begin outside the grid.",
+    "A category column or unassigned tray appears.",
+    "A sorting key for tags appears.",
+    "A picker is open over the cards."
+   ],
+   "arrangements": [
+    {
+     "text": "The cards fill a four-column grid from left to right, then continue on the next row.",
+     "traits": ""
+    },
+    {
+     "text": "The cards fill a three-column grid from left to right, then continue on the next row.",
+     "traits": "three-column grid"
+    },
+    {
+     "text": "The cards fill a five-column grid from left to right, then continue on the next row.",
+     "traits": "five-column grid"
+    }
+   ],
+   "hint": "Reading order is left-to-right then top-to-bottom; clear draggable tile outlines."
+  },
+  {
+   "name": "kanban",
+   "screen": "About three labeled category columns appear side by side, with cards already distributed among them in an unsolved arrangement. Each column holds a vertical stack of draggable cards, and some boards show counts in the column headers. No popup is open.",
+   "scene": "Every card starts in an unassigned tray, and all category columns are empty.",
+   "never": [
+    "Cards start loose outside the columns and tray.",
+    "An empty board appears with its cards hidden in a picker.",
+    "A popup for choosing a card's category is open."
+   ],
+   "arrangements": [
+    {
+     "text": "Category columns sit side by side, with cards stacked beneath each column header.",
+     "traits": ""
+    },
+    {
+     "text": "An unassigned tray sits to the left of the category columns, with cards stacked in the tray.",
+     "traits": "staging"
+    },
+    {
+     "text": "Category columns extend horizontally inside a scrolling pane, with a scrollbar beneath the columns.",
+     "traits": "scrolling pane"
+    },
+    {
+     "text": "Category columns extend horizontally inside a scrolling pane that is scrolled with the wheel.",
+     "traits": "wheelPane"
+    }
+   ],
+   "hint": "Show columns labeled with precisely the requested categories and a staging tray of distinct words from those categories. No card is already correctly sorted."
+  },
+  {
+   "name": "move",
+   "screen": "About six labeled items appear in a vertical list in a given starting order. The items can be dragged to make the requested single move or swap. No popup is open.",
+   "scene": "",
+   "never": [
+    "The items appear in a card grid.",
+    "Category columns or an unassigned tray appear.",
+    "A sorting key appears beside the list.",
+    "A picker is open over the list."
+   ],
+   "arrangements": [
+    {
+     "text": "The items form one vertical list in the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The vertical list sits along the left side of the task area.",
+     "traits": ""
+    },
+    {
+     "text": "The vertical list sits along the right side of the task area.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

@@ -1,0 +1,112 @@
+{
+ "task": "use-bank",
+ "identity": "A retail banking task area with payment and transfer forms, transaction lists, dispute controls, and card settings that users review before applying changes.",
+ "scenarios": [
+  {
+   "name": "paybill",
+   "screen": "A bill payment form shows an empty source account picker, biller picker, amount field, and payment date field. Both pickers are closed, and no payment has been prepared for review.",
+   "scene": "",
+   "never": [
+    "The source account or biller picker is open on load.",
+    "The payment fields already contain the requested values.",
+    "A payment review or confirmation receipt is visible."
+   ],
+   "arrangements": [
+    {
+     "text": "The source account, biller, amount, and date controls run down the form in that order.",
+     "traits": ""
+    },
+    {
+     "text": "The source account and biller controls sit side by side above a row containing amount and date.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "schedule",
+   "screen": "A recurring transfer form shows empty source account, destination account, amount, frequency, first date, and last date controls. The account and frequency pickers are closed, and no transfer has been prepared for review.",
+   "scene": "",
+   "never": [
+    "An account or frequency menu is open on load.",
+    "The requested recurring transfer is already filled in.",
+    "A transfer review or confirmation receipt is visible."
+   ],
+   "arrangements": [
+    {
+     "text": "The source and destination controls appear first, followed by amount, frequency, first date, and last date in a single column.",
+     "traits": ""
+    },
+    {
+     "text": "The source and destination controls share a row, amount and frequency share the next row, and the two dates share a row below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "categorise",
+   "screen": "A transaction list shows several entries with identifiers, merchants, and inline category controls. The category pickers are closed, and the requested category changes have not been made.",
+   "scene": "",
+   "never": [
+    "A transaction category menu is open on load.",
+    "The listed transactions already show all requested replacement categories.",
+    "A category review or confirmation receipt is visible."
+   ],
+   "arrangements": [
+    {
+     "text": "Transactions run down the task area, with each row's identifier and merchant to the left of its category control.",
+     "traits": ""
+    },
+    {
+     "text": "Each transaction places its identifier above the merchant, with the category control alongside them on the right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "dispute",
+   "screen": "A transaction list shows several charges with their identifiers, merchants, amounts, and dates. No transaction has been opened for a dispute, and no reason or details have been entered.",
+   "scene": "",
+   "never": [
+    "A transaction is already selected for dispute on load.",
+    "A reason picker is open on load.",
+    "The requested dispute details are already entered.",
+    "A dispute review or confirmation receipt is visible."
+   ],
+   "arrangements": [
+    {
+     "text": "Charges run down the task area, with the identifier and merchant before the amount and date in each row.",
+     "traits": ""
+    },
+    {
+     "text": "Charges run down the task area, with each merchant beneath its identifier and the amount and date alongside them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "limits",
+   "screen": "A card list shows each card's name, ending digits, and current controls for its spending limit or frozen status. No requested limit or status change has been prepared for review.",
+   "scene": "",
+   "never": [
+    "A card limit or status picker is open on load.",
+    "The requested limit or frozen status is already applied.",
+    "A card change review or confirmation receipt is visible."
+   ],
+   "arrangements": [
+    {
+     "text": "Cards run down the task area, with each card's identity before its limit and status controls.",
+     "traits": ""
+    },
+    {
+     "text": "Cards sit in adjacent columns, with each card's identity above its limit and status controls.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

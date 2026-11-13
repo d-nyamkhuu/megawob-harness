@@ -1,0 +1,138 @@
+{
+ "task": "use-spreadsheet",
+ "identity": "A workbook with a cell grid, column and row headers, a formula field, sheet tabs, controls, and a status readout.",
+ "scenarios": [
+  {
+   "name": "fillhandle",
+   "screen": "The sheet shows a header row and populated records, with a short numeric or formula pattern in the seed cells and blank cells where the pattern needs to continue. The formula field and status readout are visible; menus and dialogs are closed.",
+   "scene": "",
+   "never": [
+    "The unfinished destination cells already contain the completed pattern.",
+    "A fill popup is open.",
+    "Filled cells appear outside the grid.",
+    "A conditional-formatting dialog is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The formula field sits above the grid, the sheet tabs sit below it, and the status readout runs along the bottom.",
+     "traits": ""
+    },
+    {
+     "text": "The formula field sits beside the top of the grid, with the sheet tabs and status readout beneath the grid.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "range",
+   "screen": "The sheet shows a header row and populated records in a grid of cells. The requested rectangle is not yet the active selection; the formula field and status readout are visible, and menus and dialogs are closed.",
+   "scene": "",
+   "never": [
+    "The requested rectangle is already selected.",
+    "A range picker popup is open.",
+    "The selection extends beyond the grid.",
+    "A conditional-formatting dialog is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The formula field sits above the grid, the sheet tabs sit below it, and the status readout runs along the bottom.",
+     "traits": ""
+    },
+    {
+     "text": "The formula field sits beside the top of the grid, while the sheet tabs and status readout sit beneath it.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "formula",
+   "screen": "The sheet shows a header row and populated records, with a target cell awaiting the requested formula. A formula field sits by the grid, and the status readout is visible; menus and dialogs are closed.",
+   "scene": "",
+   "never": [
+    "The target cell already contains the requested formula.",
+    "A formula suggestion popup is open.",
+    "The target cell displays the completed formula's result.",
+    "A conditional-formatting dialog is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The formula field runs above the grid, with the sheet tabs and status readout below.",
+     "traits": ""
+    },
+    {
+     "text": "The formula field sits to the right of the grid's top edge, and the sheet tabs and status readout sit below the grid.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "sort",
+   "screen": "The sheet shows a header row above populated records in their starting order. Column headers, the formula field, sheet tabs, and status readout are visible; the sort menu is closed.",
+   "scene": "",
+   "never": [
+    "The requested sort has already reordered the records.",
+    "A sort menu is open.",
+    "Only one column's cells have moved while the rest of each record stayed in place.",
+    "The header row has moved into the data rows."
+   ],
+   "arrangements": [
+    {
+     "text": "Column headers sit directly above the records, the formula field sits above the grid, and the sheet tabs and status readout sit below.",
+     "traits": ""
+    },
+    {
+     "text": "Column headers sit directly above the records, the formula field sits beside the grid's top edge, and the status readout sits beneath the sheet tabs.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "filter",
+   "screen": "The sheet shows a header row and all starting records, including the categorical values in the column to filter. Column headers, the formula field, sheet tabs, and status readout are visible; the filter menu is closed.",
+   "scene": "",
+   "never": [
+    "Records outside the requested category are already hidden.",
+    "A filter menu is open.",
+    "A category option list is open.",
+    "Filtered records appear in a separate results panel."
+   ],
+   "arrangements": [
+    {
+     "text": "Column headers sit above the records, the formula field sits above the grid, and the sheet tabs and status readout sit below.",
+     "traits": ""
+    },
+    {
+     "text": "Column headers sit above the records, the formula field sits beside the grid's top edge, and the status readout sits below the sheet tabs.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "condfmt",
+   "screen": "The sheet shows a header row and populated records, with a conditional-formatting control near the grid. No new comparison rule or fill is applied, and the rule dialog is closed.",
+   "scene": "",
+   "never": [
+    "The conditional-formatting dialog is already open.",
+    "The requested fill is already applied to matching cells.",
+    "A color palette is open.",
+    "A separate legend of matching values is displayed."
+   ],
+   "arrangements": [
+    {
+     "text": "The conditional-formatting control sits above the grid beside the formula field, with the sheet tabs and status readout below.",
+     "traits": ""
+    },
+    {
+     "text": "The conditional-formatting control sits beside the grid, while the formula field runs above it and the sheet tabs and status readout sit below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

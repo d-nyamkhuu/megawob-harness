@@ -1,0 +1,225 @@
+{
+ "task": "type-text",
+ "identity": "A labeled form with text fields, password fields, or a text area, and an in-app action button on forms that require saving or signing in.",
+ "scenarios": [
+  {
+   "name": "single",
+   "screen": "One labeled text field is empty.",
+   "scene": "",
+   "never": [
+    "A text picker is open.",
+    "A second field is shown.",
+    "Text is already entered in the field."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the field.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "transform",
+   "screen": "One labeled text field is empty; the requested text change appears in the task instruction.",
+   "scene": "",
+   "never": [
+    "The transformed answer is already in the field.",
+    "A separate source-text field is shown.",
+    "A transformation menu is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the field.",
+     "traits": ""
+    }
+   ],
+   "hint": "Do not fill in the transformed answer."
+  },
+  {
+   "name": "password",
+   "screen": "Two labeled, empty, masked fields ask for a password and its confirmation.",
+   "scene": "",
+   "never": [
+    "Either password is visible as plain text.",
+    "A generated-password panel is open.",
+    "A third password box is shown."
+   ],
+   "arrangements": [
+    {
+     "text": "The password field sits above the confirmation field, with each label above its box.",
+     "traits": ""
+    },
+    {
+     "text": "The two fields sit side by side, with each label above its box.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "login",
+   "screen": "An empty username or email field sits with an empty masked password field and an in-app Sign in button.",
+   "scene": "",
+   "never": [
+    "A signed-in account panel is shown.",
+    "An incorrect-credentials message is visible.",
+    "The password is shown as plain text.",
+    "A confirmation-password field is shown."
+   ],
+   "arrangements": [
+    {
+     "text": "The username or email field sits above the password field, with Sign in below both.",
+     "traits": ""
+    },
+    {
+     "text": "The two fields sit in one row, with Sign in below the row.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show empty username/email and password fields matching the requested identifier type; no successful login state."
+  },
+  {
+   "name": "multi",
+   "screen": "A form typically shows four labeled fields in form order. Scored fields start empty; a disabled look-alike, when present, holds a fixed value. Forms that require saving show an in-app Save button.",
+   "scene": "",
+   "never": [
+    "Twelve editable fields are shown.",
+    "A date picker or other picker is open.",
+    "An error message from a save attempt is visible.",
+    "A tab or collapsible section hides part of the form."
+   ],
+   "arrangements": [
+    {
+     "text": "The fields run down one column in form order, with Save below the last field.",
+     "traits": ""
+    },
+    {
+     "text": "The fields occupy two columns in form order, with Save below the columns.",
+     "traits": ""
+    }
+   ],
+   "hint": "Do not prefill values."
+  },
+  {
+   "name": "textarea",
+   "screen": "An empty labeled multi-line text area is shown. Some forms also show an empty one-line field or a character counter.",
+   "scene": "",
+   "never": [
+    "The requested lines are already entered.",
+    "A separate box is shown for every requested line.",
+    "A file attachment tray is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the text area, with a counter below it when one is present.",
+     "traits": ""
+    },
+    {
+     "text": "A one-line companion field sits above the text area, with each label beside its field.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "copy",
+   "screen": "A labeled source field already contains text, and a labeled destination field is empty. Some forms include one more field to fill and an in-app Save button.",
+   "scene": "",
+   "never": [
+    "The destination already contains the copied value.",
+    "A clipboard history panel is open.",
+    "The source value appears only in the instruction."
+   ],
+   "arrangements": [
+    {
+     "text": "The source field sits above the destination field, with Save below the fields when present.",
+     "traits": ""
+    },
+    {
+     "text": "The source field sits to the left of the destination field, with Save below them when present.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "validation-fix",
+   "screen": "Every field is filled. One field shows an inline validation error from a failed save, and an in-app Save or Update button is available.",
+   "scene": "",
+   "never": [
+    "All fields are empty.",
+    "Two fields show inline errors.",
+    "A successful-save message is visible.",
+    "An error dialog covers the form."
+   ],
+   "arrangements": [
+    {
+     "text": "The fields run down one column, with the error directly below its field and the action button below the form.",
+     "traits": ""
+    },
+    {
+     "text": "The fields occupy two columns, with the error directly below its field and the action button below both columns.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "sections",
+   "screen": "A settings form has several labeled fields holding current values across tabs or collapsible sections. The first section is open, the others are closed, and an in-app Save button is shown.",
+   "scene": "",
+   "never": [
+    "Every section is open at once.",
+    "A non-first section is open initially.",
+    "All current values are blank.",
+    "A separate save button is shown inside every section."
+   ],
+   "arrangements": [
+    {
+     "text": "Tabs sit above the fields of the first section, with Save below the visible fields.",
+     "traits": "panes=tabs"
+    },
+    {
+     "text": "Section headers run down the form; the first expands to show its fields, with Save below the sections.",
+     "traits": "panes=accordion"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "complete",
+   "screen": "A partly filled form shows required and optional fields, with some required fields empty and an in-app Save button. A contact card beside the form supplies the missing values when the task uses a card.",
+   "scene": "",
+   "never": [
+    "Every required field is already filled.",
+    "The optional fields with no source data are filled.",
+    "A field picker is open.",
+    "The contact card has editable fields."
+   ],
+   "arrangements": [
+    {
+     "text": "The form sits to the left of the contact card, with Save below the form.",
+     "traits": "source=card"
+    },
+    {
+     "text": "The contact card sits to the left of the form, with Save below the form.",
+     "traits": "source=card"
+    },
+    {
+     "text": "The form stands alone, with Save below its fields.",
+     "traits": "source=instruction"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

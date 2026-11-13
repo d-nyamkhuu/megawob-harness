@@ -1,0 +1,195 @@
+{
+ "task": "protect-privacy",
+ "identity": "A set of everyday app screens where a person completes a form, sharing, support, privacy, or account task using the controls and personal details shown on the page.",
+ "scenarios": [
+  {
+   "name": "wrongfield",
+   "screen": "A form has several ordinary fields and one extra field asking for a sensitive detail. A profile card beside the form shows the person's details; the form fields are empty.",
+   "scene": "",
+   "never": [
+    "The sensitive detail already entered in the extra field",
+    "A confirmation message",
+    "A browser autofill picker"
+   ],
+   "arrangements": [
+    {
+     "text": "The profile card sits to the right of a vertical stack of form fields.",
+     "traits": ""
+    },
+    {
+     "text": "The profile card sits above the form, whose fields run in two columns.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "share",
+   "screen": "A document page shows its title and a Share control. The sharing dialog is closed, with no recipient search or access menu open.",
+   "scene": "",
+   "never": [
+    "A recipient suggestion list already open",
+    "A public link already enabled",
+    "An outside recipient already added"
+   ],
+   "arrangements": [
+    {
+     "text": "The document title sits above the document area, with the Share control beside the title.",
+     "traits": ""
+    },
+    {
+     "text": "The document title sits above the document area, with the Share control at the opposite end of the document header.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "overshare",
+   "screen": "A support conversation asks for a few account or order details. The person's notes show the requested details alongside sensitive information, and the reply box is empty.",
+   "scene": "",
+   "never": [
+    "A reply containing a secret already sent",
+    "A filled reply draft",
+    "A completed support case confirmation"
+   ],
+   "arrangements": [
+    {
+     "text": "The support conversation fills the left side, with the notes to its right and the reply box below the conversation.",
+     "traits": ""
+    },
+    {
+     "text": "The support conversation sits above the reply box, with the notes in a narrow column on the left.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "redact",
+   "screen": "A report page contains several readable personal details. Redact and black Highlighter tools are available; no text is marked, highlighted, or permanently redacted.",
+   "scene": "",
+   "never": [
+    "Black boxes already covering text",
+    "Redaction marks already applied",
+    "An exported-file confirmation"
+   ],
+   "arrangements": [
+    {
+     "text": "The report page occupies the center, with the Redact and Highlighter tools in a row above it.",
+     "traits": ""
+    },
+    {
+     "text": "The report page occupies the right side, with the Redact and Highlighter tools in a vertical strip to its left.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "permissions",
+   "screen": "The site page shows the activity that needs device access. The browser asks about the first permission, while the lock-icon site-settings panel is closed and the activity is unfinished.",
+   "scene": "",
+   "never": [
+    "Two permission prompts open together",
+    "The site-settings panel already open",
+    "The activity already completed"
+   ],
+   "arrangements": [
+    {
+     "text": "The activity area is centered on the page, with the permission prompt above it.",
+     "traits": ""
+    },
+    {
+     "text": "The activity area fills the right side of the page, with the permission prompt over its upper edge.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "autofill",
+   "screen": "A checkout address form shows empty visible address fields. The browser autofill list is closed, and the hidden fields do not appear on the page.",
+   "scene": "",
+   "never": [
+    "The autofill list already open",
+    "Hidden card or identity fields visible in the form",
+    "An address already filled or accepted"
+   ],
+   "arrangements": [
+    {
+     "text": "The address fields form one vertical column beneath the address heading.",
+     "traits": ""
+    },
+    {
+     "text": "The name fields share a row above a full-width street field, with city, region, and postal code below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "export",
+   "screen": "A table shows several rows and columns, including personal-data columns. The export dialog is closed; its presets, column checkboxes, and format choices are not yet visible.",
+   "scene": "",
+   "never": [
+    "The export dialog already open",
+    "A completed export confirmation",
+    "Personal columns already removed from the displayed table"
+   ],
+   "arrangements": [
+    {
+     "text": "The table spans the task area, with its column headings above the rows and the export control above the table.",
+     "traits": ""
+    },
+    {
+     "text": "The table occupies the right side of the task area, with the export control aligned beside its heading.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "visibility",
+   "screen": "A post task shows a filled draft with its audience set to Public; a profile task shows filled profile fields with their current audiences. Audience menus are closed, and nothing has been posted or saved.",
+   "scene": "",
+   "never": [
+    "An audience menu already open",
+    "A post already published",
+    "A saved-profile confirmation"
+   ],
+   "arrangements": [
+    {
+     "text": "The draft or profile fields form a vertical stack, with each audience control beside its content.",
+     "traits": ""
+    },
+    {
+     "text": "The audience controls sit in a column to the right of the draft or profile fields.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "retention",
+   "screen": "The account's Data & privacy page lists several data categories with selection controls. The download or deletion task is unfinished, and recipient and confirmation menus are closed.",
+   "scene": "",
+   "never": [
+    "A completed download request",
+    "Categories already deleted",
+    "A recipient menu or deletion confirmation already open"
+   ],
+   "arrangements": [
+    {
+     "text": "The category list runs vertically beneath the data-request heading, with a selection control beside each category.",
+     "traits": ""
+    },
+    {
+     "text": "The categories form two columns beneath the data-request heading, with each selection control beside its category name.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

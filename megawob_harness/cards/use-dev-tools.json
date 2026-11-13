@@ -1,0 +1,111 @@
+{
+ "task": "use-dev-tools",
+ "identity": "A developer workspace with task-specific lists, details, and controls for reviewing code, retrying jobs, inspecting logs and records, and changing feature rules.",
+ "scenarios": [
+  {
+   "name": "prcomment",
+   "screen": "A pull-request diff shows a file and its numbered code lines, with controls for adding a line comment and approving the review. The requested comment has not been posted, and the review is not approved.",
+   "scene": "",
+   "never": [
+    "The requested line comment already posted.",
+    "The review already approved.",
+    "A merge confirmation open before any review action."
+   ],
+   "arrangements": [
+    {
+     "text": "The file heading sits above the diff, with line numbers beside the code and review controls below it.",
+     "traits": ""
+    },
+    {
+     "text": "The diff occupies the left side of the task area, with the comment editor and review controls on the right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "rerun",
+   "screen": "A pipeline view shows a graph or list of jobs, including a failed job, with job status and retry controls. The failed job has no new retry attempt yet.",
+   "scene": "",
+   "never": [
+    "The requested job already retried successfully.",
+    "A new retry attempt already listed.",
+    "A deploy confirmation open before the retry control is used."
+   ],
+   "arrangements": [
+    {
+     "text": "The pipeline jobs run across the task area, with each job's status beside its name and the selected job's controls beneath the graph.",
+     "traits": ""
+    },
+    {
+     "text": "The jobs form a vertical list on the left, with the selected job's status and retry control on the right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "logs",
+   "screen": "A log explorer shows search, service, and severity controls above timestamped event rows. The search is empty, no event is selected for investigation, and the event details are closed.",
+   "scene": "",
+   "never": [
+    "The requested event already marked for investigation.",
+    "A search query already filled with the requested message.",
+    "A selected event's detail panel open on load."
+   ],
+   "arrangements": [
+    {
+     "text": "Search and filter controls sit above the log rows, with timestamps and event messages aligned across each row.",
+     "traits": ""
+    },
+    {
+     "text": "Search and filter controls sit to the left of the log list, with event details opening beside the list after selection.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "dbrow",
+   "screen": "A database inspector shows account records with their identifiers and saved values, including quota limits. A quota editor and save control are available, and the requested new quota has not been saved.",
+   "scene": "",
+   "never": [
+    "The requested quota already saved in the record.",
+    "A save confirmation open on load.",
+    "An unrelated database table shown in place of accounts."
+   ],
+   "arrangements": [
+    {
+     "text": "Account rows occupy the left side, with the selected record's fields and save control on the right.",
+     "traits": ""
+    },
+    {
+     "text": "Account rows sit above a record form, with the quota field and save control below the other fields.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "flag",
+   "screen": "A feature-management view shows flags, environment and segment selectors, and a control for the selected scope's enabled state. The requested scoped change has not been saved.",
+   "scene": "",
+   "never": [
+    "The requested scope already showing the newly saved setting.",
+    "A configuration version increment caused by the requested change.",
+    "A confirmation dialog open before the setting is changed."
+   ],
+   "arrangements": [
+    {
+     "text": "Flags appear in a list on the left, with environment and segment selectors above the selected flag's state control on the right.",
+     "traits": ""
+    },
+    {
+     "text": "Environment and segment selectors sit above a flag list, with each flag's state control beside its name.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

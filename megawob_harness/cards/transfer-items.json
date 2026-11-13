@@ -1,0 +1,135 @@
+{
+ "task": "transfer-items",
+ "identity": "A dual listbox with Available items on the left, Selected items on the right, and controls for moving items between them.",
+ "scenarios": [
+  {
+   "name": "move",
+   "screen": "About seven items are split between the Available and Selected lists, with some items already on the right. Four arrow buttons move selected items or whole lists between the two sides. No popup is open.",
+   "scene": "",
+   "never": [
+    "A filter box above either list.",
+    "Up and Down reorder buttons.",
+    "An item floating between the lists on load."
+   ],
+   "arrangements": [
+    {
+     "text": "Available is left of Selected, with the four arrow buttons in a vertical group between the lists.",
+     "traits": ""
+    },
+    {
+     "text": "Available is left of Selected, with the four arrow buttons in a row below the lists.",
+     "traits": "controls=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "filter",
+   "screen": "About thirty items are divided between Available and Selected. Each list has an empty filter box above it, and a list with more matches than its visible row limit shows a '+N more, refine the filter' line. The transfer arrows are visible and no popup is open.",
+   "scene": "",
+   "never": [
+    "All thirty items displayed as rows in one list at once.",
+    "A filter suggestion popup open on load.",
+    "Up and Down reorder buttons."
+   ],
+   "arrangements": [
+    {
+     "text": "Available is left of Selected, each filter sits directly above its list, and the transfer arrows sit between the lists.",
+     "traits": ""
+    },
+    {
+     "text": "Available is left of Selected, each filter sits directly above its list, and the transfer arrows sit below the two lists.",
+     "traits": "controls=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "ordered",
+   "screen": "About eight items are split between Available and Selected, with some items already on the right. Transfer arrows sit between the lists, and Up and Down buttons reorder the Selected list. No popup is open.",
+   "scene": "",
+   "never": [
+    "A filter box above either list.",
+    "The target items already arranged in their required order.",
+    "A dragged row hovering over a reorder slot on load."
+   ],
+   "arrangements": [
+    {
+     "text": "Available is left of Selected, transfer arrows sit between them, and Up and Down sit beside the Selected list.",
+     "traits": ""
+    },
+    {
+     "text": "Available is left of Selected, transfer arrows sit between them, and Up and Down sit below the Selected list.",
+     "traits": "reorder-controls=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "multi",
+   "screen": "About eleven items appear in Available, while Selected is empty. The transfer arrows are visible, and no item is selected or being dragged on load. No popup is open.",
+   "scene": "",
+   "never": [
+    "Items already in Selected.",
+    "A completed transfer shown on load.",
+    "A filter box above either list.",
+    "Up and Down reorder buttons."
+   ],
+   "arrangements": [
+    {
+     "text": "The filled Available list is left of the empty Selected list, with transfer arrows between them.",
+     "traits": ""
+    },
+    {
+     "text": "The filled Available list is left of the empty Selected list, with transfer arrows below the lists.",
+     "traits": "controls=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "range",
+   "screen": "About thirteen items start together in one list: a rightward task fills Available and leaves Selected empty, while a leftward task fills Selected and leaves Available empty. The transfer arrows are visible, with no selection or popup open.",
+   "scene": "",
+   "never": [
+    "The items already split between the two lists.",
+    "A range highlighted on load.",
+    "A filter box above either list.",
+    "Up and Down reorder buttons."
+   ],
+   "arrangements": [
+    {
+     "text": "Available is left of Selected, with transfer arrows in a vertical group between the lists.",
+     "traits": ""
+    },
+    {
+     "text": "Available is left of Selected, with transfer arrows in a row below the lists.",
+     "traits": "controls=below"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "rangemix",
+   "screen": "About thirteen items start together in one list: a rightward task fills Available and leaves Selected empty, while a leftward task fills Selected and leaves Available empty. The transfer arrows are visible, with no selection or popup open.",
+   "scene": "",
+   "never": [
+    "The range, its exceptions, or its added items highlighted on load.",
+    "Items already split between the lists.",
+    "A filter box above either list.",
+    "A separate tray for excluded or added items."
+   ],
+   "arrangements": [
+    {
+     "text": "Available is left of Selected, with transfer arrows in a vertical group between the lists.",
+     "traits": ""
+    },
+    {
+     "text": "Available is left of Selected, with transfer arrows in a row below the lists.",
+     "traits": "controls=below"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

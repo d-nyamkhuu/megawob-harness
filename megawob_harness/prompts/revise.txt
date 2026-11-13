@@ -1,0 +1,7 @@
+Edit the attached image. Make only this correction: {note}
+Keep everything else identical: style, colors, era, composition, content, task state and text.
+
+For reference, the request the attached image was made from:
+---
+{original}
+---

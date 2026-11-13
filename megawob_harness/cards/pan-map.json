@@ -1,0 +1,153 @@
+{
+ "task": "pan-map",
+ "identity": "A draggable map with place markers, zoom controls, and task-specific tools for selecting places, dropping a pin, planning a route, or drawing a delivery zone.",
+ "scenarios": [
+  {
+   "name": "marker",
+   "screen": "The map shows roads, geographic features, district names, and some of roughly 20 named places. The requested place is outside the initial view; zoom controls and place search are visible, and no place card is open.",
+   "scene": "",
+   "never": [
+    "The requested place already selected.",
+    "A place card open.",
+    "The requested marker inside the initial viewport."
+   ],
+   "arrangements": [
+    {
+     "text": "The map fills the task area, with search along its top edge and zoom controls in its upper-left corner.",
+     "traits": ""
+    },
+    {
+     "text": "Search sits to the left of the map, with zoom controls in the map's upper-right corner.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "center",
+   "screen": "The map shows roads, geographic features, district names, and visible place markers, with a circular reticle fixed at its centre. Search and zoom controls are visible; no place is selected and no card is open.",
+   "scene": "",
+   "never": [
+    "The requested place already inside the centre reticle.",
+    "A place card open.",
+    "A route or delivery boundary drawn on the map."
+   ],
+   "arrangements": [
+    {
+     "text": "The map fills the task area, with the reticle at its centre, search along the top edge, and zoom controls in the upper-left corner.",
+     "traits": ""
+    },
+    {
+     "text": "Search sits to the left of the map, while the reticle stays at the map's centre and zoom controls sit in its upper-right corner.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "zoom",
+   "screen": "The map shows roads, geographic features, district names, and the place markers visible at its starting level. Zoom controls and search are visible; the requested place is unselected and no place card is open.",
+   "scene": "",
+   "never": [
+    "The requested place already selected.",
+    "A place card open.",
+    "Every small place label displayed regardless of zoom level."
+   ],
+   "arrangements": [
+    {
+     "text": "The map fills the task area, with search along its top edge and the plus and minus controls in its upper-left corner.",
+     "traits": ""
+    },
+    {
+     "text": "Search sits to the left of the map, and the plus and minus controls sit in the map's upper-right corner.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "pin",
+   "screen": "The map shows roads, geographic features, district names, and visible place markers. A place or address search and pin-editing controls are visible; the search is empty, its suggestions are closed, and no pin has been placed.",
+   "scene": "",
+   "never": [
+    "A dropped pin already on the map.",
+    "An open search suggestion list.",
+    "A route or closed delivery boundary drawn on the map."
+   ],
+   "arrangements": [
+    {
+     "text": "The map fills the task area, with search and pin controls above it and zoom controls in its upper-left corner.",
+     "traits": ""
+    },
+    {
+     "text": "Search and pin controls sit to the left of the map, with zoom controls in the map's upper-right corner.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "route",
+   "screen": "The map shows roads, geographic features, district names, and visible place markers. An ordered set of numbered waypoint handles and map controls is visible; no waypoint has been placed and no route is drawn.",
+   "scene": "",
+   "never": [
+    "A waypoint already placed on a destination.",
+    "A route line already connecting stops.",
+    "A closed delivery polygon."
+   ],
+   "arrangements": [
+    {
+     "text": "The numbered waypoint handles sit beside the left edge of the map, with zoom controls in the map's upper-left corner.",
+     "traits": ""
+    },
+    {
+     "text": "The numbered waypoint handles sit below the map in visit order, with zoom controls in the map's upper-right corner.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "zone",
+   "screen": "The map shows roads, geographic features, district names, and visible places or addresses. Zone editing controls are visible; the vertex list is empty and no delivery boundary or filled area is drawn.",
+   "scene": "",
+   "never": [
+    "A polygon vertex already placed.",
+    "A closed or filled delivery area.",
+    "A route line connecting numbered stops."
+   ],
+   "arrangements": [
+    {
+     "text": "The map fills the task area, with zone editing controls to its left and zoom controls in its upper-left corner.",
+     "traits": ""
+    },
+    {
+     "text": "Zone editing controls sit below the map, with zoom controls in the map's upper-right corner.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "zoomto",
+   "screen": "The map shows roads, geographic features, district names, and place markers visible at its starting level. Search and zoom controls are visible; the requested place is away from the map centre and no place card is open.",
+   "scene": "",
+   "never": [
+    "The requested place already centred at the requested level.",
+    "A place card open.",
+    "A dropped pin or route line on the map."
+   ],
+   "arrangements": [
+    {
+     "text": "The map fills the task area, with search along its top edge and zoom controls in its upper-left corner.",
+     "traits": ""
+    },
+    {
+     "text": "Search sits to the left of the map, with zoom controls in the map's upper-right corner.",
+     "traits": "skin placement"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

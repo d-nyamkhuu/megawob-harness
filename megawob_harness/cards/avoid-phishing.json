@@ -1,0 +1,237 @@
+{
+ "task": "avoid-phishing",
+ "identity": "A set of offline sign-in, email, document, calendar-permission, chat, and payment widgets where the user checks visible details before acting.",
+ "scenarios": [
+  {
+   "name": "login",
+   "screen": "A sign-in form inside an identity portal frame shows a username field, a password field, and a sign-in control. Both fields are empty.",
+   "scene": "",
+   "never": [
+    "A password already entered in the normal unsolved start.",
+    "A completed sign-in result.",
+    "A separate code-entry popup."
+   ],
+   "arrangements": [
+    {
+     "text": "The username field sits above the password field, with the sign-in control below them inside the frame.",
+     "traits": ""
+    },
+    {
+     "text": "The username and password fields sit side by side, with the sign-in control beneath the pair inside the frame.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "link",
+   "screen": "A short email list shows senders and subjects, and the selected message area contains a document link. No document has been opened; a destination is shown when the link is hovered.",
+   "scene": "",
+   "never": [
+    "A document already open at the start.",
+    "A browser navigation to the link destination.",
+    "A hover destination shown before the link is hovered."
+   ],
+   "arrangements": [
+    {
+     "text": "The email list sits to the left of the message area, with the document link in the message area.",
+     "traits": ""
+    },
+    {
+     "text": "The email list sits above the message area, with the document link below the message details.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "session",
+   "screen": "A document review area shows the case reference and a control to mark the review complete. The review is unfinished, and the reauthentication popup is closed.",
+   "scene": "",
+   "never": [
+    "A reauthentication popup already open at the start.",
+    "A password already entered in that popup.",
+    "A completed review."
+   ],
+   "arrangements": [
+    {
+     "text": "The case reference sits above the document area, with the review control below it.",
+     "traits": ""
+    },
+    {
+     "text": "The case reference sits beside the document area, with the review control beneath the reference.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "attachment",
+   "screen": "A mail area shows a message with an attachment name and a control to open the attachment. The attachment preview is closed.",
+   "scene": "",
+   "never": [
+    "An attachment preview already open at the start.",
+    "An executable file running.",
+    "A document already marked as opened."
+   ],
+   "arrangements": [
+    {
+     "text": "The message details sit above the attachment row, with the open control beside the filename.",
+     "traits": ""
+    },
+    {
+     "text": "The message details sit to the left of the attachment row, with the open control below the filename.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "report",
+   "screen": "An inbox shows a few messages with sender and subject details and controls to report impersonation or keep a genuine notification. None has been reported or kept.",
+   "scene": "",
+   "never": [
+    "Every message already triaged.",
+    "A phishing message's requested action already followed.",
+    "A separate report-confirmation popup open at the start."
+   ],
+   "arrangements": [
+    {
+     "text": "The message rows run vertically, with report and keep controls at the end of each row.",
+     "traits": ""
+    },
+    {
+     "text": "The message rows sit above a message detail area, with report and keep controls beside the selected message details.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "mfa",
+   "screen": "A document review area shows the case reference and an unfinished review, alongside a chat request concerning a login code. The code-reply field is empty.",
+   "scene": "",
+   "never": [
+    "A login code already sent to the requester.",
+    "A completed document review.",
+    "A code already entered in the reply field."
+   ],
+   "arrangements": [
+    {
+     "text": "The document area sits to the left of the chat, with the code-reply field below the chat messages.",
+     "traits": ""
+    },
+    {
+     "text": "The document area sits above the chat, with the code-reply field beneath the request.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "oauth",
+   "screen": "A calendar connector request shows the connector name, a list of requested permissions, and a control to grant access. No permission has been granted.",
+   "scene": "",
+   "never": [
+    "A connector already authorized.",
+    "A calendar event picker open at the start.",
+    "A permission listed as granted before approval."
+   ],
+   "arrangements": [
+    {
+     "text": "The connector name sits above the permission list, with the access control below the list.",
+     "traits": ""
+    },
+    {
+     "text": "The connector name sits to the left of the permission list, with the access control beneath the permissions.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "wire",
+   "screen": "A short payment queue shows invoice requests with amounts and bank details, alongside vendor-master information for comparison. The requests have no payment decisions yet.",
+   "scene": "",
+   "never": [
+    "All requests already paid.",
+    "A real bank transfer in progress.",
+    "A request already moved outside the queue."
+   ],
+   "arrangements": [
+    {
+     "text": "The request rows sit to the left of the vendor-master details, with decision controls beside each request.",
+     "traits": ""
+    },
+    {
+     "text": "The request rows sit above the vendor-master details, with decision controls beneath the selected request.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "giftcard",
+   "screen": "A chat shows a manager's purchasing request and the sender's address, with controls for handling the request. No cards have been bought and no codes have been sent.",
+   "scene": "",
+   "never": [
+    "Gift-card codes already visible as a completed purchase.",
+    "Codes already sent in the conversation.",
+    "A separate store checkout open at the start."
+   ],
+   "arrangements": [
+    {
+     "text": "The sender details sit above the chat messages, with request controls below the conversation.",
+     "traits": ""
+    },
+    {
+     "text": "The sender details sit beside the chat messages, with request controls beneath the purchasing request.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "callback",
+   "screen": "A support request shows the case reference, the requester's contact details, and controls for handling the request. No call has been made and no remote access has been allowed.",
+   "scene": "",
+   "never": [
+    "A call already connected.",
+    "A remote-access session open.",
+    "The support request already completed."
+   ],
+   "arrangements": [
+    {
+     "text": "The case reference sits above the request details, with handling controls below them.",
+     "traits": ""
+    },
+    {
+     "text": "The case reference and contact details sit beside the request text, with handling controls beneath the text.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "invoice",
+   "screen": "An invoice for one case shows its amount and bank details beside the vendor-master record, with a payment decision control. The invoice is unpaid and no decision has been made.",
+   "scene": "",
+   "never": [
+    "The invoice already paid.",
+    "A real payment confirmation.",
+    "A bank account picker open at the start."
+   ],
+   "arrangements": [
+    {
+     "text": "The invoice details sit to the left of the vendor-master record, with the payment control below the comparison.",
+     "traits": ""
+    },
+    {
+     "text": "The invoice details sit above the vendor-master record, with the payment control beneath both sets of details.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

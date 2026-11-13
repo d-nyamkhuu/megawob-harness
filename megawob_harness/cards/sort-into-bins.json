@@ -1,0 +1,135 @@
+{
+ "task": "sort-into-bins",
+ "identity": "A board where shapes or files are dragged into boxes, folders, or a framed area to satisfy a placement goal.",
+ "scenarios": [
+  {
+   "name": "single",
+   "screen": "One shape sits outside one unlabeled box on the board. The box is empty.",
+   "scene": "",
+   "never": [
+    "A second box",
+    "More than one draggable shape",
+    "A shape already fully inside the box"
+   ],
+   "arrangements": [
+    {
+     "text": "The box and shape occupy separate areas of the board.",
+     "traits": ""
+    },
+    {
+     "text": "A wide box sits on one side of the board, with a large shape opposite it at the same height.",
+     "traits": "layout=central"
+    },
+    {
+     "text": "A wide box sits above the shape.",
+     "traits": "layout=rows"
+    },
+    {
+     "text": "The shape sits to the left of the box.",
+     "traits": "itemsAt=left"
+    }
+   ],
+   "hint": "Put the one target colored shape outside an empty rectangular container large enough to contain it fully. Preserve the exact requested color and shape."
+  },
+  {
+   "name": "collect",
+   "screen": "About six shapes and one unlabeled box appear on the board. In a collection task the shapes start outside the box; in a removal task they start inside it.",
+   "scene": "",
+   "never": [
+    "A color label on the box",
+    "A folder window",
+    "A shape palette for creating copies"
+   ],
+   "arrangements": [
+    {
+     "text": "The shapes are scattered around the box.",
+     "traits": ""
+    },
+    {
+     "text": "One large box sits in the middle, with shapes in tidy columns on both sides.",
+     "traits": "layout=central"
+    },
+    {
+     "text": "The box sits above tidy rows of shapes.",
+     "traits": "layout=rows"
+    },
+    {
+     "text": "Two unlabeled boxes sit side by side, with the shapes in rows below them.",
+     "traits": "layout=rows, containers=two boxes"
+    }
+   ],
+   "hint": "Show several target-colored shapes and several other-colored distractors outside one large empty rectangular bin."
+  },
+  {
+   "name": "sort",
+   "screen": "Several shapes sit outside two or three boxes. The boxes carry category labels, except when two boxes are identified by position.",
+   "scene": "",
+   "never": [
+    "Only one sorting box",
+    "Files or folder icons",
+    "Shapes already straddling box edges"
+   ],
+   "arrangements": [
+    {
+     "text": "The boxes occupy separate areas of the board, with shapes scattered outside them.",
+     "traits": ""
+    },
+    {
+     "text": "Wide boxes sit side by side above tidy rows of shapes.",
+     "traits": "layout=rows"
+    },
+    {
+     "text": "The boxes stack vertically, with the shapes in a tidy block beside them.",
+     "traits": "itemsAt=left, orient=column"
+    },
+    {
+     "text": "Three boxes form two columns, with two above one; the shapes sit in rows below.",
+     "traits": "layout=rows, orient=grid"
+    }
+   ],
+   "hint": "Show exactly the requested named color categories as separate large labeled rectangular bins; all shapes start outside bins and their fill matches a bin label."
+  },
+  {
+   "name": "desk",
+   "screen": "About five file icons sit on a desktop with folder icons and a Trash target. The folder window is closed, and the files remain visible on the desktop.",
+   "scene": "",
+   "never": [
+    "An open folder window",
+    "A file list visible inside a folder",
+    "Shape boxes or a shape palette"
+   ],
+   "arrangements": [
+    {
+     "text": "Folder icons and Trash occupy their desktop positions, with file icons spread across the remaining desktop area.",
+     "traits": ""
+    },
+    {
+     "text": "Folder icons and Trash stay in place while the file icons occupy different free positions across the desktop.",
+     "traits": "sampled file positions"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "palette",
+   "screen": "A palette holds shape templates beside a canvas containing a frame. The canvas has no placed copies, so the frame is empty.",
+   "scene": "",
+   "never": [
+    "A copy already placed in the frame",
+    "A folder or Trash icon",
+    "A popup or open picker"
+   ],
+   "arrangements": [
+    {
+     "text": "Shape templates occupy the palette area beside the canvas, and the frame sits within the canvas.",
+     "traits": ""
+    },
+    {
+     "text": "The palette and canvas keep their positions, with a different selection of templates occupying the palette slots.",
+     "traits": "sampled templates"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}
