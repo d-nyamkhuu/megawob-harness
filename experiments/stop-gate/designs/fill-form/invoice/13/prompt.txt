@@ -1,0 +1,24 @@
+Use case: ui-mockup
+Asset type: one straight-on, full-window screenshot of a native desktop application with authentic window, menu and control conventions, landscape 16:9 (a 1536x864 window), crisp and readable at 100% zoom. No monitor, room, hands, collage, captions or design annotations.
+
+The screen is for this task: Copy the values from a document on the page into a web form. "document-to-form lite". The page shows a source document and a web form; the agent copies the values from the document into the form, leaves fields blank when the document does not contain them, and finishes (task fill-form, scenario invoice; the user acts with: pointer, keyboard, wheel).
+The user's goal on this screen (context only; do NOT print it anywhere in the image): "Please use form formats for values supplied by the receipt; fields without source data stay empty."
+
+Era and visual language: 2020; e-ink-inspired desktop; warm grayscale, very sharp black lines, large serif content, monochrome outlined controls and visible focus patterns.
+Window arrangement (follow every line; it is what sets this design apart from the other designs of this task):
+- Navigation: the app's navigation is a bar, dock or tab bar along the bottom edge.
+- Task area: a content band (record header, summary, banner or tool block) fills the top 25-35% of the content region; the task area fills the part below it.
+- Secondary content (required, keep it visible): the secondary content is a properties or details inspector.
+- Inside the task area: The document sits on the left and the form sits on the right.
+The task area takes at least half of the window. Everything fits in the window; long lists scroll inside their own pane.
+The task widget: A source document sits beside a web form where values from the document are entered into labeled fields.
+What the app shows at this moment (the start of the episode): An invoice or till receipt shows a header and line items beside a form with several fields for document details and amounts. Text fields start empty, a few choices can have defaults, and dropdown lists are closed.
+The app can never show (do not draw): An open calendar picker; An open dropdown list; A portrait on the source document; A completed form review page.
+Also (where it agrees with the above): Provide a readable invoice/receipt with Invoice number INV-1042, Date 2026-09-12, Vendor Polar Freight, Total 148.50 USD. Matching empty fields plus optional PO number absent from source; leave it blank.
+
+Leave the episode frame out, but keep room for it:
+- No task note, goal or instruction text anywhere. The header or title area, a side region and a corner are where this app would put one; they look complete without it (no empty box, no placeholder).
+- No Submit, Done, Finish or similar end-of-task button or link, and no button that commits or closes the whole screen (Save, OK, Apply, Confirm, Cancel for the whole form or dialog). The header, toolbar or footer where it would sit looks complete without it (no gap, no orphan divider). Window title-bar controls (minimize, maximize, close) are ordinary chrome and may stay.
+- Buttons the task itself uses inside the app (Send, Delete, Apply, Next, Book, ...) are part of the app and stay.
+
+Content: realistic, consistent and readable. Every name, value and target the goal mentions matches exactly one item on the screen (that item may show in several places, such as a list row and its open view), and the goal's dates and values are used as given even when they postdate the era; the task is not solved yet and nothing highlights the answer. Colors that matter to the task are flat and clearly distinct. Do not use magenta (#FF00FF) anywhere.

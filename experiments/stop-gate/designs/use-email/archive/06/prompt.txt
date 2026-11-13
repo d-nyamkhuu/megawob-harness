@@ -1,0 +1,23 @@
+Use case: ui-mockup
+Asset type: one straight-on, full-window screenshot of a web application page shown without any browser chrome (no address bar, browser tabs, bookmarks bar or browser menus; a menu bar, if any, is the app's own), landscape 16:9 (a 1536x864 window), crisp and readable at 100% zoom. No monitor, room, hands, collage, captions or design annotations.
+
+The screen is for this task: Read, sort, reply to, forward and compose mail in a web mail client. A web mail client (folders, search, inbox list with row checkboxes, message view, compose) (task use-email, scenario archive; the user acts with: pointer, keyboard, wheel).
+The user's goal on this screen (context only; do NOT print it anywhere in the image): "Just double-checking the setup here. Put the mail from Andre away by archiving it."
+
+Era and visual language: 2019; landscape tablet app in iPadOS style; split view with a rounded sidebar column, large touch targets, SF-like system type, grouped inset lists, translucent bars, generous spacing for fingers.
+Window arrangement (follow every line; it is what sets this design apart from the other designs of this task):
+- Navigation: the app's navigation is a bar, dock or tab bar along the bottom edge.
+- Task area: a content band (record header, summary, banner or tool block) fills the top 25-35% of the content region; the task area fills the part below it.
+- Secondary content (required, keep it visible): the secondary content is a list or index of related records.
+- Inside the task area: The search field sits at the upper right of the list area; each row has a checkbox before the sender and message actions at the far right.
+The task area takes at least half of the window. Everything fits in the window; long lists scroll inside their own pane.
+The task widget: A web mail client with folders, a search field, an email list with row checkboxes, a message view, and a composer.
+What the app shows at this moment (a documented mid-task state): The target message is open, with its row scrolled into the list; it is still in the Inbox.
+The app can never show (do not draw): The target already in Archive; An Undo toast for archiving the target; A move menu already open.
+
+Leave the episode frame out, but keep room for it:
+- No task note, goal or instruction text anywhere. The header or title area, a side region and a corner are where this app would put one; they look complete without it (no empty box, no placeholder).
+- No Submit, Done, Finish or similar end-of-task button or link, and no button that commits or closes the whole screen (Save, OK, Apply, Confirm, Cancel for the whole form or dialog). The header, toolbar or footer where it would sit looks complete without it (no gap, no orphan divider). Window title-bar controls (minimize, maximize, close) are ordinary chrome and may stay.
+- Buttons the task itself uses inside the app (Send, Delete, Apply, Next, Book, ...) are part of the app and stay.
+
+Content: realistic, consistent and readable. Every name, value and target the goal mentions matches exactly one item on the screen (that item may show in several places, such as a list row and its open view), and the goal's dates and values are used as given even when they postdate the era; the task is not solved yet and nothing highlights the answer. Colors that matter to the task are flat and clearly distinct. Do not use magenta (#FF00FF) anywhere.

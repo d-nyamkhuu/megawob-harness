@@ -1,0 +1,31 @@
+design-set-slider-horizontal-13: design accepted after 1 images
+design-fill-form-invoice-13: design accepted after 1 images
+design-use-email-archive-06: design accepted after 2 images
+design-set-slider-horizontal-13: build turn 1 (gpt-6-luna) completed in 179 s, gate passed
+design-set-slider-horizontal-13 stop-gate: passed, 1 turns, 3.8 min
+design-fill-form-invoice-13: build turn 1 (gpt-6-luna) completed in 223 s, gate 17 failures
+design-fill-form-invoice-13: build turn 2 (gpt-6.1-terra) completed in 173 s, gate passed
+design-fill-form-invoice-13 no-stop-gate: passed, 2 turns, 7.8 min
+design-set-slider-horizontal-13: build turn 1 (gpt-6-luna) completed in 312 s, gate 17 failures
+design-set-slider-horizontal-13: build turn 2 (gpt-6.1-terra) completed in 87 s, gate passed
+design-set-slider-horizontal-13 no-stop-gate: passed, 2 turns, 7.5 min
+design-fill-form-invoice-13: build turn 1 (gpt-6-luna) completed in 776 s, gate 17 failures
+design-use-email-archive-06: build turn 1 (gpt-6-luna) interrupted in 1200 s, gate 2 failures
+design-use-email-archive-06: build turn 2 (gpt-6.1-terra) completed in 39 s, gate passed
+design-use-email-archive-06 stop-gate: passed, 2 turns, 21.9 min
+design-fill-form-invoice-13: build turn 2 (gpt-6.1-terra) completed in 169 s, gate 1 failures
+design-fill-form-invoice-13: build turn 3 (gpt-6.1-terra) completed in 60 s, gate passed
+design-fill-form-invoice-13 stop-gate: passed, 3 turns, 18.5 min
+design-use-email-archive-06: build turn 1 (gpt-6-luna) completed in 253 s, gate 17 failures
+design-use-email-archive-06: build turn 2 (gpt-6.1-terra) completed in 45 s, gate 1 failures
+design-use-email-archive-06: build turn 3 (gpt-6.1-terra) completed in 51 s, gate passed
+design-use-email-archive-06 no-stop-gate: passed, 3 turns, 7.2 min
+site | condition | passed | fix_rounds | first_turn_proof | stop_blocks | checks | renders | agent_minutes | minutes | tokens | output_tokens | fidelity
+design-fill-form-invoice-13 | no-stop-gate | True | 1 | False | 0 | 9 | 13 | 6.6 | 7.8 | 2902854 | 11032 | 2
+design-fill-form-invoice-13 | stop-gate | True | 2 | False | 4 | 19 | 18 | 16.7 | 18.5 | 8054808 | 37664 | 1
+design-set-slider-horizontal-13 | no-stop-gate | True | 1 | False | 0 | 12 | 5 | 6.7 | 7.5 | 1579025 | 11225 | 2
+design-set-slider-horizontal-13 | stop-gate | True | 0 | True | 0 | 1 | 6 | 3.0 | 3.8 | 483040 | 7153 | 2
+design-use-email-archive-06 | no-stop-gate | True | 2 | False | 0 | 9 | 5 | 5.8 | 7.2 | 1887533 | 10632 | 2
+design-use-email-archive-06 | stop-gate | True | 1 | False | 2 | 23 | 28 | 20.7 | 21.9 | 7594314 | 44676 | 1
+stop-gate: n=3, passed 3, fix rounds 3, median minutes 18.5, median tokens 7,594,314
+no-stop-gate: n=3, passed 3, fix rounds 4, median minutes 7.5, median tokens 1,887,533

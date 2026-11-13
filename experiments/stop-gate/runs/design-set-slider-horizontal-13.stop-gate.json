@@ -1,0 +1,93 @@
+{
+ "site": "design-set-slider-horizontal-13",
+ "design": "designs/set-slider/horizontal/13/design.json",
+ "started": "2026-11-12T21:51:30",
+ "builder": "codex:gpt-6-luna",
+ "fixer": "gpt-6.1-terra",
+ "reviewer": "codex:gpt-6.1-sol",
+ "polisher": null,
+ "settings": {
+  "minutes": 20,
+  "fix_rounds": 2,
+  "seeds": 5,
+  "stop_gate": true,
+  "max_stop_blocks": 3
+ },
+ "turns": [
+  {
+   "stage": "build",
+   "model": "gpt-6-luna",
+   "status": "completed",
+   "seconds": 178.8,
+   "tool_calls": {
+    "render": 6,
+    "check": 1
+   },
+   "stop_blocks": 0,
+   "checks": 1,
+   "proof": true,
+   "usage": {
+    "last": {
+     "cache_write_input_tokens": 0,
+     "cached_input_tokens": 46720,
+     "input_tokens": 48021,
+     "output_tokens": 266,
+     "reasoning_output_tokens": 101,
+     "total_tokens": 48287
+    },
+    "model_context_window": 258400,
+    "total": {
+     "cache_write_input_tokens": 0,
+     "cached_input_tokens": 435200,
+     "input_tokens": 475887,
+     "output_tokens": 7153,
+     "reasoning_output_tokens": 3914,
+     "total_tokens": 483040
+    }
+   },
+   "cost_usd": null,
+   "report": {
+    "done": true,
+    "fidelity": 3,
+    "remaining_differences": [
+     {
+      "what": "Editor canvas: the reference has a photographic mountain and lake scene; the render uses a CSS landscape illustration.",
+      "cause": "site"
+     },
+     {
+      "what": "Application chrome: the reference has window controls, a menu row, and a tab toolbar; these are missing from the render.",
+      "cause": "site"
+     },
+     {
+      "what": "Slider area: the render retains the template\u2019s bordered control panel and tick marks, unlike the reference\u2019s simpler slider layout.",
+      "cause": "site"
+     }
+    ],
+    "deviations": [
+     "Slider labels, values, and instructions vary by seed, as required by the task."
+    ],
+    "notes": "Small viewport and instruction-mode renders stayed on-screen. The oracle check passed.",
+    "check_token": "0ddd779b0a4e9fcd"
+   },
+   "gate": []
+  }
+ ],
+ "review": {
+  "fidelity": 2,
+  "differences": [
+   "Application frame: the desktop title bar, window controls, menu row and large icon tabs are replaced by a compact web header and an unrelated left navigation sidebar.",
+   "Photo area: the detailed mountain and lake photograph is replaced by an abstract gradient with broad diagonal bands.",
+   "Task control: the large slider beneath the photo becomes a small bordered floating card, with a thin track, tiny handle, small inline label and extra tick labels. At the comparison size it crosses into the help panel instead of occupying the left column.",
+   "Page layout: the photo is much shallower, leaving a large empty central area; the task control is detached from the photo.",
+   "Help panel: headings, body text and icons are substantially smaller, with weak heading hierarchy and tiny bullet markers compared with the design.",
+   "Surface styling: the design's subtly shaded backgrounds and prominent blue and white slider handle are replaced by flatter dark surfaces and faint control borders."
+  ],
+  "frame_issues": [
+   "The header, side-panel and notification instruction settings all display the same full-width instruction header and circular completion button; the panel and notification presentations are absent."
+  ]
+ },
+ "passed": true,
+ "fidelity": 2,
+ "minutes": 3.8,
+ "condition": "stop-gate"
+}

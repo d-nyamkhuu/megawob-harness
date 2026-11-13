@@ -1,0 +1,162 @@
+{
+ "site": "design-fill-form-invoice-13",
+ "design": "designs/fill-form/invoice/13/design.json",
+ "started": "2026-11-12T21:51:49",
+ "builder": "codex:gpt-6-luna",
+ "fixer": "gpt-6.1-terra",
+ "reviewer": "codex:gpt-6.1-sol",
+ "polisher": null,
+ "settings": {
+  "minutes": 20,
+  "fix_rounds": 2,
+  "seeds": 5,
+  "stop_gate": false,
+  "max_stop_blocks": 3
+ },
+ "turns": [
+  {
+   "stage": "build",
+   "model": "gpt-6-luna",
+   "status": "completed",
+   "seconds": 222.8,
+   "tool_calls": {
+    "render": 7,
+    "check": 4
+   },
+   "stop_blocks": 0,
+   "checks": 4,
+   "proof": false,
+   "usage": {
+    "last": {
+     "cache_write_input_tokens": 0,
+     "cached_input_tokens": 71296,
+     "input_tokens": 71601,
+     "output_tokens": 152,
+     "reasoning_output_tokens": 0,
+     "total_tokens": 71753
+    },
+    "model_context_window": 258400,
+    "total": {
+     "cache_write_input_tokens": 0,
+     "cached_input_tokens": 1100416,
+     "input_tokens": 1165364,
+     "output_tokens": 8700,
+     "reasoning_output_tokens": 3263,
+     "total_tokens": 1174064
+    }
+   },
+   "cost_usd": null,
+   "report": {
+    "done": false,
+    "fidelity": 3,
+    "remaining_differences": [
+     {
+      "what": "Main workspace: the render still uses the Folio Capture shell and receipt-style content instead of the reference\u2019s document header, invoice sheet, form, and details columns.",
+      "cause": "site"
+     },
+     {
+      "what": "1024\u00d7640: the checker still reports an invoice field click outside the viewport and layout violations with promo/banner overlays.",
+      "cause": "site"
+     }
+    ],
+    "deviations": [
+     "Added invoice fieldset and no-tabs traits to match the reference\u2019s six fields and side-by-side layout."
+    ],
+    "notes": "Applied warm grayscale styling, serif typography, square controls, and outlined fields. The final checker did not pass, so there is no check token.",
+    "check_token": null
+   },
+   "gate": [
+    "megawob.check 1024x640: seed 2003 scenario invoice {'popups': 'cookie', 'popupAt': 0}: oracle failed (done False, error 0.8333, tau 0, violations [], 11 actions); stuck: click at 195,712 repeated 11x without effect, the point hits nothing (outside the viewport)",
+    "megawob.check 1024x640: seed 2004 scenario invoice {'popups': 'promo', 'popupAt': 1}: oracle failed (done True, error 0.6667, tau 0, violations ['layout'], 1 actions)",
+    "megawob.check 1024x640: seed 2005 scenario invoice {'popups': 'banner', 'popupAt': 0}: oracle failed (done True, error 0.8333, tau 0, violations ['layout'], 0 actions)",
+    "megawob.check 1280x720: seed 2003 scenario invoice {'popups': 'cookie', 'popupAt': 0}: oracle failed (done False, error 0.8333, tau 0, violations [], 11 actions); stuck: click at 195,792 repeated 11x without effect, the point hits nothing (outside the viewport)",
+    "megawob.check 1280x720: seed 2004 scenario invoice {'popups': 'promo', 'popupAt': 1}: oracle failed (done True, error 0.6667, tau 0, violations ['layout'], 1 actions)",
+    "megawob.check 1280x720: seed 2006 scenario invoice {'popups': 'toast', 'popupAt': 2}: oracle failed (done False, error 0.1667, tau 0, violations [], 19 actions); stuck: type at 781,739 repeated 11x without effect, the point hits nothing (outside the viewport)",
+    "megawob.check 1366x768: seed 2003 scenario invoice {'popups': 'cookie', 'popupAt': 0}: oracle failed (done False, error 0.8333, tau 0, violations [], 11 actions); stuck: click at 195,840 repeated 11x without effect, the point hits nothing (outside the viewport)",
+    "megawob.check 1366x768: seed 2004 scenario invoice {'popups': 'promo', 'popupAt': 1}: oracle failed (done True, error 0.6667, tau 0, violations ['layout'], 1 actions)",
+    "megawob.check 1366x768: seed 2007 scenario invoice {'popups': 'chat', 'popupAt': 0}: oracle failed (done True, error 0.8333, tau 0, violations ['layout'], 0 actions)",
+    "megawob.check 1440x900: seed 2003 scenario invoice {'popups': 'cookie', 'popupAt': 0}: oracle failed (done False, error 0.8333, tau 0, violations [], 11 actions); stuck: click at 195,972 repeated 11x without effect, the point hits nothing (outside the viewport)",
+    "megawob.check 1440x900: seed 2004 scenario invoice {'popups': 'promo', 'popupAt': 1}: oracle failed (done True, error 0.6667, tau 0, violations ['layout'], 1 actions)",
+    "megawob.check 1440x900: seed 2007 scenario invoice {'popups': 'chat', 'popupAt': 0}: oracle failed (done True, error 0.8333, tau 0, violations ['layout'], 0 actions)",
+    "megawob.check 1536x864: seed 2003 scenario invoice {'popups': 'cookie', 'popupAt': 0}: oracle failed (done False, error 0.8333, tau 0, violations [], 11 actions); stuck: click at 195,936 repeated 11x without effect, the point hits nothing (outside the viewport)",
+    "megawob.check 1536x864: seed 2004 scenario invoice {'popups': 'promo', 'popupAt': 1}: oracle failed (done True, error 0.6667, tau 0, violations ['layout'], 1 actions)",
+    "megawob.check 1536x864: seed 2007 scenario invoice {'popups': 'chat', 'popupAt': 0}: oracle failed (done True, error 0.8333, tau 0, violations ['layout'], 0 actions)",
+    "your report says done=false (or is missing): finish the remaining differences, then report again",
+    "your report has no check_token from a check() that passed on the files as they are now: call check() after your last edit, fix what it reports, and put the token of the passing check in your report"
+   ]
+  },
+  {
+   "stage": "build fix",
+   "model": "gpt-6.1-terra",
+   "status": "completed",
+   "seconds": 173.3,
+   "tool_calls": {
+    "render": 6,
+    "check": 5
+   },
+   "stop_blocks": 0,
+   "checks": 9,
+   "proof": true,
+   "usage": {
+    "last": {
+     "cache_write_input_tokens": 0,
+     "cached_input_tokens": 97664,
+     "input_tokens": 97731,
+     "output_tokens": 142,
+     "reasoning_output_tokens": 0,
+     "total_tokens": 97873
+    },
+    "model_context_window": 475000,
+    "total": {
+     "cache_write_input_tokens": 0,
+     "cached_input_tokens": 2735872,
+     "input_tokens": 2891822,
+     "output_tokens": 11032,
+     "reasoning_output_tokens": 3457,
+     "total_tokens": 2902854
+    }
+   },
+   "cost_usd": null,
+   "report": {
+    "done": true,
+    "fidelity": 3,
+    "remaining_differences": [
+     {
+      "what": "Workspace: the render retains the Folio Capture shell and a compact form rather than the reference\u2019s large invoice entry header and bottom dock.",
+      "cause": "site"
+     },
+     {
+      "what": "Document: seeded episodes may show a receipt or different invoice content from the reference.",
+      "cause": "seed"
+     }
+    ],
+    "deviations": [
+     "The invoice widget uses the no-tabs and six-field fieldset traits to follow the reference layout."
+    ],
+    "notes": "Fixed overlay, interruption, fault, and safety prompt positioning and compacted the long form. The site checker passed on the final files.",
+    "check_token": "f5523152a44b291c"
+   },
+   "gate": []
+  }
+ ],
+ "review": {
+  "fidelity": 2,
+  "differences": [
+   "Page structure: the design fills the window with a large document viewer, central form and right details table; the page places a small form and narrow receipt inside one broad, mostly empty workspace and omits the details table.",
+   "Application frame: the desktop title bar, File/Edit menus, large document summary, record navigation and zoom/fit/rotate toolbar are replaced by a small web navigation strip and breadcrumb row.",
+   "Bottom navigation: the design's full-width icon tabs and highlighted active tab are absent.",
+   "Task form: the design uses large labels and tall inputs in a full-height panel; the page uses much smaller text and compact controls in a floating bordered card.",
+   "Document viewer: the large bordered invoice with a visible scrollbar is replaced by a small receipt with tiny monospaced text and no viewer controls.",
+   "Visual treatment: the page retains cream backgrounds and serif text but loses the design's prominent typography, shaded panel headers, rounded borders and dense window-filling proportions."
+  ],
+  "frame_issues": [
+   "Header, side-panel and notification settings all show the instruction in the same top header; the side panel and notification presentations are absent.",
+   "The hidden-instruction setting still shows a Submit control despite specifying no end control.",
+   "All four settings leave a large empty band between the episode header and application navigation, compressing the task into the lower portion of the screen."
+  ]
+ },
+ "passed": true,
+ "fidelity": 2,
+ "minutes": 7.8,
+ "condition": "no-stop-gate"
+}

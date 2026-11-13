@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 266" width="760" height="266" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+<circle cx="126" cy="22" r="6" fill="#3987e5"/>
+<text x="138" y="27" font-size="14" fill="#f0efec">with Stop hook</text>
+<circle cx="276" cy="22" r="6" fill="#d95926"/>
+<text x="288" y="27" font-size="14" fill="#f0efec">without</text>
+<text x="584" y="56" font-size="13" fill="#c3c2b7">fix rounds</text>
+<line x1="120.0" y1="56" x2="120.0" y2="232" stroke="#3d444d"/>
+<text x="120.0" y="252" text-anchor="middle" font-size="12" fill="#c3c2b7">0</text>
+<line x1="208.0" y1="56" x2="208.0" y2="232" stroke="#3d444d"/>
+<text x="208.0" y="252" text-anchor="middle" font-size="12" fill="#c3c2b7">5</text>
+<line x1="296.0" y1="56" x2="296.0" y2="232" stroke="#3d444d"/>
+<text x="296.0" y="252" text-anchor="middle" font-size="12" fill="#c3c2b7">10</text>
+<line x1="384.0" y1="56" x2="384.0" y2="232" stroke="#3d444d"/>
+<text x="384.0" y="252" text-anchor="middle" font-size="12" fill="#c3c2b7">15</text>
+<line x1="472.0" y1="56" x2="472.0" y2="232" stroke="#3d444d"/>
+<text x="472.0" y="252" text-anchor="middle" font-size="12" fill="#c3c2b7">20</text>
+<line x1="560.0" y1="56" x2="560.0" y2="232" stroke="#3d444d"/>
+<text x="560.0" y="252" text-anchor="middle" font-size="12" fill="#c3c2b7">25 min</text>
+<text x="104" y="91.0" text-anchor="end" font-size="14" fill="#f0efec">Form</text>
+<line x1="445.6" y1="86.0" x2="257.28" y2="86.0" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="445.6" cy="86.0" r="7" fill="#3987e5" stroke="#0d1117" stroke-width="2"><title>Form, stop-gate: 18.5 min, 2 fix rounds</title></circle>
+<text x="445.6" y="73.0" text-anchor="middle" font-size="12" fill="#f0efec">18.5</text>
+<circle cx="257.28" cy="86.0" r="7" fill="#d95926" stroke="#0d1117" stroke-width="2"><title>Form, no-stop-gate: 7.8 min, 1 fix rounds</title></circle>
+<text x="257.28" y="110.0" text-anchor="middle" font-size="12" fill="#f0efec">7.8</text>
+<text x="584" y="91.0" font-size="14" fill="#f0efec">2 <tspan fill="#c3c2b7">vs</tspan> 1</text>
+<text x="104" y="143.0" text-anchor="end" font-size="14" fill="#f0efec">Slider</text>
+<line x1="186.88" y1="138.0" x2="252.0" y2="138.0" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="186.88" cy="138.0" r="7" fill="#3987e5" stroke="#0d1117" stroke-width="2"><title>Slider, stop-gate: 3.8 min, 0 fix rounds</title></circle>
+<text x="186.88" y="125.0" text-anchor="middle" font-size="12" fill="#f0efec">3.8</text>
+<circle cx="252.0" cy="138.0" r="7" fill="#d95926" stroke="#0d1117" stroke-width="2"><title>Slider, no-stop-gate: 7.5 min, 1 fix rounds</title></circle>
+<text x="252.0" y="162.0" text-anchor="middle" font-size="12" fill="#f0efec">7.5</text>
+<text x="584" y="143.0" font-size="14" fill="#f0efec">0 <tspan fill="#c3c2b7">vs</tspan> 1</text>
+<text x="104" y="195.0" text-anchor="end" font-size="14" fill="#f0efec">Email app</text>
+<line x1="505.44" y1="190.0" x2="246.72" y2="190.0" stroke="#c3c2b7" stroke-width="2"/>
+<circle cx="505.44" cy="190.0" r="7" fill="#3987e5" stroke="#0d1117" stroke-width="2"><title>Email app, stop-gate: 21.9 min, 1 fix rounds</title></circle>
+<text x="505.44" y="177.0" text-anchor="middle" font-size="12" fill="#f0efec">21.9</text>
+<circle cx="246.72" cy="190.0" r="7" fill="#d95926" stroke="#0d1117" stroke-width="2"><title>Email app, no-stop-gate: 7.2 min, 2 fix rounds</title></circle>
+<text x="246.72" y="214.0" text-anchor="middle" font-size="12" fill="#f0efec">7.2</text>
+<text x="584" y="195.0" font-size="14" fill="#f0efec">1 <tspan fill="#c3c2b7">vs</tspan> 2</text>
+</svg>

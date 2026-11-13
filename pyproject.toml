@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "megawob-harness"
 version = "0.2.0"
-description = "Coding agents (Codex or Claude) that build MegaWoB design-* sites from design images: the checker decides, a reviewer scores, and a Stop hook makes the agent check its own work before it may finish"
+description = "A website factory: AI agents build, automated checks decide. 2,942 shipped."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"

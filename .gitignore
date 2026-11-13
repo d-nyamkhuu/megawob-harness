@@ -3,5 +3,7 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .ruff_cache/
-runs/
-out/
+/runs/
+/out/
+experiments/*/build/
+experiments/*/designs/**/*.png
