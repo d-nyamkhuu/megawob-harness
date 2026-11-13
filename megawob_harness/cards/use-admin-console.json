@@ -1,0 +1,116 @@
+{
+ "task": "use-admin-console",
+ "identity": "An IT administration console for creating a virtual machine, editing account access, resetting an account, routing tickets, or changing a quota.",
+ "scenarios": [
+  {
+   "name": "vm",
+   "screen": "The virtual machine form starts at the Region field, with a region selector and a control to continue. No option picker or review is open, and no virtual machine has been created.",
+   "scene": "",
+   "never": [
+    "A region picker already open.",
+    "The review summary on the first step.",
+    "A newly created virtual machine identifier.",
+    "Boot disk, network, and tag fields all visible beside the initial Region field."
+   ],
+   "arrangements": [
+    {
+     "text": "The Region label sits above its selector, with the continue control below.",
+     "traits": ""
+    },
+    {
+     "text": "The Region label sits to the left of its selector, with the continue control beneath the field.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "iam",
+   "screen": "A list of user accounts shows each email address with its current role and licence. No account editor or picker is open, and no access edits are prepared.",
+   "scene": "",
+   "never": [
+    "An account editor already open.",
+    "A role or licence picker already open.",
+    "A saved-changes confirmation.",
+    "Changes to every account already prepared."
+   ],
+   "arrangements": [
+    {
+     "text": "Accounts run down the left, with role and licence beside each account.",
+     "traits": ""
+    },
+    {
+     "text": "Each account occupies a row with its email above the role and licence controls.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "resetuser",
+   "screen": "A list of user accounts identifies each account by email and provides a way to select it for a reset. No account is selected, no reset confirmation is open, and no reset has been carried out.",
+   "scene": "",
+   "never": [
+    "A password or MFA reset confirmation already open.",
+    "A completed reset receipt.",
+    "An account selected for reset.",
+    "A notification email already sent."
+   ],
+   "arrangements": [
+    {
+     "text": "Account emails form a vertical list, with the selection control beside each one.",
+     "traits": ""
+    },
+    {
+     "text": "Each account email sits above its selection control in a vertical list.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "tickets",
+   "screen": "One page of ticket rows shows ticket identifiers, categories, and their current queue assignments, with controls for changing queues and moving between pages. No queue picker or routing proposal is open.",
+   "scene": "",
+   "never": [
+    "All tickets from every page visible at once.",
+    "A queue picker already open.",
+    "A routing proposal already prepared.",
+    "A completed routing receipt."
+   ],
+   "arrangements": [
+    {
+     "text": "Ticket identifiers and categories sit to the left of the queue controls, with page controls below the rows.",
+     "traits": ""
+    },
+    {
+     "text": "Each ticket row places its identifier above its category and queue control, with page controls beneath the list.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "quota",
+   "screen": "The quota area starts at the first level of a nested settings path, with an entry to open the next level. No regional quota editor is open, and no new limit is entered or saved.",
+   "scene": "",
+   "never": [
+    "The regional limit editor already open.",
+    "A new limit already saved.",
+    "A quota save receipt.",
+    "Every level of the settings path expanded at once."
+   ],
+   "arrangements": [
+    {
+     "text": "The current path sits above a vertical list of entries for the next level.",
+     "traits": ""
+    },
+    {
+     "text": "The current path sits to the left of the entries for the next level.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

@@ -1,0 +1,188 @@
+{
+ "task": "fill-form",
+ "identity": "A source document sits beside a web form where values from the document are entered into labeled fields.",
+ "scenarios": [
+  {
+   "name": "card",
+   "screen": "A contact or ID card shows labeled personal details beside a form with several text fields and possibly choice controls. Text fields start empty, a few choices can have defaults, and dropdown lists are closed.",
+   "scene": "",
+   "never": [
+    "An open calendar picker",
+    "An open dropdown list",
+    "A line-item invoice table",
+    "A completed form review page"
+   ],
+   "arrangements": [
+    {
+     "text": "The card sits on the left and the form sits on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The card and form occupy separate tabs, with one visible at a time.",
+     "traits": "layout=tabs"
+    },
+    {
+     "text": "The card sits beside a long, single-column form that continues below the page fold.",
+     "traits": "layout=long"
+    }
+   ],
+   "hint": "Provide a complete readable fictional contact card/profile containing First name Aiko, Last name Tanaka, Email aiko@example.com. Matching empty labeled form fields plus an optional Phone field not mentioned in the source, which must remain blank."
+  },
+  {
+   "name": "email",
+   "screen": "A registration email shows details in its header, message, and signature beside a form with several labeled fields. Text fields start empty, a few choices can have defaults, and dropdown lists are closed.",
+   "scene": "",
+   "never": [
+    "An open calendar picker",
+    "An open dropdown list",
+    "A line-item invoice table",
+    "A completed form review page"
+   ],
+   "arrangements": [
+    {
+     "text": "The email sits on the left and the form sits on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The email and form occupy separate tabs, with one visible at a time.",
+     "traits": "layout=tabs"
+    },
+    {
+     "text": "The email sits beside a form divided into steps, with the first step visible.",
+     "traits": "traits.wizard"
+    }
+   ],
+   "hint": "Provide a readable source email: First name Leila, Last name Costa, Company Polar Freight, Email leila@example.com. Matching empty form fields plus optional Phone absent from source. Do not invent a phone number."
+  },
+  {
+   "name": "invoice",
+   "screen": "An invoice or till receipt shows a header and line items beside a form with several fields for document details and amounts. Text fields start empty, a few choices can have defaults, and dropdown lists are closed.",
+   "scene": "",
+   "never": [
+    "An open calendar picker",
+    "An open dropdown list",
+    "A portrait on the source document",
+    "A completed form review page"
+   ],
+   "arrangements": [
+    {
+     "text": "The document sits on the left and the form sits on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The document and form occupy separate tabs, with one visible at a time.",
+     "traits": "layout=tabs"
+    },
+    {
+     "text": "The document sits in a scrollable viewer pane beside the form.",
+     "traits": "traits.pdf"
+    }
+   ],
+   "hint": "Provide a readable invoice/receipt with Invoice number INV-1042, Date 2026-09-12, Vendor Polar Freight, Total 148.50 USD. Matching empty fields plus optional PO number absent from source; leave it blank."
+  },
+  {
+   "name": "fix",
+   "screen": "A contact card, email, or invoice sits beside a form whose fields are already filled. Exactly one field disagrees with the document; dropdown lists are closed.",
+   "scene": "",
+   "never": [
+    "A completely empty form",
+    "Two fields that disagree with the document",
+    "An open dropdown list",
+    "An open calendar picker"
+   ],
+   "arrangements": [
+    {
+     "text": "The source document sits on the left and the prefilled form sits on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The source document and prefilled form occupy separate tabs, with one visible at a time.",
+     "traits": "layout=tabs"
+    },
+    {
+     "text": "The source document sits beside a prefilled, single-column form that continues below the page fold.",
+     "traits": "layout=long"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "receipt",
+   "screen": "A scanned receipt with line items and payment details sits beside an expense form with about six fields. Text fields start empty, a few choices can have defaults, and dropdown lists are closed.",
+   "scene": "",
+   "never": [
+    "An open calendar picker",
+    "An open dropdown list",
+    "A portrait on the receipt",
+    "A completed form review page"
+   ],
+   "arrangements": [
+    {
+     "text": "The scanned receipt sits in a source pane on the left, and the form sits in its own scrollable pane on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The scanned receipt and form occupy separate tabs, with one visible at a time.",
+     "traits": "layout=tabs"
+    },
+    {
+     "text": "The scanned receipt sits beside a long, single-column form that continues below the page fold.",
+     "traits": "layout=long"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "idcard",
+   "screen": "A scanned identity card shows a portrait and identity and validity details beside a form with about six fields. Text fields start empty, a few choices can have defaults, and dropdown lists are closed.",
+   "scene": "",
+   "never": [
+    "An open calendar picker",
+    "An open dropdown list",
+    "A receipt line-item table",
+    "A completed form review page"
+   ],
+   "arrangements": [
+    {
+     "text": "The scanned identity card sits in a source pane on the left, and the form sits in its own scrollable pane on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The scanned identity card and form occupy separate tabs, with one visible at a time.",
+     "traits": "layout=tabs"
+    },
+    {
+     "text": "The scanned identity card sits beside a form divided into steps, with the first step visible.",
+     "traits": "traits.wizard"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "claim",
+   "screen": "A scanned insurance loss notice shows handwritten incident details and an estimated loss beside a form with about six fields. Text fields start empty, a few choices can have defaults, and dropdown lists are closed.",
+   "scene": "",
+   "never": [
+    "An open calendar picker",
+    "An open dropdown list",
+    "A receipt line-item table",
+    "A completed form review page"
+   ],
+   "arrangements": [
+    {
+     "text": "The scanned claim sits in a source pane on the left, and the form sits in its own scrollable pane on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The scanned claim and form occupy separate tabs, with one visible at a time.",
+     "traits": "layout=tabs"
+    },
+    {
+     "text": "The scanned claim sits beside a long, single-column form that continues below the page fold.",
+     "traits": "layout=long"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

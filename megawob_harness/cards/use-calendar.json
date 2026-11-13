@@ -1,0 +1,112 @@
+{
+ "task": "use-calendar",
+ "identity": "A team calendar with attendee availability, timed event grids, time rulers, and a month grid for all-day events.",
+ "scenarios": [
+  {
+   "name": "freeslot",
+   "screen": "A day availability grid shows four attendees, their busy intervals, and time labels. The requested meeting is absent, leaving the shared free intervals empty; no picker or popup is open.",
+   "scene": "",
+   "never": [
+    "The requested meeting already occupying a free interval.",
+    "A meeting creation picker open on load.",
+    "A month overflow popup open on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The date label sits above the day grid, with attendee names beside their availability rows and time labels along the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The date label sits beside the day grid, with attendee names beside their availability rows and time labels along the grid.",
+     "traits": "skin choice: date label beside grid"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "move",
+   "screen": "A timed calendar grid shows day columns, time labels, and several event blocks, including the named meeting at its starting date and time. No event is being dragged and no popup is open.",
+   "scene": "",
+   "never": [
+    "The named meeting already at the requested date and time.",
+    "An event block floating outside a day column.",
+    "A month overflow popup open on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The date labels run above the day columns, with the time ruler beside the grid and event blocks inside their columns.",
+     "traits": ""
+    },
+    {
+     "text": "The calendar heading sits beside the grid, while date labels remain above the day columns and the time ruler remains beside them.",
+     "traits": "skin choice: heading beside grid"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "resize",
+   "screen": "A timed calendar grid shows the named event as a block with a lower edge that can be dragged to change its duration. Other events occupy their own positions in the grid; no drag or popup is active.",
+   "scene": "",
+   "never": [
+    "The named event already extended to the requested duration.",
+    "Its lower edge being dragged on load.",
+    "An event block extending outside the timed grid."
+   ],
+   "arrangements": [
+    {
+     "text": "Date labels sit above the grid, the time ruler sits beside it, and each event block occupies its time span within a day column.",
+     "traits": ""
+    },
+    {
+     "text": "The calendar heading sits beside the grid, while date labels stay above the columns and event blocks stay within their time spans.",
+     "traits": "skin choice: heading beside grid"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "timezone",
+   "screen": "A timed calendar grid shows existing events and both a primary time ruler and a secondary ruler for the specified UTC offset. The requested new meeting is absent, and no picker or popup is open.",
+   "scene": "",
+   "never": [
+    "The requested meeting already placed on the grid.",
+    "A time-zone picker open on load.",
+    "An event block being dragged on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The date labels sit above the timed grid, with the primary and secondary time rulers beside its day columns.",
+     "traits": ""
+    },
+    {
+     "text": "The calendar heading sits beside the grid, while the date labels remain above the columns and both time rulers remain beside them.",
+     "traits": "skin choice: heading beside grid"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "month",
+   "screen": "A month grid shows weekday labels, numbered date cells, and all-day events inside their dates. Some crowded cells show a \u201c+N more\u201d control; its event list is closed, and the named event remains on its starting date.",
+   "scene": "",
+   "never": [
+    "A \u201c+N more\u201d event list open on load.",
+    "The named event already on the requested date.",
+    "An all-day event card floating outside a date cell.",
+    "Timed hour rows in the month grid."
+   ],
+   "arrangements": [
+    {
+     "text": "The month label sits above the calendar, weekday labels run across the top, and all-day events sit inside the date cells below.",
+     "traits": ""
+    },
+    {
+     "text": "The month label sits beside the calendar, while weekday labels remain above the date cells and all-day events remain inside them.",
+     "traits": "skin choice: month label beside grid"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

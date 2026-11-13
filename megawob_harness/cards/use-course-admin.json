@@ -1,0 +1,92 @@
+{
+ "task": "use-course-admin",
+ "identity": "A course administration workspace with a gradebook, quiz builder, module organizer, and assessment rubric.",
+ "scenarios": [
+  {
+   "name": "grades",
+   "screen": "A gradebook shows student rows and assignment columns, with editable mark boxes and filled final grades that are locked. A score sheet shows the marks to enter, and a visible total summarizes a student's grades.",
+   "scene": "",
+   "never": [
+    "A grade cell editor open as a popup on load.",
+    "A finalized grade shown as an editable box.",
+    "A chart replacing the student-by-assignment grid."
+   ],
+   "arrangements": [
+    {
+     "text": "Student names run down the left of the gradebook, assignment names run across the top, and totals sit at the right edge of the grid.",
+     "traits": ""
+    },
+    {
+     "text": "The same gradebook grid sits below the score sheet, with student names at its left edge and totals at its right edge.",
+     "traits": "score sheet above gradebook"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "quiz",
+   "screen": "The quiz builder starts with no questions added. An Add question control sits beside the empty question area, while an on-page brief lists the questions, types, options, answers, and points to enter.",
+   "scene": "",
+   "never": [
+    "A question type menu open on load.",
+    "An answer picker open on load.",
+    "A completed question card already in the empty quiz."
+   ],
+   "arrangements": [
+    {
+     "text": "The question area occupies the left side of the task area, with the question brief beside it on the right and Add question above the question area.",
+     "traits": ""
+    },
+    {
+     "text": "The question brief sits above the question area, with Add question immediately below the area.",
+     "traits": "brief above builder"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "modules",
+   "screen": "A vertical list contains three course modules, each with its lessons nested beneath its title. The modules and lessons are already present for dragging into the order shown in the teaching outline.",
+   "scene": "",
+   "never": [
+    "An empty module list.",
+    "A lesson already floating outside its module.",
+    "A drag preview visible before dragging starts.",
+    "An add-module form open on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The modules form one vertical list, with each lesson indented directly beneath its module title.",
+     "traits": ""
+    },
+    {
+     "text": "The teaching outline sits to the left of the vertical module list, and each module's lessons remain directly beneath its title.",
+     "traits": "outline left of module list"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "rubric",
+   "screen": "The named student's rubric shows several criterion rows and a set of performance levels for each row. Rating choices start unselected, and a visible total summarizes the rubric.",
+   "scene": "",
+   "never": [
+    "A rating menu open on load.",
+    "A criterion editor open on load.",
+    "A written feedback box replacing the rating choices.",
+    "A second student's rubric open beside the named student's rubric."
+   ],
+   "arrangements": [
+    {
+     "text": "Criterion names run down the left, performance levels run across the top, and the total sits below the rating grid.",
+     "traits": ""
+    },
+    {
+     "text": "Each criterion appears as a separate row with its performance levels immediately beneath the criterion name, and the total follows the final row.",
+     "traits": "levels beneath criterion labels"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

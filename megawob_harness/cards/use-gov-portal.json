@@ -1,0 +1,94 @@
+{
+ "task": "use-gov-portal",
+ "identity": "A civic application form with applicant details, eligibility choices, a correspondence preference, a declaration, and a review step; some versions also include evidence rows or saved answers.",
+ "scenarios": [
+  {
+   "name": "branching",
+   "screen": "Several blank applicant fields and eligibility choices appear, with no correspondence option selected. Employment and dependant fields are hidden until the relevant answers are chosen; the review and receipt are closed.",
+   "scene": "",
+   "never": [
+    "An employment section already filled in before an employment answer is chosen.",
+    "Dependant fields already filled in before a dependant answer is chosen.",
+    "An open picker.",
+    "A submission receipt."
+   ],
+   "arrangements": [
+    {
+     "text": "Applicant fields run down the form, with eligibility choices below them and correspondence choices below those.",
+     "traits": ""
+    },
+    {
+     "text": "Applicant fields occupy two columns, with eligibility choices and correspondence choices in rows beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "checklist",
+   "screen": "Several blank applicant fields and an unselected correspondence choice appear above a short evidence list. Each evidence row has an attachment control and a document type choice; no files are attached, and the review and receipt are closed.",
+   "scene": "",
+   "never": [
+    "Evidence files already attached.",
+    "Document types already chosen for attached files.",
+    "An open file picker.",
+    "A submission receipt."
+   ],
+   "arrangements": [
+    {
+     "text": "Applicant fields run down the form, with correspondence choices beneath them and evidence rows listed below.",
+     "traits": ""
+    },
+    {
+     "text": "Applicant fields occupy the left side of the task area, while evidence rows occupy the right side; correspondence choices sit beneath the applicant fields.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "saveresume",
+   "screen": "A saved application shows several applicant fields with a mix of accurate and out-of-date values, plus at least one detail still to complete. The correspondence choice and declaration still need checking before review; the receipt is closed.",
+   "scene": "",
+   "never": [
+    "A completely blank draft.",
+    "Every saved value already corrected.",
+    "An open picker.",
+    "A submission receipt."
+   ],
+   "arrangements": [
+    {
+     "text": "Saved applicant fields run down the form, with correspondence choices below them.",
+     "traits": ""
+    },
+    {
+     "text": "Saved applicant fields occupy two columns, with correspondence choices in a row beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "strict",
+   "screen": "Several blank applicant fields appear, including inputs for an identity number, a date, and a postcode with format guidance. The correspondence choice is unselected, and the review and receipt are closed.",
+   "scene": "",
+   "never": [
+    "A prefilled valid identity number, date, or postcode.",
+    "Validation errors displayed before any entry is made.",
+    "An open picker.",
+    "A submission receipt."
+   ],
+   "arrangements": [
+    {
+     "text": "Applicant fields run down the form, with format guidance beside the identity number, date, and postcode inputs and correspondence choices below the fields.",
+     "traits": ""
+    },
+    {
+     "text": "Applicant fields occupy two columns, with format guidance beneath the three format-sensitive inputs and correspondence choices across the bottom.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

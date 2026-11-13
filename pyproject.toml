@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "megawob-harness"
+version = "0.2.0"
+description = "Agent harness that builds web environments for computer-use agents: Codex or Claude builds each site, deterministic checks decide. 2,942 sites shipped."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.14"
+authors = [{name = "Nyamkhuu Demberelsuren"}]
+# MegaWoB itself is not a dependency, so it can be a git install (`uv tool install ... --with git+...megawob`) or a
+# checkout installed with -e (README, Development). Playwright is pinned to the version of MegaWoB's own `check`
+# extra, so the gate's checker runs in the same browser MegaWoB is tested with.
+dependencies = ["jsonschema>=4", "mcp>=2.3,<3", "openai-codex>=0.167", "claude-agent-sdk>=0.2.181", "pillow",
+                "playwright==1.58.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff==0.17.2"]
+
+[project.scripts]
+megawob-harness = "megawob_harness.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["megawob_harness*"]
+
+[tool.setuptools.package-data]
+megawob_harness = ["*.json", "cards/*.json", "prompts/*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py314"
+extend-exclude = ["megawob"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["B027"]  # optional no-op hooks on the ABCs are deliberate
+
+[tool.ruff.lint.isort]
+known-third-party = ["megawob"]  # CI checks megawob out inside this folder; it is still a separate package
+
+[tool.ruff.lint.per-file-ignores]
+"megawob_harness/render.py" = ["E501"]  # the page-side JavaScript it evaluates
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["megawob: builds a real site in the megawob checkout (needs Node and Chromium; about a minute each)"]

@@ -1,0 +1,222 @@
+{
+ "task": "scroll-page",
+ "identity": "A long page with a sticky header, sections below the fold, and links, tools, fields, or scrollable content that the visitor must find and use.",
+ "scenarios": [
+  {
+   "name": "link",
+   "screen": "The page starts at the top, showing its title, opening text, and sticky header. About six sections continue below the fold, with links or buttons inside them; none has been clicked.",
+   "scene": "",
+   "never": [
+    "A linked page open with a Back button.",
+    "A lower-section action already marked as opened.",
+    "All lower sections visible in the first viewport."
+   ],
+   "arrangements": [
+    {
+     "text": "The sections run down the page, with each section's actions beneath its paragraphs.",
+     "traits": ""
+    },
+    {
+     "text": "A table of contents sits before the sections, and its links point to headings farther down the page.",
+     "traits": "toc=true"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "accordion",
+   "screen": "The page starts at the top with introductory sections under the sticky header. A FAQ block of about nine questions sits farther down; its answers are closed and their links are hidden.",
+   "scene": "",
+   "never": [
+    "The target answer open on load.",
+    "A link inside a closed answer visible.",
+    "A linked page open with a Back button."
+   ],
+   "arrangements": [
+    {
+     "text": "The FAQ questions form one vertical list after the introductory sections.",
+     "traits": ""
+    },
+    {
+     "text": "The FAQ list sits between prose sections, with more page content below it.",
+     "traits": "faq.at=middle"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "copy",
+   "screen": "The page starts at the top under its sticky header. An empty labeled field is near the top and the requested code is printed in a later section, alongside other labeled codes elsewhere on the page.",
+   "scene": "",
+   "never": [
+    "The field already filled with the requested code.",
+    "A code picker or clipboard popup open.",
+    "All printed codes gathered beside the field."
+   ],
+   "arrangements": [
+    {
+     "text": "The empty field sits near the start of the page, and the printed value sits in a section farther down.",
+     "traits": ""
+    },
+    {
+     "text": "The printed value sits near the start of the page, and the empty field sits near the end.",
+     "traits": "copy.dir=up"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "top",
+   "screen": "The page starts at the bottom, showing the final content and a toolbar with actions whose labels repeat in the sticky header. A floating Back to top button is visible; no tool has been clicked.",
+   "scene": "",
+   "never": [
+    "The page positioned at its opening section.",
+    "A header tool already marked as opened.",
+    "A tool menu or share dialog open.",
+    "A linked page open with a Back button."
+   ],
+   "arrangements": [
+    {
+     "text": "The header tools sit across the sticky header, while the matching bottom toolbar sits after the final section.",
+     "traits": ""
+    },
+    {
+     "text": "A table of contents sits near the beginning of the page, above the sections; the matching toolbar remains below the final section.",
+     "traits": "toc=true"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "nested",
+   "screen": "The page starts at the top, with the titled scroll pane in a section below the fold. The pane contains about twelve rows with actions; its target row has not been brought into view.",
+   "scene": "",
+   "never": [
+    "The pane open as a popup.",
+    "Rows already outside the pane.",
+    "The target row's action already marked as opened."
+   ],
+   "arrangements": [
+    {
+     "text": "One vertical scroll pane sits below its host section heading, with rows stacked inside it.",
+     "traits": ""
+    },
+    {
+     "text": "The host section contains groups, each with its own vertical scroll pane beneath the group title.",
+     "traits": "ood=true"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "hscroll",
+   "screen": "The page starts at the top, with a Help articles section farther down. Its horizontal card strip contains about twenty cards, and the target card is beyond the strip's initial view to the right.",
+   "scene": "",
+   "never": [
+    "The card strip open as a popup.",
+    "All cards visible at once.",
+    "Cards already outside the strip.",
+    "The target card's Open action already marked as opened."
+   ],
+   "arrangements": [
+    {
+     "text": "The cards sit in one horizontal strip beneath the host section heading, with a horizontal scrollbar along the strip.",
+     "traits": ""
+    },
+    {
+     "text": "A table of contents appears before the page sections, and the horizontal card strip sits inside a later section.",
+     "traits": "toc=true"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "carousel",
+   "screen": "The page starts at the top, with a Help articles section below the fold. Its carousel contains about twenty slides, shows its initial slide, and has previous and next controls; the target slide is farther along.",
+   "scene": "",
+   "never": [
+    "All slides visible side by side.",
+    "The target slide selected on load.",
+    "A slide open as a separate popup.",
+    "The target slide's Open action already marked as opened."
+   ],
+   "arrangements": [
+    {
+     "text": "One slide occupies the carousel beneath the host section heading, with previous and next arrows at its sides.",
+     "traits": ""
+    },
+    {
+     "text": "The carousel sits between earlier and later page sections, with its slides moving horizontally within the host section.",
+     "traits": "slideRoute=swipe"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "sticky",
+   "screen": "The page starts at the top, with a table in a section below the fold. The table has about twelve rows with actions and a header row that stays at the top of its own scroll pane.",
+   "scene": "",
+   "never": [
+    "The table header floating over the whole page.",
+    "Rows already outside the table pane.",
+    "A partly covered row counted as fully visible.",
+    "The target row's Open action already marked as opened."
+   ],
+   "arrangements": [
+    {
+     "text": "The table sits beneath its section heading, with the header row above the vertically stacked data rows.",
+     "traits": ""
+    },
+    {
+     "text": "A table of contents precedes the page sections, while the scrollable table remains inside a later section.",
+     "traits": "toc=true"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "lazy",
+   "screen": "The page starts at the top, with a scrollable list in a section below the fold. Only its initial batch of rows is loaded; later rows, including the target, are absent until the list is scrolled to its end.",
+   "scene": "",
+   "never": [
+    "Every list row present on load.",
+    "A timer-driven loading dialog open.",
+    "The target row visible before its batch loads.",
+    "Rows already outside the list pane."
+   ],
+   "arrangements": [
+    {
+     "text": "The loaded rows form a vertical list beneath the host section heading, inside one scroll pane.",
+     "traits": ""
+    },
+    {
+     "text": "The list sits in a later page section reached from a table of contents near the top.",
+     "traits": "toc=true"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "siblings",
+   "screen": "The page starts at the top, with two titled scroll panes side by side in a section below the fold. Each pane has rows with actions, but only one contains the target row; neither pane has been scrolled to it.",
+   "scene": "",
+   "never": [
+    "The two lists stacked into one pane.",
+    "A row moved from one pane into the other.",
+    "The target action already marked as opened.",
+    "Either pane open as a popup."
+   ],
+   "arrangements": [
+    {
+     "text": "Two titled vertical lists sit side by side beneath the host section heading, with the target list on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The same two titled lists sit side by side, with the target list on the left.",
+     "traits": "first2=true"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

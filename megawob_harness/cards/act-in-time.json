@@ -1,0 +1,314 @@
+{
+ "task": "act-in-time",
+ "identity": "A timed task widget with controls and changing content that the user must watch or act on at the right moment.",
+ "scenarios": [
+  {
+   "name": "chase",
+   "screen": "A circle is on a board, ready to move. The pointer has not yet tracked it, and the time-inside count is at zero.",
+   "scene": "",
+   "never": [
+    "A square or triangle to chase",
+    "Several circles to choose from",
+    "A completed time-inside count"
+   ],
+   "arrangements": [
+    {
+     "text": "The circle sits inside a wide board, with the time-inside readout beside the board.",
+     "traits": ""
+    },
+    {
+     "text": "The circle sits inside an upright board, with the time-inside readout below it.",
+     "traits": "orient=vertical"
+    }
+   ],
+   "hint": "Show one moving circle, pointer outside, elapsed time near start and dwell counter below threshold."
+  },
+  {
+   "name": "moving",
+   "screen": "A board has four lanes where shapes move toward an edge. A cue names the target color; the task has about nine shapes in its schedule, and none have been caught.",
+   "scene": "",
+   "never": [
+    "A fifth lane",
+    "Shapes already caught",
+    "Shapes drawn outside the board",
+    "A color picker for changing the target"
+   ],
+   "arrangements": [
+    {
+     "text": "Four horizontal lanes run across a wide board, with the target-color cue above them.",
+     "traits": ""
+    },
+    {
+     "text": "Four columns run down an upright board, with the target-color cue above them.",
+     "traits": "orient=vertical"
+    },
+    {
+     "text": "Four horizontal lanes run across a wide board, with every scheduled shape already positioned within a lane.",
+     "traits": "moving.visible=true"
+    }
+   ],
+   "hint": "Show several requested-color shapes and a few differently colored distractors on a motion board. No shapes already caught; depict one instant, not motion trails."
+  },
+  {
+   "name": "delay",
+   "screen": "A short task card shows its action controls. In button tasks, the requested button is inactive or represented by a placeholder at the start; in the two-button timing task, ONE and TWO are visible during a get-ready phase.",
+   "scene": "",
+   "never": [
+    "A completed action status",
+    "TWO already pressed",
+    "A timer showing that the wait between ONE and TWO has finished"
+   ],
+   "arrangements": [
+    {
+     "text": "The card title and text sit above the action controls, with the status below them.",
+     "traits": ""
+    },
+    {
+     "text": "The card text sits to the left of the action controls, with the status beneath the text.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show the requested Start or Next button disabled with a clear Waiting status. Notes must say it becomes enabled on the task clock; not permanently disabled."
+  },
+  {
+   "name": "simon",
+   "screen": "A group of colored pads is visible while the pattern plays. No repeat presses have been entered.",
+   "scene": "",
+   "never": [
+    "A typed answer field",
+    "The entire pattern lit at once",
+    "A completed set of repeat presses"
+   ],
+   "arrangements": [
+    {
+     "text": "The pads form a compact group, with the playback status above them.",
+     "traits": ""
+    },
+    {
+     "text": "The pads form a row, with the playback status beside the row.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show four distinct colored pads, one currently illuminated and a Watch status; a later input phase allows replay. No extra unrelated blinking elements."
+  },
+  {
+   "name": "stock",
+   "screen": "A stock symbol and its current quote appear with a Buy control. No shares have been bought.",
+   "scene": "",
+   "never": [
+    "A completed purchase",
+    "Several ticker symbols to buy",
+    "A price-entry field"
+   ],
+   "arrangements": [
+    {
+     "text": "The stock name and quote sit above the Buy control.",
+     "traits": ""
+    },
+    {
+     "text": "The quote sits beside the stock name, with the Buy control directly below it.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "popup",
+   "screen": "A sign-in form has empty username and password fields and a Log in button. The interruption has not opened, so the form is available.",
+   "scene": "",
+   "never": [
+    "A signed-in account",
+    "Prefilled credentials",
+    "An incorrect-password message",
+    "A dismissed interruption"
+   ],
+   "arrangements": [
+    {
+     "text": "The username field sits above the password field, with Log in below both.",
+     "traits": ""
+    },
+    {
+     "text": "The username and password fields sit side by side, with Log in beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show empty login username/password fields and a distracting but dismissible popup."
+  },
+  {
+   "name": "loading",
+   "screen": "A search field contains the query and has a Search button. The search has not run, so no loaded results or result page is open.",
+   "scene": "",
+   "never": [
+    "A result page already open",
+    "A completed results list",
+    "A loading spinner already running",
+    "An empty search query"
+   ],
+   "arrangements": [
+    {
+     "text": "The prefilled search field sits beside Search, with the results area below.",
+     "traits": ""
+    },
+    {
+     "text": "Search sits below the prefilled field, with the results area beneath the button.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "toast",
+   "screen": "A Send code control and an on-screen number keypad are visible. The code entry is empty, and no code toast is showing.",
+   "scene": "",
+   "never": [
+    "A code toast already showing",
+    "Digits already entered",
+    "A verified status",
+    "A code sent to a second destination"
+   ],
+   "arrangements": [
+    {
+     "text": "Send code sits above the empty entry, and the keypad sits below it.",
+     "traits": ""
+    },
+    {
+     "text": "The empty entry and Send code sit beside the keypad, with Verify below the entry.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "countdown",
+   "screen": "A hold timer is running above two or three groups of option chips and a booking control. No options are selected and no reservation is confirmed.",
+   "scene": "",
+   "never": [
+    "An expired hold at the start",
+    "A confirmed reservation",
+    "Options already selected",
+    "A cancellation link for a completed reservation"
+   ],
+   "arrangements": [
+    {
+     "text": "The hold timer sits above stacked option groups, with the booking control below them.",
+     "traits": ""
+    },
+    {
+     "text": "The hold timer sits beside option groups arranged in columns, with the booking control beneath the columns.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "carousel",
+   "screen": "One promotion slide is visible with its title, subtitle and link. Dots and previous and next arrows control the slideshow; no promotion page is open.",
+   "scene": "",
+   "never": [
+    "Two slides open as pages at once",
+    "A promotion page already open",
+    "A paused-on-neighbor state",
+    "A slide selector with more dots than slides"
+   ],
+   "arrangements": [
+    {
+     "text": "The visible slide sits between the arrows, with the dots below it.",
+     "traits": ""
+    },
+    {
+     "text": "The dots sit beside the visible slide, while the arrows sit at its opposite ends.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "debounce",
+   "screen": "An empty city field is visible. It has no selected city, and no suggestions or Searching\u2026 message is showing.",
+   "scene": "",
+   "never": [
+    "An open suggestion list",
+    "A city already selected",
+    "A typed prefix",
+    "A Searching\u2026 message before typing"
+   ],
+   "arrangements": [
+    {
+     "text": "The field label sits above the city field, with space for suggestions directly below.",
+     "traits": ""
+    },
+    {
+     "text": "The field label sits beside the city field, with space for suggestions beneath the field.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "refresh",
+   "screen": "A list is in its first load, with a spinner and skeleton rows. No named item has been opened.",
+   "scene": "",
+   "never": [
+    "A contact or ticket page already open",
+    "An idle, fully loaded first list",
+    "A row already selected",
+    "Rows positioned outside the list"
+   ],
+   "arrangements": [
+    {
+     "text": "The list heading sits above the spinner and skeleton rows.",
+     "traits": ""
+    },
+    {
+     "text": "The list heading sits beside the list, with the spinner above the skeleton rows.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "deadline",
+   "screen": "A task card identifies the offer or delivery-slot task before its action window opens. The timed claim button or slot choices are not yet available.",
+   "scene": "",
+   "never": [
+    "A completed claim",
+    "An expired-window status",
+    "A life bar showing time left in an already open window",
+    "A slot already booked"
+   ],
+   "arrangements": [
+    {
+     "text": "The task title and text sit above the area where the timed controls appear.",
+     "traits": ""
+    },
+    {
+     "text": "The task title and text sit beside the area where the timed controls appear.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "search",
+   "screen": "An empty product search field sits above a list of popular results. The target has not been searched for, and no product page is open.",
+   "scene": "",
+   "never": [
+    "The target product in the initial popular list",
+    "A target query already typed",
+    "A product page already open",
+    "A settled list for a query that has not been entered"
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above the popular-results list.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits beside the popular-results list, with result rows stacked beneath the list heading.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

@@ -1,0 +1,116 @@
+{
+ "task": "use-smart-home",
+ "identity": "A connected home and media console with controls for room temperature, bulb settings, schedules, music queues, and video playback position.",
+ "scenarios": [
+  {
+   "name": "thermostat",
+   "screen": "One room\u2019s thermostat shows a setpoint dial, Heat and Cool controls, the current room temperature, humidity, and an operating status. A legal setpoint and one mode are selected.",
+   "scene": "",
+   "never": [
+    "A temperature setpoint outside the dial\u2019s printed range",
+    "An open time picker",
+    "A list of multiple room thermostats",
+    "A temperature history chart"
+   ],
+   "arrangements": [
+    {
+     "text": "The setpoint dial sits above the Heat and Cool controls, with room measurements below them.",
+     "traits": ""
+    },
+    {
+     "text": "The setpoint dial sits left of the Heat and Cool controls, with room measurements beneath the controls.",
+     "traits": "control placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "lightcolor",
+   "screen": "One room\u2019s bulb has a circular hue control and a brightness control, each showing a current value. A connection status is visible.",
+   "scene": "",
+   "never": [
+    "A separate color picker popup open on load",
+    "A grid of bulbs from multiple rooms",
+    "A schedule editor",
+    "A brightness value above 100%"
+   ],
+   "arrangements": [
+    {
+     "text": "The circular hue control sits above the brightness control, with the connection status below.",
+     "traits": ""
+    },
+    {
+     "text": "The circular hue control sits left of the brightness control, with the connection status alongside the controls.",
+     "traits": "control placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "scene",
+   "screen": "A named schedule shows a filled time field, seven repeat-day controls, and four device rows with On, Off, and excluded choices. The time picker is closed, and Save schedule is available.",
+   "scene": "",
+   "never": [
+    "The time picker open on load",
+    "A saved confirmation already showing",
+    "A device outside the connected device list",
+    "A calendar of dates in place of weekday controls"
+   ],
+   "arrangements": [
+    {
+     "text": "The scene name and time sit above the repeat days, followed by the device rows and Save schedule.",
+     "traits": ""
+    },
+    {
+     "text": "The scene name, time, and repeat days sit left of the device rows, with Save schedule below the rows.",
+     "traits": "form placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "playlist",
+   "screen": "A single queue contains several tracks, each with a title, artist, and duration, plus a queue duration. All tracks begin in the queue; none is being dragged.",
+   "scene": "",
+   "never": [
+    "A track floating outside the queue on load",
+    "Duplicate copies of a queued track",
+    "An open track picker",
+    "A video timeline"
+   ],
+   "arrangements": [
+    {
+     "text": "The tracks form one vertical queue with the queue duration below it.",
+     "traits": ""
+    },
+    {
+     "text": "The tracks form one vertical queue with the queue duration above it.",
+     "traits": "label placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "scrub",
+   "screen": "A paused video shows its title, a seek timeline with chapter markers, the current position, and time remaining. No hover preview is open.",
+   "scene": "",
+   "never": [
+    "Video playing on load",
+    "A hover preview open without a pointer over the timeline",
+    "A position beyond the video duration",
+    "An editable chapter list"
+   ],
+   "arrangements": [
+    {
+     "text": "The video title sits above the seek timeline; chapter markers lie on the timeline, with position and time remaining below it.",
+     "traits": ""
+    },
+    {
+     "text": "The video title sits left of the seek timeline; chapter markers lie on the timeline, with position and time remaining at its ends.",
+     "traits": "label placement"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "task": "change-settings",
+ "identity": "A preferences page with a settings search field, sections of toggles and value controls, and a Save button for changed settings.",
+ "scenarios": [
+  {
+   "name": "toggle",
+   "screen": "The empty search field sits above section tabs, with the first section selected and about four setting rows visible. Rows have labeled toggles; the Save button is disabled, and no select list or confirmation is open.",
+   "scene": "",
+   "never": [
+    "A filled search field at the start.",
+    "A confirmation message before saving.",
+    "An enabled Save button before any setting changes."
+   ],
+   "arrangements": [
+    {
+     "text": "Section tabs run across the top of the task area, and the selected section's toggle rows stack below them.",
+     "traits": ""
+    },
+    {
+     "text": "Sections stack down one scrolling page, with each heading directly above its toggle rows.",
+     "traits": "layout=long"
+    },
+    {
+     "text": "Section tabs run across the top, and each row places a checkbox beside its label.",
+     "traits": "control=checkbox"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "dependent",
+   "screen": "The empty search field sits above section tabs, with the first section selected and about four setting rows visible. A parent toggle is off, so its dependent value control is hidden; the Save button is disabled, and no select list or confirmation is open.",
+   "scene": "",
+   "never": [
+    "A dependent select or number field visible beneath an off parent toggle.",
+    "A select list already open.",
+    "A confirmation message before saving."
+   ],
+   "arrangements": [
+    {
+     "text": "Section tabs run across the top of the task area, and the selected section's setting rows stack below them.",
+     "traits": ""
+    },
+    {
+     "text": "Sections stack down one scrolling page, with each heading directly above its setting rows.",
+     "traits": "layout=long"
+    },
+    {
+     "text": "Section tabs run across the top, and each visible row places its control beside its label.",
+     "traits": "control=checkbox"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "mixed",
+   "screen": "The empty search field sits above section tabs, with the first section selected and about four rows of toggles, selects, or number inputs visible. Select lists are closed, number fields show their current values, and the Save button is disabled.",
+   "scene": "",
+   "never": [
+    "A select list already open.",
+    "An empty number field in place of its current value.",
+    "A confirmation message before saving."
+   ],
+   "arrangements": [
+    {
+     "text": "Section tabs run across the top of the task area, and the selected section's mixed setting rows stack below them.",
+     "traits": ""
+    },
+    {
+     "text": "Sections stack down one scrolling page, with toggles and value controls grouped beneath their section headings.",
+     "traits": "layout=long"
+    },
+    {
+     "text": "Section tabs run across the top, and the mixed rows place labels on one side and their controls on the other.",
+     "traits": "control=checkbox"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "search",
+   "screen": "The empty settings search field sits above tabs for about five sections, with the first section selected and its setting rows visible. No search results or select list is open, and the Save button is disabled.",
+   "scene": "",
+   "never": [
+    "Search results shown before a query is entered.",
+    "A filled search field at the start.",
+    "A confirmation message before saving."
+   ],
+   "arrangements": [
+    {
+     "text": "The search field sits above a row of section tabs, and the selected section's settings stack beneath them.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits above a long scrolling page of sections, each with a heading followed by its settings.",
+     "traits": "layout=long"
+    },
+    {
+     "text": "The search field sits above section tabs, and each visible setting row places its label beside its control.",
+     "traits": "control=checkbox"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

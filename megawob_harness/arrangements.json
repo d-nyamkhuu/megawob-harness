@@ -1,0 +1,27 @@
+{
+ "_doc": "Window arrangement axes. A design gets one option per axis, a combination its task's designs have not used yet, so designs of one task differ in structure and not only in style. Options are positional rules the image prompt states and the review checks. Add an option by adding a key.",
+ "axes": {
+  "nav": {
+   "top-bar": "the app's navigation is a horizontal bar across the top of the window",
+   "left-rail": "the app's navigation is a narrow vertical rail or sidebar along the left edge",
+   "tabs": "the app's navigation is a row of tabs (or a segmented switcher) directly above the task area",
+   "title-only": "no app navigation: a single-purpose tool with only a title bar or slim header",
+   "menu-bar": "a classic menu bar (File, Edit, View, ...) belonging to the app itself (never a browser's) under the app title, with a short icon toolbar below it",
+   "bottom-dock": "the app's navigation is a bar, dock or tab bar along the bottom edge"
+  },
+  "place": {
+   "center": "the task area is a centered card or sheet about 55-65% of the window wide, with plain background or margins around it",
+   "main-left": "the task area fills the left 60-70% of the content region; a secondary panel fills the remaining right part",
+   "main-right": "a secondary panel fills the left 25-35% of the content region; the task area fills the rest on the right",
+   "full-bleed": "the task area spans the full width of the content region edge to edge, with no sidebar or side column; secondary content is a thin strip one or two rows high along the top or bottom edge, or a small panel floating over a corner",
+   "sub-window": "the task area sits in a framed sub-window, dialog or floating panel over the app's own main view, which stays visible around it",
+   "lower": "a content band (record header, summary, banner or tool block) fills the top 25-35% of the content region; the task area fills the part below it"
+  },
+  "aux": {
+   "inspector": "the secondary content is a properties or details inspector",
+   "list": "the secondary content is a list or index of related records",
+   "notes": "the secondary content is help text, tips or a legend",
+   "stats": "the secondary content is a small summary of counts or status"
+  }
+ }
+}

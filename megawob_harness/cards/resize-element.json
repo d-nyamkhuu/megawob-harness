@@ -1,0 +1,160 @@
+{
+ "task": "resize-element",
+ "identity": "A resizable panel, text box, table column, or pair of panes has a handle, border, or divider that changes its size.",
+ "scenarios": [
+  {
+   "name": "numeric",
+   "screen": "One window-like panel starts at a size different from its stated target. A resize handle sits on its edge or corner, and the panel shows either a live size readout or pixel marks along its fixed edges.",
+   "scene": "",
+   "never": [
+    "A second resizable panel",
+    "An open size picker",
+    "A dashed target outline",
+    "A panel already at its target size"
+   ],
+   "arrangements": [
+    {
+     "text": "The panel sits on the left with a corner handle at its lower right and a size readout inside it.",
+     "traits": ""
+    },
+    {
+     "text": "The panel sits on the right with an edge handle on its left side and pixel marks along its fixed edges.",
+     "traits": "grips=w"
+    }
+   ],
+   "hint": "Give the panel enough expansion room; no numeric input shortcut."
+  },
+  {
+   "name": "ghost",
+   "screen": "One window-like panel starts at a different size from a dashed target outline. The outline and panel share a fixed corner, and a resize handle sits on the panel's edge or corner.",
+   "scene": "",
+   "never": [
+    "A second panel to resize",
+    "A draggable target outline",
+    "An open popup",
+    "A panel that already matches the outline"
+   ],
+   "arrangements": [
+    {
+     "text": "The panel and outline share their upper-left corner, with the panel's handle at its lower right.",
+     "traits": ""
+    },
+    {
+     "text": "The panel and outline share their upper-right corner, with the panel's handle at its lower left.",
+     "traits": "grips=sw"
+    }
+   ],
+   "hint": "Show the named resizable panel with a corner handle and a larger dashed target outline. Start panel and ghost differ in width and height. Target outline fully fits the work area."
+  },
+  {
+   "name": "relative",
+   "screen": "One window-like panel starts at a size different from the relative goal. It has a resize handle and either a live size readout or pixel marks; a named reference element is also visible when the goal compares the panel with another element.",
+   "scene": "",
+   "never": [
+    "A dashed target outline",
+    "A reference element that can be resized",
+    "Multiple panels to resize",
+    "An open size picker"
+   ],
+   "arrangements": [
+    {
+     "text": "The resizable panel sits to the left of the named reference element, with its handle at the lower-right corner.",
+     "traits": ""
+    },
+    {
+     "text": "The named reference element sits above the resizable panel, whose handle is on its right edge.",
+     "traits": "grips=e"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "textarea",
+   "screen": "A filled text box starts at a size different from its goal and has the browser's resize grip at its lower-right corner. An exact-size goal shows a size caption below the box, while an outline goal shows a dashed target outline.",
+   "scene": "",
+   "never": [
+    "A custom handle on another corner",
+    "A separate window-like panel",
+    "An open text editor popup",
+    "A text box already at its exact target size"
+   ],
+   "arrangements": [
+    {
+     "text": "The text box sits above its size caption, with the native grip at the box's lower-right corner.",
+     "traits": ""
+    },
+    {
+     "text": "The text box starts from the outline's upper-left corner, with the outline extending beyond the box.",
+     "traits": "outline goal"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "column",
+   "screen": "A filled data table has several named columns and rows. The target header has a draggable right border; a column-width bar appears below the table in most starts, with a ruler there in the others.",
+   "scene": "",
+   "never": [
+    "An empty table",
+    "A column-width dialog",
+    "A draggable border between body cells only",
+    "A separate resizable panel"
+   ],
+   "arrangements": [
+    {
+     "text": "The table sits above the column-width bar, with the target header between other columns.",
+     "traits": ""
+    },
+    {
+     "text": "The table sits above a ruler, with the target header at the left edge of the table.",
+     "traits": "ruler display"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "split",
+   "screen": "Two named panes start at a division different from the goal, with a draggable divider between them. Size readouts appear when this start includes them.",
+   "scene": "",
+   "never": [
+    "A third pane",
+    "A floating resize handle away from the divider",
+    "An open pane picker",
+    "Panes already divided at the target position"
+   ],
+   "arrangements": [
+    {
+     "text": "The first pane sits left of the second pane, with a vertical divider between them.",
+     "traits": ""
+    },
+    {
+     "text": "The first pane sits above the second pane, with a horizontal divider between them.",
+     "traits": "horizontal split"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "aspect",
+   "screen": "One window-like panel starts at a size different from its goal. It has a resize handle and an aspect-lock toggle inside the panel; the goal keeps the panel's starting proportions.",
+   "scene": "",
+   "never": [
+    "A second panel to resize",
+    "A dashed target outline",
+    "A separate proportions dialog",
+    "A panel already at its goal size"
+   ],
+   "arrangements": [
+    {
+     "text": "The panel has a lower-right corner handle, with the aspect-lock toggle inside it.",
+     "traits": ""
+    },
+    {
+     "text": "The panel has a handle on its right edge, with the aspect-lock toggle inside it.",
+     "traits": "grips=e"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

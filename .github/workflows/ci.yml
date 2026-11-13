@@ -1,0 +1,29 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-24.04  # Playwright 1.58 has no Chromium build for 26.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.14", "3.15"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: d-nyamkhuu/megawob
+          path: megawob
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv venv && uv pip install -e ./megawob -e '.[dev]'
+      - run: uv run ruff check megawob_harness tests
+      - run: uv run playwright install --with-deps chromium
+      - run: uv run pytest -q -m "not megawob"
+      - run: uv run pytest -q -m megawob

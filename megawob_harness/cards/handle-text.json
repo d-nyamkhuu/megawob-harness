@@ -1,0 +1,190 @@
+{
+ "task": "handle-text",
+ "identity": "A page with text boxes, documents, buttons, or a number spinner for copying, editing, finding, scrolling, signing, and entering text.",
+ "scenarios": [
+  {
+   "name": "copy-paste",
+   "screen": "One to three titled source boxes contain sentences. The Answer field is empty, and no text is selected or popup is open.",
+   "scene": "",
+   "never": [
+    "The Answer field already contains the requested source text.",
+    "A source box starts with its text selected.",
+    "A clipboard panel is visible."
+   ],
+   "arrangements": [
+    {
+     "text": "The titled source boxes sit above the Answer field.",
+     "traits": ""
+    },
+    {
+     "text": "The titled source boxes form a column to the left of the Answer field.",
+     "traits": "skin choice: form orientation"
+    }
+   ],
+   "hint": "Show the correctly titled source textbox, or enough boxes for the requested ordinal, containing readable text; empty destination field. A selectable source and pasteable answer are clear."
+  },
+  {
+   "name": "copy-paste-2",
+   "screen": "A source box contains a paragraph, a list of lines, or a message with labeled values. An empty text field sits nearby, and no source text is selected.",
+   "scene": "",
+   "never": [
+    "The requested portion is already in the text field.",
+    "The source starts with a line or sentence selected.",
+    "A separate picker for lines or values is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The source box sits above the empty text field.",
+     "traits": ""
+    },
+    {
+     "text": "The source box sits to the left of the empty text field.",
+     "traits": "skin choice: form orientation"
+    },
+    {
+     "text": "The numbered source lines form a vertical list above the empty text field.",
+     "traits": "numbered lines"
+    }
+   ],
+   "hint": "Show numbered entries including line 6 and line 5, or a snippet with at least three sentences. Empty answer box. Source line numbers are visually separated from copyable content."
+  },
+  {
+   "name": "unicode",
+   "screen": "The task shows either a non-ASCII cue beside an empty text field, a filled source box beside an empty text field, or several labeled items to click. In the button task, no item has been clicked and no Undo control is showing.",
+   "scene": "",
+   "never": [
+    "The text field starts filled with the requested text.",
+    "A button task starts with a clicked item or an Undo control.",
+    "A character picker or on-screen keyboard is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The cue or source box sits above the empty text field; clickable items form a row in the button task.",
+     "traits": ""
+    },
+    {
+     "text": "The cue or source box sits to the left of the empty text field; clickable items form a column in the button task.",
+     "traits": "skin choice: form orientation"
+    }
+   ],
+   "hint": "Show the exact requested Unicode string or a greeting source with accented text; use fonts that render diacritics correctly. Empty destination field."
+  },
+  {
+   "name": "scroll-text",
+   "screen": "A fixed-height scrolling box shows only the first few lines of a longer text, with a scrollbar beside it. Word tasks have an empty answer field; an edge-scrolling task shows the box without an answer field.",
+   "scene": "",
+   "never": [
+    "The box starts at its bottom edge.",
+    "A requested line below the fold is already visible.",
+    "The answer field starts with the requested word.",
+    "All lines are displayed outside the scrolling box."
+   ],
+   "arrangements": [
+    {
+     "text": "The scrolling text box sits above the answer field when a word is requested.",
+     "traits": ""
+    },
+    {
+     "text": "The scrolling text box sits to the left of the answer field when a word is requested.",
+     "traits": "skin choice: form orientation"
+    },
+    {
+     "text": "Line numbers run down the left side of the text inside the scrolling box.",
+     "traits": "numbered lines"
+    }
+   ],
+   "hint": "Show an internally scrollable numbered text pane with at least 25 lines, visible draggable scrollbar and an empty answer field. Depict the requested target line in view; for end-of-text task bottom is visible. Text has clear final words."
+  },
+  {
+   "name": "sign-agreement",
+   "screen": "A fixed-height box shows the beginning of an agreement. The name field is empty, and both Agree and Cancel are disabled until the agreement has been scrolled to the end.",
+   "scene": "The agreement box is scrolled to the end; the name field is blank, Agree and Cancel are enabled, and neither button has been pressed.",
+   "never": [
+    "The name field is enabled at the normal unsolved start.",
+    "Agree or Cancel is enabled at the normal unsolved start.",
+    "A signed result or Undo control is already showing.",
+    "The agreement starts scrolled to its end."
+   ],
+   "arrangements": [
+    {
+     "text": "The agreement box sits above the name field, with Agree and Cancel below the field.",
+     "traits": ""
+    },
+    {
+     "text": "The agreement box sits to the left of the name field, with Agree and Cancel beneath the field.",
+     "traits": "skin choice: form orientation"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "spinner",
+   "screen": "A labeled numeric field shows its starting value, with up and down buttons beside it. The field is editable in typing tasks; no button is being held.",
+   "scene": "",
+   "never": [
+    "The field starts at the requested target value.",
+    "A button starts pressed or repeating.",
+    "A separate number picker or slider is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the numeric field, and the up and down buttons sit beside the field.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the numeric field, and the up and down buttons sit beside the field.",
+     "traits": "skin choice: label placement"
+    }
+   ],
+   "hint": "Show the exact requested quantity label and unit, current value different from target, and distinct up/down arrow buttons. Preserve pointer spinner interaction."
+  },
+  {
+   "name": "edit",
+   "screen": "One or two labeled text fields contain text that needs a caret insertion, a cut and paste, an undo, or a pasted code. The code task also shows a filled note box; no text is selected at the start.",
+   "scene": "",
+   "never": [
+    "The requested edit is already complete.",
+    "A phrase starts selected.",
+    "The page's undo history is shown as a visible panel.",
+    "A note box appears in tasks that do not use a code."
+   ],
+   "arrangements": [
+    {
+     "text": "The labeled text fields form a vertical stack, with the note box above them when present.",
+     "traits": ""
+    },
+    {
+     "text": "Two text fields sit side by side, with the note box above them when present.",
+     "traits": "skin choice: field orientation"
+    },
+    {
+     "text": "The note box sits to the left of the text field that receives its code.",
+     "traits": "skin choice: note placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "find",
+   "screen": "A long document contains several paragraphs, including one occurrence of the requested phrase. Its beginning is visible in a scrolling pane or on the page, and no text is selected.",
+   "scene": "",
+   "never": [
+    "The requested phrase starts selected.",
+    "A browser-style search popup is open.",
+    "The document starts scrolled to the requested phrase.",
+    "A separate results list is visible."
+   ],
+   "arrangements": [
+    {
+     "text": "The paragraphs run vertically inside a scrolling document pane.",
+     "traits": ""
+    },
+    {
+     "text": "The paragraphs run vertically on the page, which scrolls as a whole.",
+     "traits": "page scrolling"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

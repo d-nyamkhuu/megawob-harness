@@ -1,0 +1,112 @@
+{
+ "task": "use-legacy-app",
+ "identity": "An enterprise record widget for finding a record, changing and saving its fields, or looking up an account balance and recording a report.",
+ "scenarios": [
+  {
+   "name": "mainframe",
+   "screen": "An 80-column, 24-row host screen shows a blank record-key entry field and keyboard instructions. No record is open, and no edit values or save receipt are shown.",
+   "scene": "",
+   "never": [
+    "A record editor already filled with the requested record",
+    "A mouse-operated record picker",
+    "A save receipt before a record is saved"
+   ],
+   "arrangements": [
+    {
+     "text": "The record-key label sits beside its entry field, with keyboard instructions below and status at the bottom of the host screen.",
+     "traits": ""
+    },
+    {
+     "text": "The record-key label sits above its entry field, with keyboard instructions and status beneath the entry area.",
+     "traits": "skin choice: stacked key prompt"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "mainframe-lookup",
+   "screen": "An 80-column, 24-row host screen shows numbered inquiry-menu choices and a blank option field. The account list, inquiry detail, and report entry are closed.",
+   "scene": "",
+   "never": [
+    "An account detail already open",
+    "A list already advanced to a later page",
+    "A balance already entered in the report",
+    "An acknowledged report"
+   ],
+   "arrangements": [
+    {
+     "text": "The numbered choices form a column above the option field, with status at the bottom of the host screen.",
+     "traits": ""
+    },
+    {
+     "text": "The numbered choices sit beside the option prompt, with status below both.",
+     "traits": "skin choice: side-by-side menu prompt"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "swing",
+   "screen": "A record tree and a scrollable table show the directory, typically 48 records. The tabbed editor has no loaded record, and no save receipt is shown.",
+   "scene": "",
+   "never": [
+    "The requested record already open with edited values",
+    "An editor tab detached into a separate window",
+    "A save receipt before a record is saved"
+   ],
+   "arrangements": [
+    {
+     "text": "The tree sits left of the record table, and the tabbed editor sits to their right.",
+     "traits": ""
+    },
+    {
+     "text": "The tree sits left of the record table, and the tabbed editor sits below the table.",
+     "traits": "skin choice: editor below table"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "sapgui",
+   "screen": "A transaction-command field is ready for entry. The record maintenance form and F4 help are closed, and no record values are loaded.",
+   "scene": "",
+   "never": [
+    "F4 help already open",
+    "The requested record already loaded in the maintenance form",
+    "A save confirmation before a record is saved"
+   ],
+   "arrangements": [
+    {
+     "text": "The transaction-command field sits beside its label near the top of the task area, with status below.",
+     "traits": ""
+    },
+    {
+     "text": "The transaction-command field sits below its label, with status beneath the command area.",
+     "traits": "skin choice: stacked command prompt"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "win95",
+   "screen": "A record directory is available for choosing a record, typically from 48 entries. The property sheet is closed, so its tabs, group boxes, spin controls, and Apply, OK, and Cancel buttons are not yet visible.",
+   "scene": "",
+   "never": [
+    "A property sheet already open on the requested record",
+    "An Apply confirmation before any edit",
+    "Changed values already filled into the requested record"
+   ],
+   "arrangements": [
+    {
+     "text": "The record list occupies the main task area, with its open control beside the list.",
+     "traits": ""
+    },
+    {
+     "text": "The record list sits above its open control within the task area.",
+     "traits": "skin choice: open control below list"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

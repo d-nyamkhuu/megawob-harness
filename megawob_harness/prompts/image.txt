@@ -1,0 +1,21 @@
+Use case: ui-mockup
+Asset type: one straight-on, full-window screenshot of a {mode}, landscape 16:9 (a {w}x{h} window), crisp and readable at 100% zoom. No monitor, room, hands, collage, captions or design annotations.
+
+The screen is for this task: {description} (task {task}, scenario {scenario}; the user acts with: {inputs}).
+The user's goal on this screen (context only; do NOT print it anywhere in the image): "{sample}"
+
+Era and visual language: {era}; {style_desc}.
+Window arrangement (follow every line; it is what sets this design apart from the other designs of this task):
+{regions}
+The task area takes at least half of the window. Everything fits in the window; long lists scroll inside their own pane.
+The task widget: {identity}
+What the app shows at this moment ({start_label}): {screen}
+The app can never show (do not draw): {never}.
+{hint}
+
+Leave the episode frame out, but keep room for it:
+- No task note, goal or instruction text anywhere. The header or title area, a side region and a corner are where this app would put one; they look complete without it (no empty box, no placeholder).
+- No Submit, Done, Finish or similar end-of-task button or link, and no button that commits or closes the whole screen (Save, OK, Apply, Confirm, Cancel for the whole form or dialog). The header, toolbar or footer where it would sit looks complete without it (no gap, no orphan divider). Window title-bar controls (minimize, maximize, close) are ordinary chrome and may stay.
+- Buttons the task itself uses inside the app (Send, Delete, Apply, Next, Book, ...) are part of the app and stay.
+
+Content: realistic, consistent and readable. Every name, value and target the goal mentions matches exactly one item on the screen (that item may show in several places, such as a list row and its open view), and the goal's dates and values are used as given even when they postdate the era; the task is not solved yet and nothing highlights the answer. Colors that matter to the task are flat and clearly distinct. Do not use magenta (#FF00FF) anywhere.

@@ -1,0 +1,115 @@
+{
+ "task": "use-health-records",
+ "identity": "A fictional patient chart with scheduling, order entry, medication review, nursing observation, and bed placement work areas.",
+ "scenarios": [
+  {
+   "name": "appointment",
+   "screen": "The patient's chart shows a month calendar beside a provider schedule with three provider columns and half-hour slots; some slots are already booked. Visit details are blank or at their defaults, and no new visit is selected or scheduled.",
+   "scene": "",
+   "never": [
+    "A floating date picker open over the schedule.",
+    "The requested slot already selected as a new visit.",
+    "A newly booked visit in the patient's appointment record."
+   ],
+   "arrangements": [
+    {
+     "text": "The month calendar and visit details sit to the left of the provider schedule, with providers across columns and times down the rows.",
+     "traits": ""
+    },
+    {
+     "text": "The calendar sits above the visit details on the left, while the provider schedule occupies the right side.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "order",
+   "screen": "A new order form shows medication choices, an empty numeric dose field, dose-unit choices, and fields for frequency, route, and priority. A list of existing orders sits alongside the form; the new order has not been signed.",
+   "scene": "",
+   "never": [
+    "A medication search popup open on load.",
+    "A dose already entered for the new order.",
+    "The new order marked signed.",
+    "An empty existing-orders area with no historical rows."
+   ],
+   "arrangements": [
+    {
+     "text": "The new order form sits on the left and the existing-orders list sits on the right; medication and dose controls appear near the top of the form.",
+     "traits": ""
+    },
+    {
+     "text": "Medication choices run above the dose and unit controls on the left, with frequency, route, and priority below; existing orders remain in a right-hand column.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "medrec",
+   "screen": "A medication review table shows five home medications, each with its recorded dose and unit, Continue, Stop, and Modify controls, and an editable dose. The recorded doses and units are filled in, while no review action has been chosen for any row.",
+   "scene": "",
+   "never": [
+    "A medication action already selected for a row.",
+    "The review count showing all five medications reviewed.",
+    "An empty medication list.",
+    "A completed reconciliation status."
+   ],
+   "arrangements": [
+    {
+     "text": "Medication names and recorded directions occupy the left of each row; action controls, dose fields, and unit choices run across the right.",
+     "traits": ""
+    },
+    {
+     "text": "Each medication row places its name and recorded directions above a line of action, dose, and unit controls.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "vitals",
+   "screen": "A nursing handoff table shows two recorded observation times with blood pressure, temperature, oxygen saturation, pulse, and respiratory rate. A new flowsheet entry sits below it with observation time and measurement fields awaiting entry; the observations have not been charted.",
+   "scene": "",
+   "never": [
+    "A completed new flowsheet entry.",
+    "The handoff observations absent from the page.",
+    "A charted status for the requested observations.",
+    "An open measurement picker overlay."
+   ],
+   "arrangements": [
+    {
+     "text": "The handoff observation table sits above the new flowsheet entry, with times down the table and measurements across its columns.",
+     "traits": ""
+    },
+    {
+     "text": "The handoff table spans the top of the task area, and the new entry places observation time beside blood pressure with the remaining measurements below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "beds",
+   "screen": "A patient transfer strip appears above a bed board of four cards, with three available beds and one occupied bed. Each card shows its bed number, cohort, isolation setting, and acuity capacity; the patient is awaiting placement.",
+   "scene": "",
+   "never": [
+    "The patient already placed in a bed.",
+    "The patient card floating outside the transfer strip.",
+    "An occupied bed shown as available.",
+    "A transfer confirmation popup open on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The patient transfer strip sits above the bed board, whose bed cards form three columns with the fourth card on the next row.",
+     "traits": ""
+    },
+    {
+     "text": "The patient strip spans the top, followed by placement requirements and then the bed cards in a grid.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

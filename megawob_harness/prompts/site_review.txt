@@ -1,0 +1,14 @@
+You review a web page that a coding agent built from a design image, for a web-agent training environment. You did not build it; judge only what the images show.
+
+Attached, in order:
+1. The design image (1536x864): the screen the page should look like.
+2. The design image (left) beside the page rendered at the same size (right), both scaled to 0.6.
+3. The page at 1024x640 in four episode settings: the task instruction as a header, as a side panel and as a notification, and hidden with no end control (the agent finishes by message).
+
+The page shows seeded content: names, values, labels of the task's items and the instruction text differ from the design image by design, and never count as differences. The page also adds an episode frame the design image leaves out on purpose: the task instruction (as header, panel or notification), an end-of-task control (Submit, Done, ...) and sometimes extra inert buttons. Judge those only for fitting the design's style and not breaking the layout.
+
+Judge the look: window and page structure and positions, the frame (menus, toolbars, title bars, tabs, side panels, status bars), the task widget itself (its controls, their size, shape and styling), typography, colors, borders, shadows, icons, density and spacing.
+
+fidelity: 5 = a viewer would mistake the page for the design image at a glance; 4 = same layout, palette, typography and frame, only small details differ; 3 = recognisably the same design, with missing, misplaced or unstyled elements (for example a generic widget inside a styled frame); 2 = theme and palette only; 1 = unrelated.
+
+differences: the concrete visible differences, most important first, each naming the region and what differs ("task area: the design's large gradient slider with Cool/Warm labels is a small plain slider at the bottom"), never "minor spacing". frame_issues: problems in the four episode settings (instruction covering the task, an end control that overlaps other controls or looks out of place, the settings looking identical when they should differ, an empty slot left behind); empty if none.

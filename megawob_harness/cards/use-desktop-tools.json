@@ -1,0 +1,178 @@
+{
+ "task": "use-desktop-tools",
+ "identity": "A desktop-style workspace contains small apps for browsing and changing files, using a shell, formatting text, scheduling events, and saving preferences.",
+ "scenarios": [
+  {
+   "name": "tree",
+   "screen": "A collapsed folder tree shows folder and file names in rows. No file is open, and no folder is loading.",
+   "scene": "The target file is visible on the first screen with its ancestor folders open; up to two other folders are open, and no file has been clicked.",
+   "never": [
+    "A file picker dialog.",
+    "A grid of file thumbnails.",
+    "Several selected files."
+   ],
+   "arrangements": [
+    {
+     "text": "The folder tree runs vertically, with each child row indented beneath its parent.",
+     "traits": ""
+    },
+    {
+     "text": "The folder tree sits on the left, with a file preview area to its right when a file is opened.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show a nested file tree with the exact target filename visible inside expanded folders and several distractor files. It is not selected yet."
+  },
+  {
+   "name": "files",
+   "screen": "A file tree shows folders and files in rows, with folders initially collapsed. No name field, context menu, or Undo toast is open.",
+   "scene": "The target row is visible on the first screen with its ancestor folders open; for a rename or delete task, the target is selected.",
+   "never": [
+    "A separate rename dialog.",
+    "A Trash folder listing.",
+    "Several files selected for a bulk operation."
+   ],
+   "arrangements": [
+    {
+     "text": "Folder and file rows run down one tree, with child rows indented beneath open folders.",
+     "traits": ""
+    },
+    {
+     "text": "The tree occupies the task area, and a context menu opens beside the selected row after a right click.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "move",
+   "screen": "A folder tree shows the file to move and collapsed folders leading to its destination. The file is in its original folder, and no drag is in progress.",
+   "scene": "The file is visible in its original location, with no drag in progress.",
+   "never": [
+    "A separate destination picker dialog.",
+    "A file already floating under the pointer.",
+    "A file already outside the tree."
+   ],
+   "arrangements": [
+    {
+     "text": "The source file and destination folders occupy one vertical tree, with child rows indented beneath open folders.",
+     "traits": ""
+    },
+    {
+     "text": "The tree sits in a scrollable pane, and the file is dragged across its rows toward a folder that opens beneath the pointer.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "terminal",
+   "screen": "A shell shows a command prompt in the home directory with an empty input line. The virtual files and folders appear as text only after commands list them.",
+   "scene": "A startup transcript has navigated to the target folder and listed its contents, including the target file; the prompt is ready for another command.",
+   "never": [
+    "A graphical file tree.",
+    "A command suggestion popup.",
+    "A separate file deletion dialog."
+   ],
+   "arrangements": [
+    {
+     "text": "Command history runs above the current prompt, with the input line at the bottom.",
+     "traits": ""
+    },
+    {
+     "text": "Long file listings appear as aligned text rows in the history above the prompt.",
+     "traits": "meta=true"
+    }
+   ],
+   "hint": "Show a terminal with a shell prompt, current working directory and an ls-like listing including a file with the requested extension in the requested folder. No destructive command has been executed; all content is a fictional task UI."
+  },
+  {
+   "name": "editor",
+   "screen": "A rich-text document contains a few paragraphs beneath a toolbar for text style, size, color, alignment, lists, and undo or redo. Its size and color menus are closed, and no text is selected.",
+   "scene": "The text to format is selected in the document; an undo task instead retains the accidental formatting changes.",
+   "never": [
+    "A font-family picker.",
+    "A comments panel.",
+    "A table inside the document."
+   ],
+   "arrangements": [
+    {
+     "text": "The formatting toolbar runs across the top of the document, with paragraphs stacked below it.",
+     "traits": ""
+    },
+    {
+     "text": "The toolbar's available buttons run above the document, with size and color options opening below their buttons.",
+     "traits": "tools=[names]"
+    }
+   ],
+   "hint": "Show editable text containing raven when requested, a formatting toolbar with italic, underline and text-color actions; the requested formatting remains unapplied."
+  },
+  {
+   "name": "calendar",
+   "screen": "A day schedule shows half-hour rows across a full day, with existing events placed at their times. No new-event draft or creation form is open.",
+   "scene": "A new-event form is open for an unnamed one-hour draft at the top of the view; time selectors show the draft when present.",
+   "never": [
+    "A month grid.",
+    "An event already saved for the requested name.",
+    "Several simultaneous new-event drafts."
+   ],
+   "arrangements": [
+    {
+     "text": "Time labels run down the left of the day grid, with event blocks beside their time rows.",
+     "traits": ""
+    },
+    {
+     "text": "Start time and duration selectors sit beside the day grid, with event blocks aligned to its visible rows.",
+     "traits": "selectors=true"
+    },
+    {
+     "text": "Time labels and events fill a fixed span of day rows, with no grid scrollbar.",
+     "traits": "dayRange=[from,to]"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "week",
+   "screen": "A week grid shows day columns, half-hour time rows, and existing event blocks at their scheduled times. No event is being dragged, and no Undo toast is visible.",
+   "scene": "The week grid is scrolled to the target event.",
+   "never": [
+    "A month grid.",
+    "A new-event creation form.",
+    "An event card outside its day column."
+   ],
+   "arrangements": [
+    {
+     "text": "Day columns run from left to right, with time labels down the side and events inside their day columns.",
+     "traits": ""
+    },
+    {
+     "text": "The day headers stay above the scrollable time grid, while event blocks line up with half-hour rows below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "prefs",
+   "screen": "The workspace shows a closed Preferences dialog, accessible from a gear or title menu. Its settings tabs, controls, and Save button are not visible until the dialog opens.",
+   "scene": "The Preferences dialog is open on the tab containing the first requested setting, with its current values shown.",
+   "never": [
+    "A Preferences dialog already containing unsaved changes.",
+    "Several Preferences dialogs open at once.",
+    "A detached settings page replacing the workspace."
+   ],
+   "arrangements": [
+    {
+     "text": "Inside the dialog, tabs run across the top, settings sit below them, and action buttons sit at the bottom.",
+     "traits": ""
+    },
+    {
+     "text": "Inside the dialog, tabs form a vertical list beside the settings, with action buttons along the bottom edge.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

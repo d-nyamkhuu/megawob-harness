@@ -1,0 +1,116 @@
+{
+ "task": "use-social-feed",
+ "identity": "A scrollable social feed contains posts with author details, text, optional media, action buttons, and a More menu.",
+ "scenarios": [
+  {
+   "name": "one",
+   "screen": "The feed shows several posts in a vertical list, with only the first page loaded when paging is active. For you and Following tabs sit above it; each post has action buttons and More, and no menu or dialog is open.",
+   "scene": "The named post is the first visible feed row in its open tab. Its text is expanded if the task names hidden text; no menu or dialog is open.",
+   "never": [
+    "A More menu already open in the normal unsolved start.",
+    "A confirmation dialog already open in the normal unsolved start.",
+    "Unloaded posts visible below the Loading row.",
+    "Posts placed outside the feed pane."
+   ],
+   "arrangements": [
+    {
+     "text": "The two tabs sit above a single vertical feed; each post's action row sits below its content and More sits at its upper right.",
+     "traits": ""
+    },
+    {
+     "text": "A single fully loaded feed fills the task area, with no tabs or Loading row; each post's controls sit around its content.",
+     "traits": "simpleFeed"
+    }
+   ],
+   "hint": "Include the exact target author or target post prefix; show readable Reply, Retweet and Like affordances. Target action is not yet applied."
+  },
+  {
+   "name": "all",
+   "screen": "A single scrollable timeline shows several posts, with author details, content, action buttons, and More on each row. Some buttons can already be on; no menu, dialog, or composer is open.",
+   "scene": "The timeline has the same plain unsolved start, with no selection opened or moved into view.",
+   "never": [
+    "A More menu already open at the start.",
+    "A confirmation dialog already open at the start.",
+    "Every post from a paged feed visible before more posts load.",
+    "Posts arranged in separate columns outside the feed."
+   ],
+   "arrangements": [
+    {
+     "text": "Posts run down one scrollable feed, with each action row below the post content and More at the upper right.",
+     "traits": ""
+    },
+    {
+     "text": "All posts run down one fully loaded feed without a Loading row, with each post's controls beside its content.",
+     "traits": "simpleFeed"
+    }
+   ],
+   "hint": "Show at least three matching posts and two distractors. Matching actions remain inactive."
+  },
+  {
+   "name": "some",
+   "screen": "A single scrollable timeline shows several posts with author details, content, action buttons, and More. Some buttons can already be on; no menu, dialog, or composer is open.",
+   "scene": "The timeline has the same plain unsolved start, with no selection opened or moved into view.",
+   "never": [
+    "A separate counter or picker for choosing the requested number of posts.",
+    "A More menu already open at the start.",
+    "Every post from a paged feed visible before more posts load.",
+    "Posts already dragged outside the feed."
+   ],
+   "arrangements": [
+    {
+     "text": "Posts form one vertical scrollable feed, with action buttons below each post and More at the upper right.",
+     "traits": ""
+    },
+    {
+     "text": "Posts form one fully loaded feed without a Loading row, with each post's controls beside its content.",
+     "traits": "simpleFeed"
+    }
+   ],
+   "hint": "Show more matching posts than the requested count, plus distractors. Keep all target actions inactive so exactly the requested number can be chosen."
+  },
+  {
+   "name": "menu",
+   "screen": "For you and Following tabs sit above a scrollable feed of several posts. Each post has action buttons and More; the More menu and any confirmation dialog are closed.",
+   "scene": "The named post is the first visible feed row in its open tab, with its More menu open and nothing selected. Its text is expanded if the task names hidden text; no confirmation dialog is open.",
+   "never": [
+    "A More menu already open in the normal unsolved start.",
+    "A block or report confirmation dialog already open in the normal unsolved start.",
+    "A persistent menu action already shown as a collapsed post in the normal unsolved start.",
+    "Unloaded posts visible before the Loading row is reached."
+   ],
+   "arrangements": [
+    {
+     "text": "The two tabs sit above one vertical feed; More sits at the upper right of each post, apart from the action row below its content.",
+     "traits": ""
+    },
+    {
+     "text": "One fully loaded feed occupies the task area without tabs or a Loading row; More sits beside each post's other controls.",
+     "traits": "simpleFeed"
+    }
+   ],
+   "hint": "Show the target author and their More menu open with the requested Mute or Block option, plus other plausible items. Target action has not been taken."
+  },
+  {
+   "name": "reply",
+   "screen": "A single scrollable timeline shows several posts with author details, content, action buttons, and More. No reply composer, menu, or dialog is open, and no reply text is entered.",
+   "scene": "The named post is the first visible feed row, with a blank inline reply composer beneath it. Its text is expanded if the task names hidden text.",
+   "never": [
+    "A reply composer already open in the normal unsolved start.",
+    "Reply text already entered in the normal unsolved start.",
+    "A separate full-page reply editor.",
+    "Unloaded posts visible before they are appended to the feed."
+   ],
+   "arrangements": [
+    {
+     "text": "Posts run down one scrollable feed, with action buttons below each post; an opened composer sits directly beneath its post.",
+     "traits": ""
+    },
+    {
+     "text": "Posts run down one fully loaded feed without a Loading row; an opened composer remains directly beneath its post.",
+     "traits": "simpleFeed"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

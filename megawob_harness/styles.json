@@ -1,0 +1,449 @@
+{
+ "_doc": "Era and visual-language profiles a design is drawn in (platform desktop or mobile). A design takes the profile its task's designs have used least; add one by appending an entry with a new slug.",
+ "profiles": [
+  {
+   "era": "1984",
+   "platform": "desktop",
+   "slug": "lisa-stationery",
+   "desc": "Lisa-era document workstation; ivory monochrome, thin black rules, serif body copy, heavy outlined buttons, stationery metaphor"
+  },
+  {
+   "era": "1988",
+   "platform": "desktop",
+   "slug": "macintosh-bitmap",
+   "desc": "classic Macintosh; one-bit white-and-black, Chicago bitmap labels, stippled title bars, small outlined bitmap icons, detached menus"
+  },
+  {
+   "era": "1990",
+   "platform": "desktop",
+   "slug": "amiga-workbench",
+   "desc": "Amiga Workbench; cobalt title stripes, orange selection, gray planar surfaces, bitmap lettering, chunky square gadgets"
+  },
+  {
+   "era": "1991",
+   "platform": "desktop",
+   "slug": "motif-workstation",
+   "desc": "UNIX Motif; oatmeal panels, deep raised bevels, compact Helvetica labels, chunky square scrollbars, tear-off menus"
+  },
+  {
+   "era": "1992",
+   "platform": "desktop",
+   "slug": "windows-program-manager",
+   "desc": "Windows 3.1 utility; teal desktop glimpse, light-gray dialog surfaces, navy title bars, 3D beveled buttons, MS Sans Serif"
+  },
+  {
+   "era": "1993",
+   "platform": "desktop",
+   "slug": "nextstep-inspector",
+   "desc": "NeXTSTEP; charcoal title bars, grayscale relief controls, precise Helvetica, compact square icons, restrained inspector windows"
+  },
+  {
+   "era": "1994",
+   "platform": "desktop",
+   "slug": "os2-workplace",
+   "desc": "OS/2 Workplace Shell; pale stone gray, cyan title details, black-and-white etched icons, notebook tabs, compact system labels"
+  },
+  {
+   "era": "1995",
+   "platform": "web",
+   "slug": "academic-hypertext",
+   "desc": "early academic HTML; white document, Times serif, blue underlined anchors, simple inset controls, thin horizontal rules"
+  },
+  {
+   "era": "1996",
+   "platform": "web",
+   "slug": "community-homepage",
+   "desc": "personal community homepage; small tiled paper texture, centered serif masthead, compact table sections, tiny pixel badges, readable content"
+  },
+  {
+   "era": "1997",
+   "platform": "desktop",
+   "slug": "sgi-irix",
+   "desc": "SGI IRIX workstation; slate surfaces, lavender accents, sculpted geometric icons, crisp condensed labels, workstation tool shelves"
+  },
+  {
+   "era": "1998",
+   "platform": "web",
+   "slug": "directory-portal",
+   "desc": "1998 directory portal; dense Arial link columns, yellow section strips, inset search boxes, compact square controls and blue rule lines"
+  },
+  {
+   "era": "1999",
+   "platform": "web",
+   "slug": "industrial-extranet",
+   "desc": "1999 B2B extranet; dark navy masthead, narrow Verdana text, rust-orange utility tabs, dense bordered table panels"
+  },
+  {
+   "era": "2000",
+   "platform": "desktop",
+   "slug": "classic-mac-platinum",
+   "desc": "Mac OS 9 Platinum; platinum ridged title bars, charcoal text, capsule system buttons, fine pinstripes, compact application menus"
+  },
+  {
+   "era": "2001",
+   "platform": "desktop",
+   "slug": "aqua-utility",
+   "desc": "early Aqua desktop; translucent blue title accents, white pinstripe panels, glossy blue controls, Lucida-like labels, subtle recessed wells"
+  },
+  {
+   "era": "2002",
+   "platform": "web",
+   "slug": "flash-vector",
+   "desc": "early Flash interface; flat vector geometry, asymmetric colored panels, compact sans labels, distinctive polygonal controls, no giant hero artwork"
+  },
+  {
+   "era": "2003",
+   "platform": "desktop",
+   "slug": "windows-xp-luna",
+   "desc": "Windows XP Luna; royal-blue glossy window header, pale cream task surfaces, rounded system buttons, Tahoma labels, bright icon accents"
+  },
+  {
+   "era": "2004",
+   "platform": "desktop",
+   "slug": "linux-industrial",
+   "desc": "industrial Linux calibration utility; warm-gray panels, burgundy rules, condensed labels, monospaced readouts, squared engraved pushbuttons"
+  },
+  {
+   "era": "2005",
+   "platform": "web",
+   "slug": "web2-gloss",
+   "desc": "Web 2.0 productivity page; small glossy green tabs, white surfaces, pale blue dividers, Trebuchet typography, rounded but compact fields"
+  },
+  {
+   "era": "2006",
+   "platform": "desktop",
+   "slug": "gnome-human",
+   "desc": "GNOME Human-era application; warm brown window chrome, orange active states, beige flat content, outlined system icons, humanist sans labels"
+  },
+  {
+   "era": "2007",
+   "platform": "desktop",
+   "slug": "vista-glass",
+   "desc": "Vista-era utility; restrained translucent blue-gray title frame, white inset content panes, Segoe-style labels, glass-edged controls"
+  },
+  {
+   "era": "2008",
+   "platform": "web",
+   "slug": "magazine-serif",
+   "desc": "2008 editorial web; large restrained serif section labels, off-white stock, black hairlines, red pagination details, narrow readable columns"
+  },
+  {
+   "era": "2009",
+   "platform": "desktop",
+   "slug": "pro-carbon",
+   "desc": "professional Carbon-era desktop; dark graphite toolbars, small silver controls, recessed black work area, compact neutral labels"
+  },
+  {
+   "era": "2010",
+   "platform": "web",
+   "slug": "skeuomorphic-organizer",
+   "desc": "skeuomorphic web organizer; cream paper surfaces, subtle leather binding edge, inset labeled controls, warm serif notes, restrained realistic materials"
+  },
+  {
+   "era": "2011",
+   "platform": "desktop",
+   "slug": "wooden-studio",
+   "desc": "desktop creative utility; dark walnut edging, ivory operational surface, machined brass control accents, legible serif and mono labels, no physical room"
+  },
+  {
+   "era": "2012",
+   "platform": "desktop",
+   "slug": "metro-panorama",
+   "desc": "Windows Metro-style desktop application; flat solid planes, large Segoe typography, text-led navigation, sharp corners, sparse bold color blocks"
+  },
+  {
+   "era": "2013",
+   "platform": "web",
+   "slug": "bootstrap-admin",
+   "desc": "2013 utilitarian web admin; compact Helvetica, modest gray gradients, blue rectangular buttons, thin bordered panels and horizontal utility navigation"
+  },
+  {
+   "era": "2014",
+   "platform": "web",
+   "slug": "material-paper",
+   "desc": "early Material web interface; layered white paper, restrained shadow, saturated indigo sections, Roboto typography, purposeful flat controls"
+  },
+  {
+   "era": "2015",
+   "platform": "desktop",
+   "slug": "yosemite-light",
+   "desc": "Yosemite-era desktop; light-gray native toolbar, thin separators, clear content regions, small rounded system controls, airy sans typography"
+  },
+  {
+   "era": "2016",
+   "platform": "web",
+   "slug": "swiss-editorial",
+   "desc": "Swiss typographic website; strict asymmetric grid, oversized black grotesk section markers, white space, vermilion rules and unornamented fields"
+  },
+  {
+   "era": "2017",
+   "platform": "web",
+   "slug": "civic-service",
+   "desc": "accessible civic-service web design; navy and white, bold readable sans headings, thick focus outlines, large rectangular controls, clear printed-form hierarchy"
+  },
+  {
+   "era": "2018",
+   "platform": "desktop",
+   "slug": "kde-breeze",
+   "desc": "KDE Breeze desktop; cool off-white panels, flat blue-gray icons, hairline dividers, small blue active accents, restrained thin window borders"
+  },
+  {
+   "era": "2019",
+   "platform": "web",
+   "slug": "neo-brutalist",
+   "desc": "neo-brutalist web utility; heavy black outlines, offset hard shadows, warm-yellow accents, oversized monospace labels, uneven but deliberate grids"
+  },
+  {
+   "era": "2020",
+   "platform": "web",
+   "slug": "soft-neumorphic",
+   "desc": "neumorphic web utility; muted pale surfaces and paired relief shadows, readable charcoal labels, well-outlined interactive edges, restrained blue selection"
+  },
+  {
+   "era": "2021",
+   "platform": "desktop",
+   "slug": "fluent-workspace",
+   "desc": "Fluent desktop application; translucent mica-like header only, warm light content, compact rounded controls, Segoe typography, restrained depth"
+  },
+  {
+   "era": "2022",
+   "platform": "web",
+   "slug": "dark-developer",
+   "desc": "dark developer web tool; near-black canvas, slate panels, small precise mono labels, acid-green active markers, dense functional controls"
+  },
+  {
+   "era": "2023",
+   "platform": "web",
+   "slug": "quiet-luxury",
+   "desc": "quiet luxury editorial web; parchment, dark olive ink, restrained high-contrast serif, fine gold-toned rules, spacious grounded form elements"
+  },
+  {
+   "era": "2024",
+   "platform": "desktop",
+   "slug": "gnome-libadwaita",
+   "desc": "modern GNOME desktop; integrated headerbar, strong rounded grouping, generous system typography, muted neutral surfaces and blue action button"
+  },
+  {
+   "era": "2025",
+   "platform": "web",
+   "slug": "kinetic-type",
+   "desc": "experimental typographic web utility; huge condensed section typography, cobalt and chalk palette, split baseline grids, flat robust controls"
+  },
+  {
+   "era": "2026",
+   "platform": "desktop",
+   "slug": "precision-dark",
+   "desc": "current professional desktop; deep aubergine work area, crisp pale instrument labels, coral selection markers, dockable square-edged tool panels"
+  },
+  {
+   "era": "1987",
+   "platform": "desktop",
+   "slug": "gem-desktop",
+   "desc": "GEM-style graphical utility; monochrome diagonal hatching, rectangular outlined gadgets, geometric system type, sparse flat icon strip"
+  },
+  {
+   "era": "1989",
+   "platform": "desktop",
+   "slug": "risc-os",
+   "desc": "RISC OS utility; light pebble-gray panels, blocky small system lettering, red close gadget, horizontal iconbar, inset fields"
+  },
+  {
+   "era": "1994",
+   "platform": "web",
+   "slug": "plain-form",
+   "desc": "first-generation HTML form page; unstyled Times document, browser-native gray buttons, white background, indented labels, simple black separators"
+  },
+  {
+   "era": "1997",
+   "platform": "web",
+   "slug": "cdrom-web",
+   "desc": "CD-ROM companion web interface; jewel-tone frame, gold serif section headings, tabbed beige content sheets, compact beveled navigation"
+  },
+  {
+   "era": "2000",
+   "platform": "web",
+   "slug": "intranet-notebook",
+   "desc": "enterprise notebook web app; muted mint grids, dark green section bars, condensed business labels, squared fieldsets, numeric index tabs"
+  },
+  {
+   "era": "2002",
+   "platform": "desktop",
+   "slug": "qt-plastik",
+   "desc": "early Qt desktop; cool gray surfaces, blue selection stripes, shallow relief frames, compact sans labels, dense docked widgets"
+  },
+  {
+   "era": "2005",
+   "platform": "web",
+   "slug": "pixel-craft",
+   "desc": "pixel-crafted web utility; navy pixel borders, ivory content, small readable bitmap labels, teal tab accents, intentionally blocky illustrated icons"
+  },
+  {
+   "era": "2008",
+   "platform": "desktop",
+   "slug": "office-ribbon",
+   "desc": "ribbon-era desktop application; broad categorized ribbon, silver-blue native frame, Segoe-like labels, large operation icons with compact groups"
+  },
+  {
+   "era": "2011",
+   "platform": "web",
+   "slug": "newspaper-tool",
+   "desc": "newspaper utility website; warm white, black condensed masthead, multi-weight serif, red small controls, ruled typographic sections"
+  },
+  {
+   "era": "2014",
+   "platform": "desktop",
+   "slug": "cad-blueprint",
+   "desc": "technical drafting desktop; deep marine canvas, pale cyan geometry, compact gray tool strips, yellow selection handles, engineering mono readouts"
+  },
+  {
+   "era": "2017",
+   "platform": "web",
+   "slug": "memphis-play",
+   "desc": "Memphis-inspired playful web tool; cream ground, lilac and coral geometric accents away from targets, asymmetric bold type, thick clear outlined controls"
+  },
+  {
+   "era": "2020",
+   "platform": "desktop",
+   "slug": "eink-workspace",
+   "desc": "e-ink-inspired desktop; warm grayscale, very sharp black lines, large serif content, monochrome outlined controls and visible focus patterns"
+  },
+  {
+   "era": "2023",
+   "platform": "web",
+   "slug": "bauhaus-modular",
+   "desc": "Bauhaus-inspired web tool; cream, primary red and black structural areas, geometric grotesk, strong modular alignment, clear square controls"
+  },
+  {
+   "era": "1986",
+   "platform": "desktop",
+   "slug": "atari-gem",
+   "desc": "Atari ST desktop utility; green desktop sliver, monochrome application planes, pixel system text, black outlined square gadgets, simple iconography"
+  },
+  {
+   "era": "1992",
+   "platform": "desktop",
+   "slug": "openlook",
+   "desc": "Sun Open Look workstation; pale gray rounded oblong buttons, black pushpin menu gadgets, light blue title accents, Lucida system typography"
+  },
+  {
+   "era": "1996",
+   "platform": "web",
+   "slug": "library-catalog",
+   "desc": "library catalog website; parchment white, deep maroon headings, bookish serif, compact native form fields, tight bibliographic rules"
+  },
+  {
+   "era": "1999",
+   "platform": "desktop",
+   "slug": "beos",
+   "desc": "BeOS utility; distinctive yellow tab title, pale neutral panels, crisp small sans labels, deep-blue selection, simple inset controls"
+  },
+  {
+   "era": "2003",
+   "platform": "web",
+   "slug": "forum-utility",
+   "desc": "forum-era web application; blue-gray section bars, tiny Verdana labels, boxed table rows, compact rectangular submit controls, threaded indentation"
+  },
+  {
+   "era": "2006",
+   "platform": "web",
+   "slug": "frutiger-aero",
+   "desc": "Frutiger Aero web utility; sky-blue translucent framing, small glossy green actions, generous white operational surface, clear rounded sans typography"
+  },
+  {
+   "era": "2009",
+   "platform": "desktop",
+   "slug": "gtk-clearlooks",
+   "desc": "GTK Clearlooks desktop; pale beige surfaces, blue-gray selection, soft shallow borders, compact native controls, tidy system typography"
+  },
+  {
+   "era": "2012",
+   "platform": "web",
+   "slug": "responsive-minimal",
+   "desc": "early responsive minimal web app; white ground, gray sans hierarchy, mint utility accents, almost borderless groups, strong whitespace"
+  },
+  {
+   "era": "2015",
+   "platform": "web",
+   "slug": "risograph-editorial",
+   "desc": "risograph-inspired web utility; warm cream, burgundy and teal structural ink, restrained grain outside text and targets, bold slab headings, clear thin controls"
+  },
+  {
+   "era": "2018",
+   "platform": "desktop",
+   "slug": "electron-notebook",
+   "desc": "desktop notebook application; charcoal native header, pale warm document surface, monospace side labels, sparse orange action accents, segmented tool shelf"
+  },
+  {
+   "era": "2021",
+   "platform": "web",
+   "slug": "high-contrast-modernist",
+   "desc": "high-contrast modernist web tool; ivory and ink black, oversized condensed labels, lime active details, strong horizontal rhythm, squared controls"
+  },
+  {
+   "era": "2024",
+   "platform": "desktop",
+   "slug": "pastel-native",
+   "desc": "contemporary native desktop utility; soft lavender window frame, pale mint grouping, confident dark sans labels, small native pill buttons, compact inspector controls"
+  },
+  {
+   "era": "2026",
+   "platform": "web",
+   "slug": "post-digital-collage",
+   "desc": "post-digital web interface; crisp monochrome text over carefully separated paper-like blocks, orange utility markers, unexpected editorial alignment, no decoration over targets"
+  },
+  {
+   "era": "1995",
+   "platform": "desktop",
+   "slug": "windows-95-classic",
+   "desc": "Windows 95 classic; teal desktop glimpse, light-gray 3D beveled surfaces, solid navy title bar with white bold caption, MS Sans Serif 8pt labels, square sunken fields, chunky gray scrollbars"
+  },
+  {
+   "era": "1999",
+   "platform": "desktop",
+   "slug": "windows-2000-classic",
+   "desc": "Windows 98/2000 classic; navy-to-blue gradient title bars, warm light-gray dialog surfaces, crisp 3D bevels, Tahoma labels, small 16-color icons, dotted focus rectangles"
+  },
+  {
+   "era": "2016",
+   "platform": "web",
+   "slug": "enterprise-lightning",
+   "desc": "enterprise CRM web suite (Lightning/Fiori era); pale blue-gray app background, white record cards with soft borders, compact global header with app launcher, blue brand actions, small Salesforce-Sans-like labels, dense field grids"
+  },
+  {
+   "era": "2019",
+   "platform": "web",
+   "slug": "ipados-split",
+   "desc": "landscape tablet app in iPadOS style; split view with a rounded sidebar column, large touch targets, SF-like system type, grouped inset lists, translucent bars, generous spacing for fingers"
+  },
+  {
+   "era": "2021",
+   "platform": "desktop",
+   "slug": "macos-big-sur",
+   "desc": "macOS Big Sur to Sequoia; unified light toolbar, translucent vibrancy sidebar, large continuous rounded corners, SF Pro labels, blue accent selection pills, airy grouped sections"
+  },
+  {
+   "era": "2022",
+   "platform": "web",
+   "slug": "material-you",
+   "desc": "Material 3 (Material You) web app; dynamic tonal palette from one seed color, pill-shaped filled and tonal buttons, large rounded cards, Roboto Flex type, navigation rail with pill indicators, soft surface tints"
+  },
+  {
+   "era": "2023",
+   "platform": "desktop",
+   "slug": "win11-dark-mica",
+   "desc": "Windows 11 dark mode; mica-tinted dark title area, near-black layered surfaces, rounded 8px corners, Segoe UI Variable labels, accent-colored selection indicator bars, thin subtle strokes"
+  },
+  {
+   "era": "2024",
+   "platform": "web",
+   "slug": "shadcn-saas",
+   "desc": "current minimal SaaS web app; zinc and white neutrals, 1px hairline borders, small 6px radii, Inter type, muted secondary text, compact ghost and outline buttons, command-palette search, one dark primary button style"
+  },
+  {
+   "era": "2025",
+   "platform": "desktop",
+   "slug": "liquid-glass",
+   "desc": "Apple Liquid Glass (macOS 26 / iPadOS 26); refractive translucent glass toolbars and sidebar floating above content with soft specular edges, capsule buttons, concentric rounded corners, vivid content showing through blurred glass, SF Pro labels"
+  }
+ ]
+}

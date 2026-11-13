@@ -1,0 +1,237 @@
+{
+ "task": "set-slider",
+ "identity": "A slider task uses labeled handles, value readouts, and sometimes player controls or star ratings to set requested values.",
+ "scenarios": [
+  {
+   "name": "horizontal",
+   "screen": "A labeled horizontal slider shows one handle on a track and its current value in a readout.",
+   "scene": "",
+   "never": [
+    "An open value picker",
+    "A second handle on the scored track",
+    "A handle outside its track"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the horizontal track, with the value readout at the track's right end.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the horizontal track, with the value readout above the handle.",
+     "traits": "skin choice: label and readout placement"
+    }
+   ],
+   "hint": "Show a horizontal slider with visible draggable thumb, readable endpoints and read-only current value. Target is in range and thumb is off target. No editable numeric field."
+  },
+  {
+   "name": "vertical",
+   "screen": "Vertical slider tracks stand side by side. Each has a handle, a label, and a current-value readout.",
+   "scene": "",
+   "never": [
+    "A horizontal scored track",
+    "A handle outside its track",
+    "An open value picker"
+   ],
+   "arrangements": [
+    {
+     "text": "The vertical tracks stand side by side, with labels below them and readouts above them.",
+     "traits": ""
+    },
+    {
+     "text": "The vertical tracks stand side by side, with each label above its track and its readout below.",
+     "traits": "skin choice: label and readout placement"
+    }
+   ],
+   "hint": "Show a tall vertical slider with visible draggable thumb, readable endpoints and read-only current value. Target is in range and thumb is off target."
+  },
+  {
+   "name": "log",
+   "screen": "A labeled slider shows one handle and a current-value readout on a logarithmic scale.",
+   "scene": "",
+   "never": [
+    "A second handle on the scored track",
+    "An open scale picker",
+    "A handle outside its track"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the track, and the readout sits at the track's right end.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the track, and the readout sits above the handle.",
+     "traits": "skin choice: label and readout placement"
+    }
+   ],
+   "hint": "Show a visibly logarithmic slider with multiplicative ticks (for example 1, 10, 100, 1000, 10000) spanning the target. Current thumb position and readout agree; target remains unmet."
+  },
+  {
+   "name": "range",
+   "screen": "A labeled range slider shows two handles on one track, marking the current lower and upper endpoints.",
+   "scene": "",
+   "never": [
+    "Two separate tracks for the two endpoints",
+    "A third endpoint handle",
+    "Either handle outside the track"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the track, with the two endpoint values beside their handles.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the track, with the endpoint values below the track.",
+     "traits": "skin choice: label and value placement"
+    }
+   ],
+   "hint": "Show one slider track with two separate draggable handles, ordered lower and upper values, both starting off target. Range contains both requested target values."
+  },
+  {
+   "name": "multi",
+   "screen": "Three separately labeled sliders each show one handle and a current-value readout.",
+   "scene": "",
+   "never": [
+    "A shared handle for all settings",
+    "An open settings picker",
+    "A handle outside its track"
+   ],
+   "arrangements": [
+    {
+     "text": "The three sliders form a vertical list, with each label above its track and its readout to the right.",
+     "traits": ""
+    },
+    {
+     "text": "The three sliders form a vertical list, with labels in a left column, tracks in the middle, and readouts in a right column.",
+     "traits": "skin choice: label and readout placement"
+    }
+   ],
+   "hint": "Show exactly the requested labeled sliders with coherent scales covering each target including negatives when named. All thumbs off target; no editable numeric fields."
+  },
+  {
+   "name": "stops",
+   "screen": "A labeled slider has one handle and named stops along its track; the handle rests at a stop.",
+   "scene": "",
+   "never": [
+    "A dropdown of stop names",
+    "Two handles on the track",
+    "A handle between stops"
+   ],
+   "arrangements": [
+    {
+     "text": "The label sits above the track, and the stop names sit beneath their positions along it.",
+     "traits": ""
+    },
+    {
+     "text": "The label sits to the left of the track, and the stop names sit above their positions along it.",
+     "traits": "skin choice: label and stop-name placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "media",
+   "screen": "A video player shows its media area, a seek bar with a time readout, and a volume slider. One of the two sliders is the requested control.",
+   "scene": "",
+   "never": [
+    "An open video menu",
+    "A separate timeline editor",
+    "A seek handle beyond the end of the bar"
+   ],
+   "arrangements": [
+    {
+     "text": "The seek bar sits beneath the media area, with its time readout beside it and the volume slider below.",
+     "traits": ""
+    },
+    {
+     "text": "The seek bar sits beneath the media area, with the volume slider to its right and the time readout below.",
+     "traits": "skin choice: player control placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "mixer",
+   "screen": "Five labeled channel faders stand side by side, each with a vertical track, one handle, and a level readout.",
+   "scene": "",
+   "never": [
+    "A single master handle in place of the channel faders",
+    "An open channel picker",
+    "A fader handle outside its track"
+   ],
+   "arrangements": [
+    {
+     "text": "The faders stand in one row, with channel labels below the tracks and level readouts above them.",
+     "traits": ""
+    },
+    {
+     "text": "The faders stand in one row, with channel labels above the tracks and level readouts below them.",
+     "traits": "skin choice: label and readout placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "match",
+   "screen": "Two labeled sliders show their current values beside a presets card that lists named presets and their values.",
+   "scene": "",
+   "never": [
+    "An open preset dropdown",
+    "Preset values hidden from the card",
+    "A handle outside its track"
+   ],
+   "arrangements": [
+    {
+     "text": "The sliders form a vertical list to the left of the presets card.",
+     "traits": ""
+    },
+    {
+     "text": "The presets card sits above a vertical list of sliders.",
+     "traits": "skin choice: presets card placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "player",
+   "screen": "A video player shows a seek bar, a volume slider, and mute and captions buttons with their current states.",
+   "scene": "",
+   "never": [
+    "An open captions menu",
+    "A separate timeline editor",
+    "A seek handle beyond the end of the bar"
+   ],
+   "arrangements": [
+    {
+     "text": "The seek bar sits beneath the media area; the volume slider and the two buttons sit in a row below it.",
+     "traits": ""
+    },
+    {
+     "text": "The seek bar sits beneath the media area; the volume slider and the two buttons sit to its right.",
+     "traits": "skin choice: player control placement"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "rating",
+   "screen": "Two named rating rows show five stars apiece, with each row displaying its current whole-star or half-star value.",
+   "scene": "",
+   "never": [
+    "A slider track",
+    "More than five stars in a row",
+    "An open rating picker"
+   ],
+   "arrangements": [
+    {
+     "text": "The rating rows stack vertically, with each row's name to the left of its five stars.",
+     "traits": ""
+    },
+    {
+     "text": "The rating rows stack vertically, with each row's name above its five stars.",
+     "traits": "skin choice: row label placement"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

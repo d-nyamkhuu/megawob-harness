@@ -1,0 +1,110 @@
+{
+ "task": "use-accounting",
+ "identity": "An accounting workspace with source records, editable task details, and controls for saving a reconciliation, posting a journal, filing expenses, or approving an invoice.",
+ "scenarios": [
+  {
+   "name": "reconcile",
+   "screen": "The operating bank feed and ledger each show a short list of dated lines with payees and amounts. No lines are paired, and a reconciliation save control is available.",
+   "scene": "",
+   "never": [
+    "Bank lines already attached to ledger lines",
+    "A ledger account picker open on load",
+    "Unmatched bank lines removed from the feed",
+    "A saved reconciliation status on the unsolved start"
+   ],
+   "arrangements": [
+    {
+     "text": "The bank feed sits to the left of the ledger list, with each line's date, payee, and amount kept together.",
+     "traits": ""
+    },
+    {
+     "text": "The bank feed sits above the ledger list, and the save control sits beneath both lists.",
+     "traits": "skin: stacked lists"
+    },
+    {
+     "text": "The ledger list sits to the left of the bank feed, with the save control below the two lists.",
+     "traits": "skin: reversed list order"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "journal",
+   "screen": "A voucher and its memo are visible beside a journal entry form with a few editable debit and credit lines. Account pickers are closed, the entry fields are blank, and debit and credit totals appear near the post control.",
+   "scene": "",
+   "never": [
+    "An account picker open on load",
+    "A posted status on the unsolved start",
+    "Balanced amounts already entered in every line",
+    "The voucher hidden behind a popup"
+   ],
+   "arrangements": [
+    {
+     "text": "The voucher sits to the left of the journal lines, with the memo and totals below the lines.",
+     "traits": ""
+    },
+    {
+     "text": "The voucher sits above the journal lines, followed by the memo, totals, and post control.",
+     "traits": "skin: stacked source and form"
+    },
+    {
+     "text": "The journal lines sit to the left of the voucher, with the totals below the editable lines.",
+     "traits": "skin: reversed source and form"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "expense",
+   "screen": "A short receipt list and the active receipt are visible alongside editable date, merchant, category, amount, and project fields. The report is unfiled, and the fields are ready for the receipt details.",
+   "scene": "",
+   "never": [
+    "A filed report status on the unsolved start",
+    "Every receipt already copied into completed expense fields",
+    "A project picker open on load",
+    "Receipt details hidden behind a popup"
+   ],
+   "arrangements": [
+    {
+     "text": "The receipt list sits to the left of the active receipt and its expense fields.",
+     "traits": ""
+    },
+    {
+     "text": "The receipt list sits above the active receipt, with the expense fields below it.",
+     "traits": "skin: stacked receipt and form"
+    },
+    {
+     "text": "The expense fields sit to the left of the active receipt, and the receipt list runs alongside them.",
+     "traits": "skin: form first"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "approve",
+   "screen": "An invoice, the amount-threshold approval policy, and available staff are visible. The ordered approval route is empty, and an approval control is present.",
+   "scene": "",
+   "never": [
+    "Approvers already placed in the route",
+    "An approved payment status on the unsolved start",
+    "The threshold policy hidden in a popup",
+    "An invoice from a separate scene added to the workspace"
+   ],
+   "arrangements": [
+    {
+     "text": "The invoice sits beside the policy, with available staff below them and the approval route beside the staff list.",
+     "traits": ""
+    },
+    {
+     "text": "The invoice sits above the policy, followed by the staff list and the approval route.",
+     "traits": "skin: stacked sections"
+    },
+    {
+     "text": "The policy sits to the left of the invoice, while the staff list and approval route sit side by side below.",
+     "traits": "skin: policy first"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

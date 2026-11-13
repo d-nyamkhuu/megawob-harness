@@ -1,0 +1,20 @@
+You are writing a capability card for one task of a web-agent training environment. Image designers will use it to draw reference screenshots, and coding agents will later rebuild those screenshots as HTML on top of this task's code. A screenshot that shows a state the code cannot produce (a picker open on load, a panel the task never renders, more items than it ever samples, cards already outside their columns) cannot be built, so the card must say what the code renders.
+
+Task: {task}: {description}
+Start modes the task supports: {start_modes}. 'off' is the normal unsolved start; 'scene' (only if listed) is a documented mid-task state.
+Scenarios (sub-cases of the task) with sample goals:
+{scenarios}
+
+Developer documentation (the header of the task's logic.js):
+---
+{doc}
+---
+
+Write:
+- identity: one sentence describing the task widget in plain words (what it is and its parts), with no visual style.
+- scenarios: one entry per scenario listed above, with
+  - screen: what is visible in the normal unsolved start ('off') in plain words: widgets, controls, typical item counts, which panels or popups are open or closed, what is empty or filled. 1-3 sentences. Describe only that one state: no other start modes (partial, wrong, solved, scene) and no difficulty or out-of-distribution ranges beyond one typical count.
+  - scene: what start mode 'scene' shows for this scenario, or "" when the task has no 'scene' start mode or the docs do not describe one for it.
+  - never: 2-5 concrete things the code never renders at the start of this scenario that a designer might be tempted to draw.
+  - arrangements: 2-4 clearly different ways the task area itself can be laid out, each one a concrete positional sentence (where the parts sit relative to each other, orientation, which side a tray, list, legend or palette is on). Only arrangements this task can render: its default first (traits ""), then ones from documented layout or geometry traits (name them in traits, e.g. "layout=rows"), or choices the docs leave to the site's widget (list or form order and orientation, label and legend placement, where controls sit around the widget). Positions the code computes stay as the code computes them; no visual style words. Describe only the task's own parts: never the task note or instruction, the end control (Submit, Done), or the app's navigation and side panels, which are set elsewhere.
+Plain language, no code identifiers, no invented features. Every sentence describes the screen; never remark on the documentation (what it does or does not specify) or hedge ("undocumented", "may", "depends on"): when the docs leave something open, pick a plausible concrete choice.

@@ -1,0 +1,90 @@
+{
+ "task": "use-hr",
+ "identity": "A people-operations workspace with candidate stages, a reporting chart, a leave-request queue, and a new-hire checklist, shown one workflow at a time.",
+ "scenarios": [
+  {
+   "name": "pipeline",
+   "screen": "A hiring board shows about six candidate cards in stage columns, with each candidate awaiting a stage decision under the screening policy. No candidate is being dragged, and no dialog is open.",
+   "scene": "",
+   "never": [
+    "A candidate card already outside its stage column.",
+    "An open rejection email draft.",
+    "An equipment picker or leave-request queue."
+   ],
+   "arrangements": [
+    {
+     "text": "Stage columns run left to right, with candidate cards beneath each stage heading.",
+     "traits": ""
+    },
+    {
+     "text": "Stages run from top to bottom, with each stage heading beside its candidate cards.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "orgchart",
+   "screen": "A reporting chart shows employee names connected to their managers, including the branch to move and surrounding directory employees. Search is empty, and ancestor branches have controls for revealing people within the chart.",
+   "scene": "",
+   "never": [
+    "The requested employee branch already detached from the chart.",
+    "A candidate stage board.",
+    "Leave approval controls or an equipment picker."
+   ],
+   "arrangements": [
+    {
+     "text": "Managers sit above their direct reports, with search above the reporting chart.",
+     "traits": ""
+    },
+    {
+     "text": "Managers sit to the left of their direct reports, with search beside the reporting chart.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "timeoff",
+   "screen": "A queue shows about six leave requests with the details needed to check balance, blackout overlap, and team coverage. Each request has approval and denial controls; its decision is still unset, and no popup is open.",
+   "scene": "",
+   "never": [
+    "Every request already marked approved or denied.",
+    "An open calendar date picker.",
+    "A reporting tree or candidate stage columns."
+   ],
+   "arrangements": [
+    {
+     "text": "Requests run down the task area, with each request's details followed by its approval and denial controls.",
+     "traits": ""
+    },
+    {
+     "text": "Requests run across rows, with their details in the left cells and decision controls in the right cells.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "onboarding",
+   "screen": "An offer letter supplies the new hire's equipment and start date beside an unfinished checklist of about six tasks. The equipment choice and start-date field await entry, and no picker is open.",
+   "scene": "",
+   "never": [
+    "An equipment picker open on load.",
+    "A completed checklist with the equipment and start date already assigned.",
+    "Candidate stage columns or leave approval controls."
+   ],
+   "arrangements": [
+    {
+     "text": "The offer letter sits to the left of the checklist, with equipment and start-date controls below the checklist.",
+     "traits": ""
+    },
+    {
+     "text": "The offer letter sits above the checklist, with equipment and start-date controls beside the checklist.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

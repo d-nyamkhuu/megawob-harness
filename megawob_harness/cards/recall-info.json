@@ -1,0 +1,115 @@
+{
+ "task": "recall-info",
+ "identity": "An in-page task widget presents facts in one view and asks the user to remember them when completing a later view.",
+ "scenarios": [
+  {
+   "name": "code",
+   "screen": "The first step of a request flow shows a reference code beside a Next button. The code entry field and confirmation screen are not visible.",
+   "scene": "",
+   "never": [
+    "A code entry field on the first step.",
+    "The confirmation screen open at the start.",
+    "All flow steps displayed at once."
+   ],
+   "arrangements": [
+    {
+     "text": "The step title sits above the reference code, with Next beside the code.",
+     "traits": ""
+    },
+    {
+     "text": "The step title sits to the left of a row containing the reference code and Next.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "count",
+   "screen": "A scrollable table shows the first batch of a longer list of about 50 rows. An empty answer box and its confirmation button sit outside the list; later rows are not yet loaded into view.",
+   "scene": "",
+   "never": [
+    "The full list visible at once.",
+    "A displayed total for the matching rows.",
+    "A filled answer box at the normal start.",
+    "A separate page for later rows."
+   ],
+   "arrangements": [
+    {
+     "text": "The column headings and scrollable rows sit above the answer box.",
+     "traits": ""
+    },
+    {
+     "text": "The scrollable table sits to the left of the answer box.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "paginate",
+   "screen": "The first results page shows about five rows, a selection button for each row, and controls for moving among roughly four pages. No row is selected, and no other results page is visible.",
+   "scene": "",
+   "never": [
+    "Rows from every results page shown together.",
+    "A sort control.",
+    "A row already selected.",
+    "A result detail panel."
+   ],
+   "arrangements": [
+    {
+     "text": "The result rows run down the page with each selection button beside its row; the page controls sit below the rows.",
+     "traits": ""
+    },
+    {
+     "text": "The page controls sit above the result rows, with selection buttons aligned in a column to their right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "crossref",
+   "screen": "Tabs lead to two people\u2019s records, an Order record, and a form. The first source tab is open with labeled facts; the form\u2019s fields are not on screen.",
+   "scene": "",
+   "never": [
+    "All source records and the form visible together.",
+    "The form already filled at the normal start.",
+    "A popup containing the source values.",
+    "A separate browser page for each tab."
+   ],
+   "arrangements": [
+    {
+     "text": "The tabs run across the top, with the open record\u2019s labeled facts beneath them.",
+     "traits": ""
+    },
+    {
+     "text": "The tabs form a column on the left, with the open record\u2019s labeled facts on the right.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "compare",
+   "screen": "A catalog list shows the names of about five products and a View button for each. No product detail is open or chosen; prices, ratings, delivery times, and colours appear only in detail views.",
+   "scene": "",
+   "never": [
+    "A product detail view open at the normal start.",
+    "Prices or ratings beside products in the list.",
+    "A product already chosen.",
+    "Every product\u2019s details visible together."
+   ],
+   "arrangements": [
+    {
+     "text": "Product names run down the list, with each View button beside its name.",
+     "traits": ""
+    },
+    {
+     "text": "Product names occupy a left column, with their View buttons aligned in a right column.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

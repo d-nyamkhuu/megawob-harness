@@ -1,0 +1,94 @@
+{
+ "task": "complete-wizard",
+ "identity": "A step-by-step form shows one group of fields at a time, a step indicator, controls to move between steps, a review page, and a confirmation screen.",
+ "scenarios": [
+  {
+   "name": "checkout",
+   "screen": "The account step shows empty email, full name, and phone fields, with a step indicator and a Next button. Later steps and the review are hidden, and no dropdown or error message is open.",
+   "scene": "",
+   "never": [
+    "A payment form alongside the account fields",
+    "A delivery picker open",
+    "A review summary",
+    "An order confirmation code"
+   ],
+   "arrangements": [
+    {
+     "text": "The step indicator sits above a vertical stack of account fields, with Next below the fields.",
+     "traits": ""
+    },
+    {
+     "text": "The step indicator sits to the left of the account fields, with labels beside the inputs and Next beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "application",
+   "screen": "The personal details step shows empty first name, last name, email, and phone fields, with a step indicator and a Next button. The experience, availability, consent, and review steps are hidden; no error message is shown.",
+   "scene": "",
+   "never": [
+    "An employer field beside the personal details",
+    "A checked accuracy statement",
+    "A review summary",
+    "An application confirmation code"
+   ],
+   "arrangements": [
+    {
+     "text": "The step indicator sits above a vertical stack of personal details fields, with Next below the fields.",
+     "traits": ""
+    },
+    {
+     "text": "The step indicator sits to the left of the form, with the name fields side by side above email and phone and Next below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "booking",
+   "screen": "The stay step shows empty destination, check-in date, nights, and guests fields, with a step indicator and a Next button. The guest, room, and review steps are hidden; no picker or error message is open.",
+   "scene": "",
+   "never": [
+    "A date picker open",
+    "Room choices beside the stay fields",
+    "A booking summary",
+    "A booking confirmation code"
+   ],
+   "arrangements": [
+    {
+     "text": "The step indicator sits above a vertical stack of stay fields, with Next below the fields.",
+     "traits": ""
+    },
+    {
+     "text": "The step indicator sits to the left of the form, with destination and check-in above side-by-side nights and guests fields and Next below.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "signup",
+   "screen": "The account step shows empty username, email, password, and confirm password fields, with a step indicator and a Next button. The profile, preferences, and review steps are hidden; no dropdown or error message is open.",
+   "scene": "",
+   "never": [
+    "A country dropdown open",
+    "Theme choices beside the account fields",
+    "A review summary",
+    "A signup confirmation code"
+   ],
+   "arrangements": [
+    {
+     "text": "The step indicator sits above a vertical stack of account fields, with Next below the fields.",
+     "traits": ""
+    },
+    {
+     "text": "The step indicator sits to the left of the account fields, with labels beside the inputs and Next beneath them.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

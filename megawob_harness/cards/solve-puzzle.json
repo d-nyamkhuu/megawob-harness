@@ -1,0 +1,201 @@
+{
+ "task": "solve-puzzle",
+ "identity": "A small puzzle presents numbers, a game board, a table, or a form, with fields and buttons for entering an answer or making moves.",
+ "scenarios": [
+  {
+   "name": "arithmetic",
+   "screen": "One arithmetic expression appears above an empty answer field.",
+   "scene": "",
+   "never": [
+    "A second expression",
+    "An answer already in the field",
+    "A calculator keypad"
+   ],
+   "arrangements": [
+    {
+     "text": "The expression sits above the answer field.",
+     "traits": ""
+    },
+    {
+     "text": "The expression sits to the left of the answer field.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show one readable solvable arithmetic expression such as 17 + 8 \u00d7 2 and an empty answer field; no answer shown."
+  },
+  {
+   "name": "algebra",
+   "screen": "One equation containing x appears beside an empty field for its solution.",
+   "scene": "",
+   "never": [
+    "A second equation",
+    "A worked solution",
+    "A graph of the equation"
+   ],
+   "arrangements": [
+    {
+     "text": "The equation sits above the solution field.",
+     "traits": ""
+    },
+    {
+     "text": "The equation sits to the left of the solution field.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show one readable linear equation such as 3x + 5 = 26 and an empty x field; no solution shown."
+  },
+  {
+   "name": "odd-even",
+   "screen": "A list of three to six numbers is visible. Each number has an Odd button and an Even button, and none is marked yet.",
+   "scene": "",
+   "never": [
+    "Numbers already marked Odd or Even",
+    "A text field for the answer",
+    "A number without its own Odd and Even buttons"
+   ],
+   "arrangements": [
+    {
+     "text": "The numbers form a vertical list, with Odd and Even buttons beside each number.",
+     "traits": ""
+    },
+    {
+     "text": "The numbers form a horizontal row, with each pair of Odd and Even buttons beneath its number.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show several distinct integers, each with its own Odd and Even choices initially unselected."
+  },
+  {
+   "name": "guess",
+   "screen": "The allowed number range, an empty guess field, a Guess button, and the number of guesses left are visible. No guesses or higher-or-lower hints appear yet.",
+   "scene": "",
+   "never": [
+    "The secret number revealed",
+    "A higher-or-lower hint before a guess",
+    "A list of earlier guesses",
+    "A nonnumeric answer choice"
+   ],
+   "arrangements": [
+    {
+     "text": "The range sits above the guess field and Guess button, with the guesses-left count below them.",
+     "traits": ""
+    },
+    {
+     "text": "The range sits to the left of the guess field and Guess button, with the guesses-left count beneath the range.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show the exact allowed numerical interval and guess budget, empty guess field, Guess control, and an empty history or one consistent higher/lower hint; never reveal the secret."
+  },
+  {
+   "name": "generate",
+   "screen": "A condition for the desired number and a Generate button are visible. The number display is empty before the first press.",
+   "scene": "The condition and Generate button are visible, and the display already shows a number that does not satisfy the condition.",
+   "never": [
+    "A number already shown in the normal unsolved start",
+    "A list of past draws",
+    "A field for typing a number",
+    "Numbers outside the generator's 0\u201310 range"
+   ],
+   "arrangements": [
+    {
+     "text": "The condition sits above the number display, with Generate below it.",
+     "traits": ""
+    },
+    {
+     "text": "The condition sits to the left of the number display, with Generate beside the display.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show Generate control and a current value that fails the requested condition: use 4 for odd-number task, or 3 for greater-than-5 task."
+  },
+  {
+   "name": "hot-cold",
+   "screen": "A rectangular board is ready for clicks, with a clicks-left count nearby. No probe, temperature band, or warmer-or-colder hint appears yet.",
+   "scene": "",
+   "never": [
+    "The hidden spot marked on the board",
+    "A probe already on the board",
+    "A temperature hint before a click",
+    "A second board"
+   ],
+   "arrangements": [
+    {
+     "text": "The board sits above the clicks-left count and the area where feedback appears.",
+     "traits": ""
+    },
+    {
+     "text": "The board sits to the left of the clicks-left count and the area where feedback appears.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show a large empty clickable search field and one cold prior-click marker with COLD feedback. Do not mark or visually reveal the hidden hot spot."
+  },
+  {
+   "name": "tictactoe",
+   "screen": "A three-by-three board is visible for playing X against O. The board starts empty when X opens; when O opens, it contains one O mark.",
+   "scene": "",
+   "never": [
+    "More than one O mark before X's first move",
+    "An X mark already placed",
+    "A completed winning line",
+    "A second game board"
+   ],
+   "arrangements": [
+    {
+     "text": "The three-by-three board sits below the game status.",
+     "traits": ""
+    },
+    {
+     "text": "The three-by-three board sits to the left of the game status.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show a valid 3x3 tic-tac-toe board with user X to move; O in center and X in upper-left, with one additional O only if count rules remain valid. Prefer empty board for an unambiguous X-start state; no predeclared winner."
+  },
+  {
+   "name": "compute",
+   "screen": "For a total or count question, a short table of page data appears with an empty answer field. For a choice question, three to six offer cards show their details and each has a Select button; no offer is selected.",
+   "scene": "",
+   "never": [
+    "A completed total or count in the answer field",
+    "An offer already selected",
+    "A comparison attribute absent from the offer cards",
+    "A popup covering the table or cards"
+   ],
+   "arrangements": [
+    {
+     "text": "The table sits above its answer field, or the offer cards sit in a row with Select beneath each card's details.",
+     "traits": ""
+    },
+    {
+     "text": "The table sits beside its answer field, or the offer cards form a vertical list with Select beside each card's details.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "fix-error",
+   "screen": "A form shows several fields after a failed save. One field has an inline error and an invalid or missing value; the other fields contain valid values.",
+   "scene": "",
+   "never": [
+    "Errors on multiple fields",
+    "An empty form with no saved values",
+    "A success message",
+    "A field outside the form"
+   ],
+   "arrangements": [
+    {
+     "text": "The fields form a vertical list, with the error directly beneath the flagged field.",
+     "traits": ""
+    },
+    {
+     "text": "The fields occupy two columns, with the error directly beneath the flagged field in its column.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

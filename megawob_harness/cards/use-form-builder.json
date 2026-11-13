@@ -1,0 +1,111 @@
+{
+ "task": "use-form-builder",
+ "identity": "A form draft editor with section tabs, question cards, an editing pane, and controls for question content, routing, order, validation, and response policies.",
+ "scenarios": [
+  {
+   "name": "addq",
+   "screen": "The Questions tab shows the first of three sections, with three existing question cards and an Add question button below them. The first question is selected, its properties and validation controls are filled with the existing values, and no picker is open.",
+   "scene": "",
+   "never": [
+    "A newly added question already appears in the first section.",
+    "The question-type picker is open.",
+    "All nine existing question cards appear in one section."
+   ],
+   "arrangements": [
+    {
+     "text": "The section tabs run above two columns; the current section\u2019s question cards and Add question button are on the left, and the selected question\u2019s controls are on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The section tabs run above a wider question column on the left and a narrower control column on the right.",
+     "traits": "columns=wide canvas"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "branching",
+   "screen": "The Questions tab shows the first section\u2019s three existing question cards, including a multiple-choice question with three answer options. The first question is selected in the properties pane; no routing rules or destination picker are open.",
+   "scene": "",
+   "never": [
+    "Answer destinations are already assigned.",
+    "A destination picker is open.",
+    "The answer-routing pane is visible on load."
+   ],
+   "arrangements": [
+    {
+     "text": "The section tabs sit above the current section\u2019s question cards on the left and the selected question\u2019s controls on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The section tabs sit above a narrow question column on the left and a wider control column on the right.",
+     "traits": "columns=wide inspector"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "reorder",
+   "screen": "The Questions tab shows three section tabs in their original order and three question cards in the first section in their original order. The first card is selected, its controls are visible, and the drag lists are closed.",
+   "scene": "",
+   "never": [
+    "The sections already appear in the requested reversed order.",
+    "Section and question drag lists are visible on load.",
+    "A question card sits between sections or outside its section."
+   ],
+   "arrangements": [
+    {
+     "text": "The section tabs run above two columns, with the first section\u2019s question cards on the left and the selected question\u2019s controls on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The section tabs run above a wider question column on the left and a narrower control column on the right.",
+     "traits": "columns=wide canvas"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "validation",
+   "screen": "The Questions tab shows the first section\u2019s three existing question cards, with the first question selected. Its properties pane shows Response validation set to None and Required off; the rule picker is closed and no minimum or maximum fields are shown.",
+   "scene": "",
+   "never": [
+    "A number range or text length is already filled in.",
+    "Minimum and maximum fields appear while the selected rule is None.",
+    "The validation rule picker is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The section tabs sit above the current section\u2019s question cards on the left and the selected question\u2019s properties and validation controls on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The section tabs sit above a narrow question column on the left and a wider column for properties and validation controls on the right.",
+     "traits": "columns=wide inspector"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "settings",
+   "screen": "The Questions tab shows the first of three sections, its three existing question cards, and the first question\u2019s controls. The Settings tab is not selected, so response-policy switches and the closing-date field are not visible.",
+   "scene": "",
+   "never": [
+    "The response-policy settings pane is open on load.",
+    "Email collection or the one-response limit is shown as enabled.",
+    "A closing-date field is visible or filled in."
+   ],
+   "arrangements": [
+    {
+     "text": "The section tabs run above the first section\u2019s question cards on the left and the selected question\u2019s controls on the right.",
+     "traits": ""
+    },
+    {
+     "text": "The section tabs run above a wider question column on the left and a narrower control column on the right.",
+     "traits": "columns=wide canvas"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

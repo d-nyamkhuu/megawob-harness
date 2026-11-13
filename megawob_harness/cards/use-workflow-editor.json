@@ -1,0 +1,116 @@
+{
+ "task": "use-workflow-editor",
+ "identity": "A workflow editor with a component palette, a canvas of connected steps, and a settings inspector for individual steps.",
+ "scenarios": [
+  {
+   "name": "connect",
+   "screen": "Several named steps and their existing connections are on the canvas. The requested connection is absent; no step or connection is selected, and the settings inspector and menus are closed.",
+   "scene": "",
+   "never": [
+    "The requested connection is already drawn.",
+    "A connection is being dragged between ports.",
+    "A settings inspector is open.",
+    "A context menu is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The component palette sits to the left of the canvas, with the workflow steps and their connections spread across the canvas.",
+     "traits": ""
+    },
+    {
+     "text": "The canvas sits to the left of the component palette, with the same workflow positions and connections inside it.",
+     "traits": "palette=right"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "place",
+   "screen": "The component palette sits beside a canvas containing several named steps and existing connections. The requested new step and its outgoing connection are absent; nothing is selected, and the settings inspector and menus are closed.",
+   "scene": "",
+   "never": [
+    "The requested new step is already on the canvas.",
+    "A palette item is floating over the canvas.",
+    "The requested outgoing connection is already drawn.",
+    "A settings inspector is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The component palette sits to the left of the canvas, while the existing steps occupy the canvas to its right.",
+     "traits": ""
+    },
+    {
+     "text": "The canvas sits to the left of the component palette, with the existing steps in their workflow positions.",
+     "traits": "palette=right"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "reroute",
+   "screen": "Several named steps appear on the canvas with their existing connections, including the connection that needs rerouting. Its replacement connection is absent; nothing is selected, and the settings inspector and menus are closed.",
+   "scene": "",
+   "never": [
+    "The connection already ends at its requested destination.",
+    "A connection endpoint is being dragged.",
+    "A connection is selected.",
+    "A context menu is open."
+   ],
+   "arrangements": [
+    {
+     "text": "The component palette sits to the left of the canvas, where the original connection runs between its two steps.",
+     "traits": ""
+    },
+    {
+     "text": "The canvas sits to the left of the component palette, with the original connection in the same position among the steps.",
+     "traits": "palette=right"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "remove",
+   "screen": "Several named steps and existing connections are on the canvas. The step or connection named for removal is still present; nothing is selected, and the settings inspector and menus are closed.",
+   "scene": "",
+   "never": [
+    "The named step or connection has already been removed.",
+    "A deletion confirmation dialog is open.",
+    "A context menu is open.",
+    "The item to remove is selected."
+   ],
+   "arrangements": [
+    {
+     "text": "The component palette sits to the left of the canvas, with the item to remove among the workflow steps and connections on the canvas.",
+     "traits": ""
+    },
+    {
+     "text": "The canvas sits to the left of the component palette, with the item to remove in its workflow position.",
+     "traits": "palette=right"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "configure",
+   "screen": "Several named steps and their connections are on the canvas, including the step whose settings need updating. No step is selected, so its settings inspector and fields are closed; the requested values have not been saved.",
+   "scene": "",
+   "never": [
+    "The target step's settings inspector is open.",
+    "A settings field is being edited.",
+    "A field choice menu is open.",
+    "The requested values are already saved."
+   ],
+   "arrangements": [
+    {
+     "text": "The component palette sits to the left of the canvas, with the step to configure among the connected steps on the canvas.",
+     "traits": ""
+    },
+    {
+     "text": "The canvas sits to the left of the component palette, with the step to configure in its workflow position.",
+     "traits": "palette=right"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

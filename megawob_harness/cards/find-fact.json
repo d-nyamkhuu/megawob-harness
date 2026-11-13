@@ -1,0 +1,233 @@
+{
+ "task": "find-fact",
+ "identity": "A lookup task shows information in a table, directory, chart, list, or document and provides a way to report a fact found there.",
+ "scenarios": [
+  {
+   "name": "table",
+   "screen": "A person\u2019s two-column record or a grid of about six rows is visible. One or two empty answer fields ask for values from its cells.",
+   "scene": "",
+   "never": [
+    "An answer field already filled with the correct value.",
+    "An editable source table.",
+    "A popup covering the requested cells."
+   ],
+   "arrangements": [
+    {
+     "text": "The table sits above the answer fields.",
+     "traits": ""
+    },
+    {
+     "text": "The table sits to the left of the answer fields.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show a readable table with source values and empty answer fields. For Gavin Schmidt include Start year 2007 in his row; for Blood type include O+. Generic matching fields must each have one exact table match."
+  },
+  {
+   "name": "find-word",
+   "screen": "One short paragraph asks for a numbered word, or two paragraphs contain a quoted phrase whose next word is sought. An empty answer field is visible.",
+   "scene": "",
+   "never": [
+    "A word already selected in the passage.",
+    "A find bar open over the passage.",
+    "A list of candidate answers."
+   ],
+   "arrangements": [
+    {
+     "text": "The passage sits above the answer field.",
+     "traits": ""
+    },
+    {
+     "text": "The passage sits to the left of the answer field.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show a paragraph containing the exact quoted anchor phrase once followed by a clear word; for the 13th-word task provide at least 20 whitespace-separated words. Empty answer field; do not highlight the answer."
+  },
+  {
+   "name": "phone-book",
+   "screen": "A directory shows names with phone numbers, email addresses, and addresses. It starts on the first page with a pager, or shows a search field and the first matching contacts; no property has been picked.",
+   "scene": "",
+   "never": [
+    "An Opened message with an Undo control.",
+    "A contact detail popup.",
+    "Every contact from a paged directory shown at once."
+   ],
+   "arrangements": [
+    {
+     "text": "Contact entries run down the page with the pager below them.",
+     "traits": ""
+    },
+    {
+     "text": "The search field sits above a vertical list of matching contacts.",
+     "traits": ""
+    },
+    {
+     "text": "Contact entries form a table with names at the left and their properties in adjacent columns.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show a readable contact book containing the exact target full name and clickable email and phone text. Include several distinct distractor contacts; empty selection."
+  },
+  {
+   "name": "similar",
+   "screen": "About five words appear with a checkbox beside each. The words to match are named in the task, and every checkbox starts clear.",
+   "scene": "",
+   "never": [
+    "A checkbox already ticked.",
+    "A text answer field.",
+    "Definitions revealed in a popup."
+   ],
+   "arrangements": [
+    {
+     "text": "The checkbox words form one vertical list.",
+     "traits": ""
+    },
+    {
+     "text": "The checkbox words occupy two columns.",
+     "traits": ""
+    },
+    {
+     "text": "The checkbox words run across several rows.",
+     "traits": ""
+    }
+   ],
+   "hint": "Show requested source words and checkboxes for accurate synonyms plus unrelated distractors. All unchecked. Use authentic=genuine, treasure=prize, unusual=rare, affluent=wealthy, red=crimson, cover=conceal, flame=fire, vehicle=car, large=big as needed."
+  },
+  {
+   "name": "datagrid",
+   "screen": "A data table shows only part of its rows or columns, with an empty answer field. Depending on the lookup, its visible controls include sortable column headings, a filter field, page buttons, or a horizontal scrollbar; the requested cell is initially out of view.",
+   "scene": "",
+   "never": [
+    "The requested cell already visible in the initial table view.",
+    "A completed answer field.",
+    "A separate detail panel for the selected row.",
+    "Rows positioned outside the table pane."
+   ],
+   "arrangements": [
+    {
+     "text": "The table sits above the answer field, with page buttons below the rows.",
+     "traits": ""
+    },
+    {
+     "text": "A filter field sits above the table and the answer field sits below it.",
+     "traits": ""
+    },
+    {
+     "text": "A wide table sits above its horizontal scrollbar, with the first column fixed at the left.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "join",
+   "screen": "Two tables show related records, such as orders and customers, with an ID column linking them. One empty answer field asks for a value found by reading both tables.",
+   "scene": "",
+   "never": [
+    "A third joined-results table.",
+    "A line drawn between matching rows.",
+    "An answer already entered."
+   ],
+   "arrangements": [
+    {
+     "text": "The two tables sit side by side, with the answer field below them.",
+     "traits": ""
+    },
+    {
+     "text": "The two tables are stacked, with the answer field below the second table.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "chart",
+   "screen": "A bar or line chart shows several categories against a numbered value axis. Some charts print values on the marks; hover charts start with their value tooltip closed. The answer field is empty.",
+   "scene": "",
+   "never": [
+    "A hover tooltip already open.",
+    "A category already selected as the answer.",
+    "An answer already entered.",
+    "Chart values shown in a separate data table."
+   ],
+   "arrangements": [
+    {
+     "text": "The chart sits above the answer field, with category labels along its bottom edge.",
+     "traits": ""
+    },
+    {
+     "text": "The chart sits to the left of the answer field, with category labels beside its marks.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "tooltip",
+   "screen": "A list of about six rows has an information icon on each row, or meeting notes contain dotted-underlined abbreviations. The extra fact appears only on hover, so no tooltip is open and the answer field is empty.",
+   "scene": "",
+   "never": [
+    "A tooltip open before the pointer reaches its target.",
+    "The requested extra fact printed as a regular list column.",
+    "All abbreviation expansions shown at once.",
+    "An answer already entered."
+   ],
+   "arrangements": [
+    {
+     "text": "The rows form a table with information icons at the right, and the answer field sits below it.",
+     "traits": ""
+    },
+    {
+     "text": "The notes form a text block with abbreviations inline, and the answer field sits below the notes.",
+     "traits": ""
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "locate",
+   "screen": "A long document contains several headed sections and entries pairing terms with values. A Find button and an empty answer field are visible; the in-page find bar starts closed, and some documents have folded sections.",
+   "scene": "",
+   "never": [
+    "The in-page find bar already open.",
+    "The target occurrence already highlighted.",
+    "A separate results list of every term and value.",
+    "An answer already entered."
+   ],
+   "arrangements": [
+    {
+     "text": "The Find button sits above the document pane, and the answer field sits below the pane.",
+     "traits": ""
+    },
+    {
+     "text": "The Find button and answer field sit beside the document pane.",
+     "traits": ""
+    }
+   ],
+   "hint": "Draw the start screen: the in-page find bar is closed, so no query box, match counter or highlights show (the browser's own find bar is never shown either). The control that opens it is visible: a Find button (magnifier icon, optionally labeled 'Find' with a Ctrl+F hint) in the document toolbar or header, or an Edit > Find menu entry; vary its look and place per design. The document is long and scrolls inside its pane, with section headings and 2-3 paragraphs each; in some designs the sections fold (a chevron per heading, only the first section open) and an 'Expand all' control is visible. The screen is a document viewer: a help center article, a docs site page, a PDF or terms-of-service viewer, a wiki page, a log or changelog viewer, or a Google Docs-style editor. An empty answer field sits beside or below the document pane. The paragraphs name terms, each with an extension, reference number or fee."
+  },
+  {
+   "name": "count",
+   "screen": "A long document has several headed sections containing repeated instances of a term. A Find button and an empty answer field are visible; the in-page find bar starts closed, and some documents have folded sections.",
+   "scene": "",
+   "never": [
+    "The in-page find bar already open.",
+    "A computed count displayed beside the term.",
+    "Every occurrence already highlighted.",
+    "An answer already entered."
+   ],
+   "arrangements": [
+    {
+     "text": "The Find button sits above the document pane, and the answer field sits below the pane.",
+     "traits": ""
+    },
+    {
+     "text": "The document pane sits to the left of the Find button and answer field.",
+     "traits": ""
+    }
+   ],
+   "hint": "Draw the start screen: the in-page find bar is closed, so no query box, match counter or highlights show (the browser's own find bar is never shown either). The control that opens it is visible: a Find button (magnifier icon, optionally labeled 'Find' with a Ctrl+F hint) in the document toolbar or header, or an Edit > Find menu entry; vary its look and place per design. The document is long and scrolls inside its pane, with section headings and 2-3 paragraphs each; in some designs the sections fold (a chevron per heading, only the first section open) and an 'Expand all' control is visible. The screen is a document viewer: a help center article, a docs site page, a PDF or terms-of-service viewer, a wiki page, a log or changelog viewer, or a Google Docs-style editor. An empty answer field sits beside or below the document pane. The same few terms recur across sections, some in lowercase or inside longer words."
+  }
+ ]
+}

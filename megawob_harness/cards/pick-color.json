@@ -1,0 +1,156 @@
+{
+ "task": "pick-color",
+ "identity": "A color picker has controls for changing the selected color, a readout of that color, and a goal shown as a swatch, color code, name, preset, or picture.",
+ "scenarios": [
+  {
+   "name": "swatch",
+   "screen": "A goal color swatch sits on a labeled card beside the picker. The picker shows a saturation and brightness square, a hue strip, a current color swatch, and a selected color readout; its starting color differs from the goal.",
+   "scene": "",
+   "never": [
+    "A picture with a marked region.",
+    "A tray of named preset colors.",
+    "A picker popover already open."
+   ],
+   "arrangements": [
+    {
+     "text": "The picker sits left of the goal card, with a vertical hue strip beside the color square and the current color below it.",
+     "traits": ""
+    },
+    {
+     "text": "The goal card sits above a color wheel; a value strip runs beside the wheel and the current color sits below.",
+     "traits": "controls=wheel+value"
+    },
+    {
+     "text": "The goal card sits left of three horizontal red, green, and blue sliders, with the current color below the sliders.",
+     "traits": "controls=rgb"
+    }
+   ],
+   "hint": "Show a solid leaf-green Target swatch and a clearly different purple Current swatch. Picker hue thumb, SV plane and SV marker must agree with purple Current. No gradients, shading or texture in either swatch; numerical readouts are display-only."
+  },
+  {
+   "name": "hex",
+   "screen": "A goal card shows the target color code and its swatch. The picker shows a saturation and brightness square, a hue strip, a current color swatch, and a selected color readout; the current color differs from the target code.",
+   "scene": "",
+   "never": [
+    "A blank target code.",
+    "A picture used as the color target.",
+    "A tray of named preset colors."
+   ],
+   "arrangements": [
+    {
+     "text": "The picker sits left of the goal card, with a vertical hue strip beside the color square and the color readout below.",
+     "traits": ""
+    },
+    {
+     "text": "The goal card sits above a color wheel and its adjacent value strip, with the color readout below the wheel.",
+     "traits": "controls=wheel+value"
+    },
+    {
+     "text": "The goal card sits beside three horizontal hue, saturation, and lightness sliders, with the color readout below them.",
+     "traits": "controls=hsl"
+    }
+   ],
+   "hint": "Show the exact requested target hex code as a non-editable label. Current swatch and visible hue/SV controls consistently show a different starting color. All numeric values are read-only; no keyboard path."
+  },
+  {
+   "name": "named",
+   "screen": "The target is a written color name. The picker shows a saturation and brightness square, a hue strip, a current color swatch, and a selected color readout; its starting color is different from the named color.",
+   "scene": "",
+   "never": [
+    "A card displaying the target as a color code.",
+    "A tray of named preset swatches.",
+    "A picture with a color sampling pin."
+   ],
+   "arrangements": [
+    {
+     "text": "The color square sits left of a vertical hue strip, with the current color and its readout below.",
+     "traits": ""
+    },
+    {
+     "text": "A color wheel sits left of a value strip, with the current color and its readout beneath the wheel.",
+     "traits": "controls=wheel+value"
+    },
+    {
+     "text": "A saturation and lightness square sits above a horizontal hue strip, with the current color and its readout below.",
+     "traits": "controls=sl+hue"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "palette",
+   "screen": "A short tray of labeled preset swatches sits beside the picker, and a goal card shows the target swatch. The picker shows a saturation and brightness square, a hue strip, and the current color; no preset is selected at the normal start.",
+   "scene": "",
+   "never": [
+    "A preset already selected at the normal start.",
+    "An empty preset tray.",
+    "A picture used as the color target."
+   ],
+   "arrangements": [
+    {
+     "text": "The picker sits left of the goal card, with the preset swatches in a row below both.",
+     "traits": ""
+    },
+    {
+     "text": "The preset swatches form a column beside a color wheel; the goal card sits above the wheel and its value strip.",
+     "traits": "controls=wheel+value"
+    },
+    {
+     "text": "The goal card sits above three horizontal red, green, and blue sliders, with the preset swatches in a row beneath them.",
+     "traits": "controls=rgb"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "image",
+   "screen": "An illustration contains the region whose color is the target. Beside it, the picker shows a saturation and brightness square, a hue strip, a current color swatch, and a selected color readout; an eyedropper button is idle.",
+   "scene": "",
+   "never": [
+    "An eyedropper already armed at the normal start.",
+    "A tray of named preset colors.",
+    "Several separate target pictures."
+   ],
+   "arrangements": [
+    {
+     "text": "The illustration sits left of the picker, with the eyedropper button beside the color square and a vertical hue strip on its other side.",
+     "traits": ""
+    },
+    {
+     "text": "The illustration sits above a color wheel, with the eyedropper button and value strip beside the wheel.",
+     "traits": "controls=wheel+value"
+    },
+    {
+     "text": "The illustration sits left of three horizontal red, green, and blue sliders, with the eyedropper button above the sliders.",
+     "traits": "controls=rgb"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "hex-typed",
+   "screen": "A goal card shows the target color code and its swatch. The picker has an editable hex field containing the current color, alongside a saturation and brightness square and a hue strip; the current color differs from the target.",
+   "scene": "",
+   "never": [
+    "An empty color entry field at the normal start.",
+    "A picture used as the color target.",
+    "A tray of named preset colors."
+   ],
+   "arrangements": [
+    {
+     "text": "The picker sits left of the goal card, with a vertical hue strip beside the color square and the hex field below.",
+     "traits": ""
+    },
+    {
+     "text": "The goal card sits above a color wheel and adjacent value strip, with the hex field below the wheel.",
+     "traits": "controls=wheel+value"
+    },
+    {
+     "text": "The goal card sits left of three horizontal red, green, and blue sliders, with the editable color fields below the sliders.",
+     "traits": "controls=rgb"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}

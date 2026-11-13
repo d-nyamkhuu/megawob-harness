@@ -1,0 +1,182 @@
+{
+ "task": "crop-image",
+ "identity": "An image crop widget shows a picture, a crop box or drawing area, and controls for framing a target.",
+ "scenarios": [
+  {
+   "name": "default",
+   "screen": "An image shows three to six shapes, with a crop box already on the image. The box has drag handles; some tasks also show an Apply crop button.",
+   "scene": "",
+   "never": [
+    "An open file picker.",
+    "A crop box already outside the image.",
+    "A separate panel of object thumbnails."
+   ],
+   "arrangements": [
+    {
+     "text": "The image sits in the center, with the crop controls below it.",
+     "traits": ""
+    },
+    {
+     "text": "A portrait image sits in the center, with the crop controls to its right.",
+     "traits": "aspect=0.75"
+    },
+    {
+     "text": "The target sits in the right portion of the image, with other shapes spread across the image.",
+     "traits": "placement=right"
+    }
+   ],
+   "hint": "Show the requested colored shape inside a flat image with distractor shapes and a crop rectangle that does not yet frame it tightly. Exactly eight crop handles: four corners, four side midpoints."
+  },
+  {
+   "name": "outline",
+   "screen": "An image shows three to six shapes and a dashed target rectangle. A separate crop box is already on the image, with handles for moving its edges; some tasks also show an Apply crop button.",
+   "scene": "",
+   "never": [
+    "A dashed circle as the target outline.",
+    "An open outline settings popup.",
+    "A crop box already outside the image."
+   ],
+   "arrangements": [
+    {
+     "text": "The image sits in the center, with the crop controls below it.",
+     "traits": ""
+    },
+    {
+     "text": "The dashed rectangle sits in the left portion of the image, while shapes occupy the rest of it.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "A portrait image sits to the left of its crop controls.",
+     "traits": "aspect=0.75"
+    }
+   ],
+   "hint": "Show a dashed target rectangle and a separate misaligned crop rectangle with exactly eight handles. Ensure resizing and moving can reach the target within the image bounds."
+  },
+  {
+   "name": "position",
+   "screen": "An image shows three to six shapes in distinct positions or sizes. A crop box with drag handles is already on the image; some tasks also show an Apply crop button.",
+   "scene": "",
+   "never": [
+    "A separate list of numbered objects.",
+    "Position labels pinned to every shape.",
+    "An open object chooser."
+   ],
+   "arrangements": [
+    {
+     "text": "The image sits in the center, with the crop controls below it.",
+     "traits": ""
+    },
+    {
+     "text": "The target object sits near the top of the image, with the other objects distributed across it.",
+     "traits": "placement=top"
+    },
+    {
+     "text": "A portrait image sits to the left of its crop controls.",
+     "traits": "aspect=0.75"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "content",
+   "screen": "An image contains two or three text signs and one or two face icons. A crop box with drag handles is already on the image; some tasks also show an Apply crop button.",
+   "scene": "",
+   "never": [
+    "A searchable list of sign text.",
+    "A text entry field for the crop target.",
+    "An open face picker."
+   ],
+   "arrangements": [
+    {
+     "text": "The image sits in the center, with the crop controls below it.",
+     "traits": ""
+    },
+    {
+     "text": "The target sign or face sits in the left portion of the image, with the other items elsewhere in it.",
+     "traits": "placement=left"
+    },
+    {
+     "text": "A portrait image sits to the left of its crop controls.",
+     "traits": "aspect=0.75"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "aspect",
+   "screen": "An image shows several shapes, an existing crop box, and buttons for the available crop ratios. The selected ratio is shown in the controls; some tasks also show an Apply crop button.",
+   "scene": "",
+   "never": [
+    "An open ratio picker popup.",
+    "A custom ratio text field.",
+    "A ratio preset outside 1:1, 4:3, 16:9, 3:2, 2:3, and 9:16."
+   ],
+   "arrangements": [
+    {
+     "text": "The image sits in the center, with the ratio buttons and crop controls below it.",
+     "traits": ""
+    },
+    {
+     "text": "The ratio buttons sit beside a portrait image, with the crop controls below the image.",
+     "traits": "aspect=0.75"
+    },
+    {
+     "text": "The target shape sits in the bottom portion of the image, while the ratio buttons sit below the image.",
+     "traits": "placement=bottom"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "marquee",
+   "screen": "An image shows three to six shapes with no crop selection on it. The image is ready for a drag to draw a selection; some tasks also show an Apply crop button.",
+   "scene": "",
+   "never": [
+    "A crop box or handles already visible on the image.",
+    "An open selection tool menu.",
+    "A selection already applied."
+   ],
+   "arrangements": [
+    {
+     "text": "The image sits in the center, with the crop controls below it.",
+     "traits": ""
+    },
+    {
+     "text": "The target sits in the right portion of the image, with other shapes elsewhere in it.",
+     "traits": "placement=right"
+    },
+    {
+     "text": "A portrait image sits to the left of its crop controls.",
+     "traits": "aspect=0.75"
+    }
+   ],
+   "hint": ""
+  },
+  {
+   "name": "pan",
+   "screen": "A window shows only part of a larger image containing several shapes. A navigator thumbnail shows the whole image and the visible area; there is no crop selection at the start.",
+   "scene": "",
+   "never": [
+    "A crop box or handles already visible in the image window.",
+    "The entire large image fitted inside the main image window.",
+    "An open navigator popup.",
+    "A second full-size copy of the image beside the window."
+   ],
+   "arrangements": [
+    {
+     "text": "The image window sits in the center, with the navigator thumbnail beside it.",
+     "traits": ""
+    },
+    {
+     "text": "A portrait image window sits beside the navigator thumbnail.",
+     "traits": "aspect=0.75"
+    },
+    {
+     "text": "The target occupies the right portion of the larger image, while the navigator thumbnail sits beside the image window.",
+     "traits": "placement=right"
+    }
+   ],
+   "hint": ""
+  }
+ ]
+}
