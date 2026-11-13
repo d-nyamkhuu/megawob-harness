@@ -1,5 +1,6 @@
 """The parts of the runtime adapters that need no model: config generation, the write guard, the MCP server."""
 import asyncio
+import os
 import tomllib
 
 import pytest
@@ -45,3 +46,12 @@ def test_parse_json_accepts_wrapped_objects():
 
 def test_fill_is_one_pass_and_leaves_other_braces():
     assert fill("{a} {b} {c} {}", a="{b}", b='{"x": 1}') == '{b} {"x": 1} {c} {}'
+
+
+def test_claude_session_loops_release_their_file_descriptors():
+    from megawob_harness.runtime.claude import _Loop
+
+    before = len(os.listdir("/proc/self/fd"))
+    for _ in range(50):
+        _Loop().close()
+    assert len(os.listdir("/proc/self/fd")) - before < 5

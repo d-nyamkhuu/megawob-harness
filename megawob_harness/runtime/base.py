@@ -6,7 +6,9 @@
   so it cannot grade work it did itself.
 - `image`: one generated image, where the runtime has an image tool.
 
-Every turn has a wall-clock limit; at the limit the turn is interrupted and its result kept.
+Every turn has a wall-clock limit; at the limit the turn is interrupted and its result kept. A turn that has not
+stopped GRACE seconds later is abandoned (its agent process is killed) and raises AgentError, so a worker never
+waits forever.
 """
 from __future__ import annotations
 
@@ -15,6 +17,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from ..jsonio import parse_json, schema_prompt
+
+GRACE = 120  # seconds a turn may take to stop after its interrupt
 
 
 class AgentError(RuntimeError):

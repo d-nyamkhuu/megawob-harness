@@ -1,16 +1,23 @@
 """Render a site in headless Chromium and compose the shots with its design image.
 
-One Renderer per thread (Playwright's sync API is bound to the thread that started it). Used by the build agent's
-render tool (tools.py) and by the site review (build.py).
+`shots` runs the renders in a child process of its own (`python -m megawob_harness.render <job.json>`): when it
+returns, the browser and all its memory are gone, and a hung browser is killed with it after a timeout. The build
+agent's render tool (tools.py) and the site review (build.py) use it; a Renderer is for one thread of that process
+(Playwright's sync API is bound to the thread that started it).
 """
 from __future__ import annotations
 
 import io
+import json
+import sys
+import tempfile
 from pathlib import Path
 
 from megawob import catalog, check
 from PIL import Image, ImageDraw
 from playwright.sync_api import sync_playwright
+
+from . import gate
 
 LABEL, SCALE, GAP, BACKGROUND = 28, 0.6, 12, (40, 40, 40)
 SMALL = [(1280, 720), (1024, 640)]
@@ -162,3 +169,37 @@ def grid(panels: list[tuple[str, Image.Image]], cols: int) -> Image.Image:
         out.paste(r, (0, y))
         y += r.height + GAP
     return out
+
+
+def shots(site: str, task: str, scenario: str, image: Path, requests: list[dict],
+          timeout: int = 180) -> list[tuple[Image.Image, list[str], list[str]]]:
+    """(image, errors, oracle notes) of each request's compare() (keys: seed, view, crop, popups, params), rendered
+    in a child process that is killed with its browser if it takes longer than `timeout` seconds."""
+    with tempfile.TemporaryDirectory(prefix="megawob-harness-render-") as tmp:
+        job = Path(tmp) / "job.json"
+        job.write_text(json.dumps({"site": site, "task": task, "scenario": scenario,
+                                   "image": str(Path(image).resolve()), "requests": requests}))
+        out = gate.run_module("megawob_harness.render", str(job), timeout=timeout)
+        results = Path(tmp) / "results.json"
+        if out.returncode or not results.is_file():
+            why = "timed out" if out.returncode == -9 else f"exit {out.returncode}"
+            raise RuntimeError(f"render failed ({why}): {(out.stderr or out.stdout).strip()[-300:]}")
+        return [(Image.open(Path(tmp) / f"{i}.png").convert("RGB"), r["errors"], r["notes"])
+                for i, r in enumerate(json.loads(results.read_text()))]
+
+
+def main(argv: list[str] | None = None) -> None:
+    """The renders of one job.json, written next to it: <i>.png per request, and results.json."""
+    path = Path((sys.argv[1:] if argv is None else argv)[0])
+    job, results = json.loads(path.read_text()), []
+    with Renderer(job["site"], job["task"], job["scenario"], Path(job["image"])) as r:
+        for i, q in enumerate(job["requests"]):
+            crop = tuple(q["crop"]) if q.get("crop") else None
+            img, errors = r.compare(q.get("seed", 0), q.get("view", "design"), crop, q.get("popups"), q.get("params"))
+            img.save(path.parent / f"{i}.png")
+            results.append({"errors": errors, "notes": r.notes})
+    (path.parent / "results.json").write_text(json.dumps(results))
+
+
+if __name__ == "__main__":
+    main()

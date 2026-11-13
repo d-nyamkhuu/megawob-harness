@@ -21,14 +21,10 @@ from pathlib import Path
 from mcp.server.mcpserver import Image, MCPServer
 
 from . import gate
-from .render import Renderer
+from .render import shots
 
 
 def build(spec: dict) -> dict[str, Callable]:
-    @functools.cache
-    def renderer() -> Renderer:  # started on the first render, on the tool thread
-        return Renderer(spec["site"], spec["task"], spec["scenario"], Path(spec["image"]))
-
     def render(seed: int = 0, view: str = "design", crop: list[int] | None = None, popups: str | None = None,
                params: dict[str, str] | None = None, play: int = 0) -> list:
         """Render the site and return the image plus any page, console and layout errors.
@@ -43,11 +39,16 @@ def build(spec: dict) -> dict[str, Callable]:
         play: first follow the oracle for this many actions (to see a checker failure mid-episode); lists them.
         seed: content and the per-episode frame choices (end-control placement and label, decoys) vary by seed.
         """
-        r = renderer()
-        img, errors = r.compare(seed, view, tuple(crop) if crop else None, popups, {**(params or {}), "play": play})
+        request = {"seed": seed, "view": view, "crop": crop, "popups": popups,
+                   "params": {**(params or {}), "play": play}}
+        try:  # a browser of its own, gone when this returns
+            ((img, errors, notes),) = shots(spec["site"], spec["task"], spec["scenario"], Path(spec["image"]),
+                                            [request])
+        except RuntimeError as exc:
+            return f"ERROR {exc}"
         buf = io.BytesIO()
         img.save(buf, "PNG")
-        text = "\n".join([*(f"PLAY {n}" for n in r.notes), *(f"ERROR {e}" for e in errors)]) or "no page errors"
+        text = "\n".join([*(f"PLAY {n}" for n in notes), *(f"ERROR {e}" for e in errors)]) or "no page errors"
         return [Image(data=buf.getvalue(), format="png"), text]
 
     def check() -> str:
@@ -67,7 +68,7 @@ def main(argv: list[str] | None = None) -> None:
     argv = sys.argv[1:] if argv is None else argv
     spec = json.loads(Path(argv[0]).read_text())
     server = MCPServer("megawob")
-    pool = ThreadPoolExecutor(1)  # Playwright's sync API stays on one thread, off the event loop
+    pool = ThreadPoolExecutor(1)  # the blocking tools run off the event loop, one at a time
 
     for name, fn in build(spec).items():
         @functools.wraps(fn)

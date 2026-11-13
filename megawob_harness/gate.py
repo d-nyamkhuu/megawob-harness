@@ -7,11 +7,13 @@ viewport with more seeds.
 """
 from __future__ import annotations
 
+import atexit
 import json
 import os
 import signal
 import subprocess
 import sys
+import threading
 
 from megawob import catalog
 
@@ -22,17 +24,48 @@ QUICK_VIEWPORTS = ["1024x640", "1366x768", "1536x864"]
 #: files the agent may leave in the site folder that are not part of the site (not hashed, moved out after the build)
 IGNORE = ("KIT_REQUESTS.md",)
 
+# Browser work (the checker, renders, goal sampling) runs in child processes with a session of their own, so a
+# timeout can kill them with their browsers; that also keeps a terminal's Ctrl-C from reaching them. So each process
+# keeps its running ones, and stop() kills them: on Ctrl-C in a batch, and at exit (the agent's tools server, whose
+# renders and quick checks run here too, exits when its agent stops).
+_running: set[int] = set()
+_lock = threading.Lock()
+_stopped = threading.Event()
 
-def _megawob(*args: str, timeout: int = 900) -> subprocess.CompletedProcess:
-    """python -m megawob.<args> from the repo root, killed with its browsers on timeout."""
-    proc = subprocess.Popen([sys.executable, "-m", *args], cwd=ROOT, text=True, start_new_session=True,
-                            env={**os.environ, "PYTHONPATH": str(ROOT)}, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+def stop() -> None:
+    """Kill every running checker of this process with its browsers, and start no new one."""
+    _stopped.set()
+    with _lock:
+        for pid in _running:
+            try:
+                os.killpg(pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+
+
+atexit.register(stop)
+
+
+def run_module(*args: str, timeout: int = 900) -> subprocess.CompletedProcess:
+    """python -m <args> from the megawob checkout, in a session of its own: killed with all its browsers on timeout
+    or stop(), and gone (memory and all) when it returns. Everything that runs a browser goes through this."""
+    with _lock:
+        if _stopped.is_set():
+            return subprocess.CompletedProcess(args, -9, "", "stopped")
+        proc = subprocess.Popen([sys.executable, "-m", *args], cwd=ROOT, text=True, start_new_session=True,
+                                env={**os.environ, "PYTHONPATH": str(ROOT)}, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        _running.add(proc.pid)
     try:
         out, err = proc.communicate(timeout=timeout)
     except subprocess.TimeoutExpired:
         os.killpg(proc.pid, signal.SIGKILL)
         proc.communicate()
         return subprocess.CompletedProcess(proc.args, -9, "", f"timed out after {timeout} s")
+    finally:
+        with _lock:
+            _running.discard(proc.pid)
     return subprocess.CompletedProcess(proc.args, proc.returncode, out, err)
 
 
@@ -58,7 +91,7 @@ def files(site: str, task: str) -> list[str]:
 
 def lint(site: str) -> list[str]:
     """megawob.lint's errors for the site (about 15 s): the design pattern, manifest drift, __env calls, ..."""
-    out = _megawob("megawob.lint", "--no-ruff", "--errors", "--site", site, timeout=300)
+    out = run_module("megawob.lint", "--no-ruff", "--errors", "--site", site, timeout=300)
     if out.returncode == 0:
         return []
     lines = [line.strip() for line in out.stdout.splitlines() if line.strip() and "findings," not in line]
@@ -69,7 +102,7 @@ def lint(site: str) -> list[str]:
 def oracle(site: str, seeds: int, viewports: list[str], fail_fast: int = 3) -> list[str]:
     """megawob.check on the site: `seeds` plain seeds plus the parameter sweep in each viewport; one line per
     failure."""
-    out = _megawob("megawob.check", "--site", site, "--seeds", str(seeds), "--jobs", str(min(len(viewports), 3)),
+    out = run_module("megawob.check", "--site", site, "--seeds", str(seeds), "--jobs", str(min(len(viewports), 3)),
                    "--viewports", *viewports, "--fail-fast", str(fail_fast))
     stdout = "\n" + out.stdout
     if "\ncell " not in stdout:
@@ -99,6 +132,6 @@ def full(site: str, task: str, seeds: int = 5) -> list[str]:
 def index(site: str) -> None:
     """Add the site's widget to html/scenarios.json (the checker fails a widget missing from it; megawob.scenarios
     locks the index, so parallel builds can call this)."""
-    out = _megawob("megawob.scenarios", "--site", site, timeout=300)
+    out = run_module("megawob.scenarios", "--site", site, timeout=300)
     if out.returncode:
         raise RuntimeError(f"megawob.scenarios --site {site}: {(out.stderr or out.stdout)[-400:]}")

@@ -18,17 +18,20 @@ JSON verdict: accept, revise (an edit of the image with one correction) or rejec
 """
 from __future__ import annotations
 
+import functools
 import hashlib
 import itertools
 import json
 import random
 import re
+import tempfile
 from datetime import datetime
 from pathlib import Path
 
-from megawob import catalog, describe, driver
+from megawob import catalog
 from PIL import Image, ImageStat
 
+from . import gate
 from .jsonio import prompt, write_json
 from .runtime import AgentError, Runtime
 
@@ -92,11 +95,16 @@ def task_doc(task: str) -> str:
     return "\n".join(re.sub(r"^\s*\* ?", "", line) for line in (m[1] if m else "").splitlines()).strip()
 
 
+@functools.cache
 def catalog_row(task: str, examples: int = 12) -> dict:
-    """megawob.describe's row: description, inputs and `examples` real goals per scenario (from the pages)."""
-    with driver.browser() as browser:
-        page = browser.new_page(viewport={"width": driver.VIEWPORT[0], "height": driver.VIEWPORT[1]})
-        return describe.describe(page, task, examples)
+    """megawob.describe's row: description, inputs and `examples` real goals per scenario (from the pages). Cached:
+    it opens a browser, and a batch plans many designs of one task."""
+    with tempfile.TemporaryDirectory(prefix="megawob-harness-describe-") as tmp:
+        out = gate.run_module("megawob.describe", task, "--examples", str(examples), "--json", f"{tmp}/row.json",
+                              timeout=300)  # a browser of its own, killed if it hangs
+        if out.returncode:
+            raise RuntimeError(f"megawob.describe {task}: {(out.stderr or out.stdout).strip()[-300:]}")
+        return json.loads(Path(tmp, "row.json").read_text())[0]
 
 
 # ---- capability cards ----------------------------------------------------------------------------------------

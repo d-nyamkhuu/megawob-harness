@@ -26,7 +26,7 @@ from pathlib import Path
 
 from openai_codex import ApprovalMode, Codex, CodexConfig, LocalImageInput, Sandbox, TextInput
 
-from .base import AgentError, Runtime, Session, Turn
+from .base import GRACE, AgentError, Runtime, Session, Turn
 
 # Codex features a scripted agent never needs (subagents, connectors, its own browser or desktop control).
 QUIET = ("agents.enabled=false", "features.apps=false", "features.browser_use=false", "features.computer_use=false")
@@ -65,8 +65,8 @@ class CodexSession(Session):
     def __enter__(self) -> CodexSession:
         with contextlib.ExitStack() as stack:
             home = stack.enter_context(isolated_home())
-            codex = stack.enter_context(self.runtime.codex(mcp_overrides(self.spec.mcp), home))
-            self._thread = self.runtime.thread(codex, self.spec.cwd, Sandbox.workspace_write)
+            self._codex = stack.enter_context(self.runtime.codex(mcp_overrides(self.spec.mcp), home))
+            self._thread = self.runtime.thread(self._codex, self.spec.cwd, Sandbox.workspace_write)
             self._stack = stack.pop_all()
         return self
 
@@ -74,7 +74,7 @@ class CodexSession(Session):
         self._stack.__exit__(*exc)
 
     def _turn(self, text: str, images: list[Path], seconds: float, model: str | None) -> Turn:
-        return _run(self._thread, _inputs(text, images), seconds, model)[0]
+        return _run(self._thread, _inputs(text, images), seconds, self._codex.close, model)[0]
 
 
 class CodexRuntime(Runtime):
@@ -94,7 +94,7 @@ class CodexRuntime(Runtime):
         """One read-only turn in a fresh thread, in an empty folder."""
         with (isolated_home() as home, self.codex((), home) as codex,
               tempfile.TemporaryDirectory(prefix="harness-") as cwd):
-            return _run(self.thread(codex, cwd, Sandbox.read_only), _inputs(text, images), seconds)
+            return _run(self.thread(codex, cwd, Sandbox.read_only), _inputs(text, images), seconds, codex.close)
 
     def _answer(self, prompt: str, images: list[Path], seconds: float) -> Turn:
         return self._once(prompt, images, seconds)[0]
@@ -121,16 +121,33 @@ def _inputs(text: str, images=()) -> list:
     return [TextInput(text), *(LocalImageInput(str(Path(p).resolve())) for p in images)]
 
 
-def _run(thread, inputs: list, seconds: float, model: str | None = None) -> tuple[Turn, list]:
-    """One turn on `thread`, interrupted after `seconds`: the turn and its items."""
+def _run(thread, inputs: list, seconds: float, kill, model: str | None = None) -> tuple[Turn, list]:
+    """One turn on `thread`, interrupted after `seconds`: the turn and its items. If it has not stopped GRACE seconds
+    later, `kill` ends its app-server, which fails the turn."""
     t0 = time.monotonic()
     handle = thread.turn(inputs, model=model)
-    timer = threading.Timer(seconds, handle.interrupt)
-    timer.start()
+    killed = threading.Event()
+
+    def interrupt():
+        with contextlib.suppress(Exception):  # a hung app-server is killed below
+            handle.interrupt()
+
+    def abandon():
+        killed.set()
+        kill()
+
+    timers = [threading.Timer(seconds, interrupt), threading.Timer(seconds + GRACE, abandon)]
+    for timer in timers:
+        timer.start()
     try:
         result = handle.run()
+    except Exception:
+        if killed.is_set():
+            raise AgentError(f"the turn did not stop within {GRACE} s of its interrupt") from None
+        raise
     finally:
-        timer.cancel()
+        for timer in timers:
+            timer.cancel()
     status = getattr(result.status, "value", str(result.status))
     if result.error and status == "failed":
         raise AgentError(f"turn failed: {result.error}")

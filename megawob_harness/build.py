@@ -38,7 +38,7 @@ from PIL import Image
 
 from . import gate
 from .jsonio import PROMPTS, fill, parse_json, prompt, write_json
-from .render import Renderer
+from .render import shots
 from .runtime.base import AgentError, Runtime, SessionSpec
 
 SITES, TEMPLATES = gate.SITES, catalog.HTML / "templates"
@@ -233,13 +233,14 @@ class SiteBuild:
             return None
         job = self.job
         with tempfile.TemporaryDirectory(prefix="megawob-harness-review-") as tmp:
-            shots = [Path(tmp) / "design.png", Path(tmp) / "modes.png"]
-            with Renderer(job.site, job.task, job.scenario, job.image) as r:
-                r.compare(0)[0].save(shots[0])
-                r.compare(3, "modes")[0].save(shots[1])
+            paths = [Path(tmp) / "design.png", Path(tmp) / "modes.png"]
             try:
-                return reviewer.ask(prompt("site_review.txt"), REVIEW_SCHEMA, images=[job.image, *shots])
-            except AgentError as exc:
+                renders = shots(job.site, job.task, job.scenario, job.image,
+                                [{"seed": 0}, {"seed": 3, "view": "modes"}])
+                for (img, _, _), path in zip(renders, paths, strict=True):
+                    img.save(path)
+                return reviewer.ask(prompt("site_review.txt"), REVIEW_SCHEMA, images=[job.image, *paths])
+            except (AgentError, RuntimeError) as exc:
                 print(f"{job.site}: review failed: {exc}", flush=True)
                 return None
 
@@ -260,35 +261,48 @@ class SiteBuild:
         return {"kept": keep, "gate_passed": ok, "review": after}
 
 
+def errored(out: Path, site: str) -> bool:
+    """Whether the site's last build stopped on an error (its run record says so)."""
+    path = Path(out) / "runs" / f"{site}.json"
+    return path.is_file() and "error" in json.loads(path.read_text())
+
+
 def build(design_path: Path, out: Path, builder: Runtime, reviewer: Runtime | None = None,
           polisher: Runtime | None = None, settings: Settings | None = None, force: bool = False,
           fix_model: str | None = None) -> dict:
     """Scaffold, build, review and polish the site of one accepted design. Returns the run record, which is also
-    written to <out>/runs/<site>.json."""
+    written to <out>/runs/<site>.json. A build that stops on an error (a failed model call, a crash) still writes
+    its record, with "error"; such a site is rebuilt from scratch without --force."""
     job, s = Job.load(design_path), settings or Settings()
     if job.folder.exists():
-        if not force:
+        if not (force or errored(out, job.site)):
             raise SystemExit(f"{job.site} exists; pass --force to rebuild it from scratch")
         shutil.rmtree(job.folder)
     t0 = time.monotonic()
-    scaffold(job.site, job.task, job.scenario, job.design["id"])
     run = SiteBuild(job, s, fix_model)
     record = {"site": job.site, "design": str(job.path), "started": datetime.now().isoformat(timespec="seconds"),
               "builder": repr(builder), "fixer": fix_model or builder.model, "reviewer": reviewer and repr(reviewer),
               "polisher": polisher and repr(polisher), "settings": asdict(s), "turns": run.turns}
-    text = brief(job, s.minutes)
-    passed = run.thread(builder, text, "build", s.fix_rounds)
-    record["review"] = review = run.review(reviewer) if passed else None
-    if passed and polisher and (review is None or review["fidelity"] < 5):
-        record["polish"] = polish = run.polish(polisher, reviewer, review, text)
-        if polish["kept"] and polish["review"]:
-            record["review"] = polish["review"]
     runs = Path(out) / "runs"
-    runs.mkdir(parents=True, exist_ok=True)
-    for name in gate.IGNORE:  # the agent's notes go next to the run record
-        if (job.folder / name).is_file():
-            shutil.move(job.folder / name, runs / f"{job.site}.{name}")
-    gate.index(job.site)
+    try:
+        scaffold(job.site, job.task, job.scenario, job.design["id"])
+        text = brief(job, s.minutes)
+        passed = run.thread(builder, text, "build", s.fix_rounds)
+        record["review"] = review = run.review(reviewer) if passed else None
+        if passed and polisher and (review is None or review["fidelity"] < 5):
+            record["polish"] = polish = run.polish(polisher, reviewer, review, text)
+            if polish["kept"] and polish["review"]:
+                record["review"] = polish["review"]
+        runs.mkdir(parents=True, exist_ok=True)
+        for name in gate.IGNORE:  # the agent's notes go next to the run record
+            if (job.folder / name).is_file():
+                shutil.move(job.folder / name, runs / f"{job.site}.{name}")
+        gate.index(job.site)
+    except Exception as exc:
+        record.update(passed=False, fidelity=None, minutes=round((time.monotonic() - t0) / 60, 1),
+                      error=f"{type(exc).__name__}: {exc}"[:1000])
+        write_json(runs / f"{job.site}.json", record)
+        raise
     record.update(passed=passed, fidelity=(record["review"] or {}).get("fidelity"),
                   minutes=round((time.monotonic() - t0) / 60, 1))
     write_json(runs / f"{job.site}.json", record)

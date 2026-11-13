@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import gc
 import mimetypes
 import tempfile
 import threading
@@ -30,7 +31,7 @@ from claude_agent_sdk import (
     ToolUseBlock,
 )
 
-from .base import AgentError, Runtime, Session, Turn
+from .base import GRACE, AgentError, Runtime, Session, Turn
 
 FILE_TOOLS = ["Read", "Write", "Edit", "Glob", "Grep"]
 WRITE_TOOLS = "Write|Edit|MultiEdit|NotebookEdit"
@@ -44,13 +45,13 @@ class _Loop:
         self.thread = threading.Thread(target=self.loop.run_forever, daemon=True)
         self.thread.start()
 
-    def run(self, coro):
-        return asyncio.run_coroutine_threadsafe(coro, self.loop).result()
+    def run(self, coro, timeout: float | None = None):
+        return asyncio.run_coroutine_threadsafe(coro, self.loop).result(timeout)
 
     def close(self) -> None:
         self.loop.call_soon_threadsafe(self.loop.stop)
         self.thread.join(timeout=10)
-        self.loop.close()
+        self.loop.close()  # an unclosed loop keeps its file descriptors: thousands of sessions would run out
 
 
 def inside(root: Path, path: str) -> bool:
@@ -87,6 +88,14 @@ async def _stream(message: dict):
 
 
 async def _turn(client: ClaudeSDKClient, text: str, images: list[Path], seconds: float) -> Turn:
+    """One turn, interrupted after `seconds`; abandoned if it has not stopped GRACE seconds later."""
+    try:
+        return await asyncio.wait_for(_receive(client, text, images, seconds), seconds + GRACE)
+    except TimeoutError:
+        raise AgentError(f"the turn did not stop within {GRACE} s of its interrupt") from None
+
+
+async def _receive(client: ClaudeSDKClient, text: str, images: list[Path], seconds: float) -> Turn:
     t0 = time.monotonic()
     loop = asyncio.get_running_loop()
     timer = loop.call_later(seconds, lambda: asyncio.ensure_future(client.interrupt()))
@@ -129,8 +138,12 @@ class ClaudeSession(Session):
 
     def __exit__(self, *exc) -> None:
         try:
-            self._loop.run(self._client.disconnect())
+            self._loop.run(self._client.disconnect(), timeout=60)
         finally:
+            # After a failed session the CLI's transport may still be open; collected while the loop still runs,
+            # it closes cleanly instead of raising "Event loop is closed" later.
+            self._client = None
+            gc.collect()
             self._loop.close()
 
     def _turn(self, text: str, images: list[Path], seconds: float, model: str | None) -> Turn:
@@ -147,8 +160,9 @@ class ClaudeRuntime(Runtime):
     session_class = ClaudeSession
 
     def options(self, cwd: Path, **kw) -> ClaudeAgentOptions:
+        # The SDK's 1 MB message limit is below one render() screenshot coming back through the stream.
         return ClaudeAgentOptions(cwd=str(cwd), model=self.model, effort=self.effort, setting_sources=[],
-                                  strict_mcp_config=True, **kw)
+                                  strict_mcp_config=True, max_buffer_size=32 * 1024 * 1024, **kw)
 
     def _answer(self, prompt: str, images: list[Path], seconds: float) -> Turn:
         async def answer():

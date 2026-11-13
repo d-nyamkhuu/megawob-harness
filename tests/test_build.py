@@ -110,3 +110,20 @@ def test_a_polish_the_reviewer_scores_lower_is_rolled_back(design, tmp_path):
     assert rec["passed"] and rec["polish"] == {"kept": False, "gate_passed": True, "review": rec["polish"]["review"]}
     assert rec["fidelity"] == 3 and "/* polished */" not in css.read_text()
     assert "- header colour" in polisher.prompts[0]
+
+
+def test_a_build_that_stops_on_an_error_is_recorded_and_rebuilt_without_force(design, tmp_path):
+    from megawob_harness import cli
+    from megawob_harness.runtime import AgentError
+
+    def rate_limited(ctx):
+        raise AgentError("turn failed: 429 rate limited")
+
+    settings = build.Settings(seeds=1, minutes=5)
+    with pytest.raises(AgentError):  # the design lives in tmp_path/designs, so tmp_path is its out folder
+        build.build(design, tmp_path, ReplayRuntime([rate_limited]), settings=settings)
+    record = json.loads((tmp_path / "runs" / f"{SITE}.json").read_text())
+    assert not record["passed"] and "429" in record["error"]
+    assert cli.unbuilt(tmp_path) == [design]  # --pending picks it up, although its site folder exists
+    rec = build.build(design, tmp_path, ReplayRuntime([checked]), settings=settings)  # no --force needed
+    assert rec["passed"] and "error" not in rec

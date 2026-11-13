@@ -70,7 +70,7 @@ Designs of the same task differ in structure, not only in colour: four of the si
 | The agent grades its own work | A reviewer on another model, with no tools, scores the page against the image |
 | A polish makes the site worse | A polish is kept only if the gate still passes and the review score did not drop; otherwise the files are restored |
 | The agent writes outside its site, or sees the operator's tools | Each runtime is sandboxed to the site folder and starts with none of the user's settings ([Architecture](#architecture)) |
-| A long batch stops at one bad design, or dies halfway | A design's error is reported and the rest go on; every stage is resumable from files on disk (`build --pending` picks up accepted designs); the shared scenario index is updated under a lock |
+| A long batch stops at one bad design, or dies halfway | A design's error is reported and the rest go on; every stage is resumable from files on disk (`new --pending` picks up undrawn designs, unbuilt ones and builds that stopped on an error); the shared scenario index is updated under a lock |
 | Nobody knows what a build cost | Every turn's model, time, tokens, cost, tool calls, report and gate result go to a JSON run record |
 
 ## Architecture
@@ -92,31 +92,41 @@ It builds into a MegaWoB checkout, so install that checkout first (its README ha
 or later.
 
 ```bash
-pip install -e path/to/megawob'[check]' && playwright install chromium
-pip install -e .            # this repo
-codex login                 # Codex: builds, reviews, design images
-claude login                # Claude builds (--runtime claude), or set ANTHROPIC_API_KEY
+pip install -e path/to/megawob    # your MegaWoB checkout
+pip install -e .                  # this repo (with Playwright)
+playwright install chromium
+codex login                       # Codex: builds, reviews, design images
+claude login                      # Claude builds (--runtime claude), or set ANTHROPIC_API_KEY
 ```
 
-Run every command from the root of the MegaWoB checkout:
+It runs from any folder: designs, run records and logs go to `data/sitegen/` in the MegaWoB checkout (`--out`
+changes that).
 
 ```bash
 megawob-harness new use-email archive               # one new design image, then its site
 megawob-harness design use-email archive --count 3  # only design images (reviewed)
-megawob-harness build data/sitegen/designs/use-email/archive/07/design.json
+megawob-harness build design-use-email-archive-07   # the site of a design drawn earlier
 megawob-harness card use-email                      # rebuild a task's capability card
-megawob-harness status
+megawob-harness status                              # every design and build, then a summary
 ```
 
 Batches plan everything in one process, so each design's style and layout account for the rest of the batch, then
-draw and build `--jobs` designs at a time; a site is built as soon as its image is accepted, and one design's error
-does not stop the others:
+draw and build `--jobs` designs at a time. A site is built as soon as its image is accepted, one design's error does
+not stop the others, and the output also goes to `data/sitegen/logs/`:
 
 ```bash
-megawob-harness card my-task && megawob-harness --jobs 4 new my-task --count 3  # a new task: 3 designs per scenario
-megawob-harness --jobs 8 new --all          # one more design for every task and scenario (434 today)
-megawob-harness --jobs 8 build --pending    # resume: build every accepted design that has no site yet
+megawob-harness card my-task && megawob-harness new my-task --count 3 --jobs 4  # a new task: 3 designs per scenario
+megawob-harness new --all --dry-run         # what one more design per scenario would be; writes nothing
+megawob-harness new --all --jobs 8          # one more design for every task and scenario (434 today)
+megawob-harness new --pending --jobs 8      # resume: undrawn designs, unbuilt ones, builds that errored
 ```
+
+Ctrl-C starts no new design and waits for the running ones to stop; a second Ctrl-C quits at once. A turn that does
+not stop within two minutes of its time limit is abandoned, so a worker never waits forever.
+
+**Sizing `--jobs`:** plan on about 1 GB of memory per job. Measured per job: the agent's process (~0.2 GB, more over
+a long session), its tools server (~0.1 GB), and at its peak a render (~0.3 GB) or a checker run (~0.4 GB), each in a
+child process that frees its memory when it ends. A batch warns when `--jobs` is more than the free memory allows.
 
 <details>
 <summary><b>What a build prints and records</b></summary>
@@ -153,12 +163,13 @@ Its run record, trimmed:
 | Stage | Output |
 |---|---|
 | `card <task>...` | `megawob_harness/cards/<task>.json`: what the task renders at the start of each scenario, what it never renders, 2-4 ways to lay out the task area |
-| `design <task> [<scenario>...]` or `design --all` | `<out>/designs/<task>/<scenario>/<NN>/`: `design.json`, `prompt.txt`, `attempt-*.png`, `design.png` |
+| `design <task> [<scenario>...]`, `design --all` or `design --pending` | `<out>/designs/<task>/<scenario>/<NN>/`: `design.json`, `prompt.txt`, `attempt-*.png`, `design.png` |
 | `build <design.json or site>...` or `build --pending` | `html/sites/design-<task>-<scenario>-<NN>/`, `<out>/runs/<site>.json` |
-| `new <task> [<scenario>...]` or `new --all` | design, then build each design as soon as it is accepted |
+| `new <task> [<scenario>...]`, `new --all` or `new --pending` | design, then build each design as soon as it is accepted |
 
-`<out>` is `data/sitegen/` unless `--out` says otherwise. Without scenarios, `design` and `new` cover every scenario
-of the task; `--count N` makes N designs per scenario; `--jobs N` (before the command) runs N designs at a time.
+`<out>` is `data/sitegen/` in the MegaWoB checkout unless `--out` says otherwise; each batch's log goes to
+`<out>/logs/`. Without scenarios, `design` and `new` cover every scenario
+of the task; `--count N` makes N designs per scenario; `--jobs N` runs N designs at a time.
 
 </details>
 

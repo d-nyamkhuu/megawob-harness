@@ -11,8 +11,10 @@ license = "MIT"
 requires-python = ">=3.11"
 authors = [{name = "Nyamkhuu Demberelsuren"}]
 # MegaWoB itself is not a dependency: builds write sites into a megawob checkout, so install yours with
-# `pip install -e path/to/megawob[check]` (README).
-dependencies = ["jsonschema>=4", "mcp>=2.3,<3", "openai-codex>=0.167", "claude-agent-sdk>=0.2.181", "pillow"]
+# `pip install -e path/to/megawob` (README). Playwright is pinned to the version of MegaWoB's own `check` extra, so
+# the gate's checker runs in the same browser MegaWoB is tested with.
+dependencies = ["jsonschema>=4", "mcp>=2.3,<3", "openai-codex>=0.167", "claude-agent-sdk>=0.2.181", "pillow",
+                "playwright==1.58.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff==0.17.2"]

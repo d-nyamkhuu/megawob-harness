@@ -18,7 +18,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
-      - run: uv venv && uv pip install -e './megawob[check]' -e '.[dev]'
+      - run: uv venv && uv pip install -e ./megawob -e '.[dev]'
       - run: uv run ruff check megawob_harness tests
       - run: uv run playwright install --with-deps chromium
       - run: uv run pytest -q -m "not megawob"
