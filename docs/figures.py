@@ -1,201 +1,344 @@
-"""Regenerate the README figures in docs/media from a megawob checkout.
+"""Regenerate the README figures in docs/media, all in one house style.
 
-    cd path/to/megawob && python path/to/megawob-harness/docs/figures.py
+    python docs/figures.py diagrams    # pipeline, gate and architecture (PNG)
+    cd path/to/megawob && python path/to/megawob-harness/docs/figures.py shots    # screenshots of built sites (WebP)
 
-- one-task-four-designs.webp: four built sites of one task and scenario, same seed, side by side.
+Every figure is an HTML page (IBM Plex, a navy and a coral accent, thin grey rules) screenshotted by Playwright at 2x:
+navy marks deterministic code, coral marks what a model does.
+
+- pipeline.png: the three stages, their loops and which model tier works where.
+- gate.png: what a site must pass before it is accepted, with the five viewports drawn to scale.
+- architecture.png: what the agent can write, and what judges it from outside its reach.
+- collage.webp: one built site per task, across style eras.
+- one-task-four-designs.webp: four built sites of one task and scenario, same seed.
 - render-modes.webp: what the build agent's `render(view="modes")` tool returns.
-- sites-by-era-{light,dark}.svg: the design-* sites in the checkout by the decade of their style profile.
-- trust-boundaries-{light,dark}.svg: what the agent can write, and what judges it from outside its reach.
-- stop-gate-minutes-{light,dark}.svg: the Stop-gate experiment (experiments/stop-gate/summary.json), per design.
 """
 from __future__ import annotations
 
-import collections
 import json
 import re
+import sys
 import tempfile
+from html import escape
 from pathlib import Path
 
-from megawob import catalog
-from PIL import Image, ImageDraw, ImageFont
-
-from megawob_harness.render import Renderer
-
 MEDIA = Path(__file__).resolve().parent / "media"
-FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-FOUR = [("design-use-email-archive-01", "2014 · Material paper", "tabs above a centred card"),
-        ("design-use-email-archive-02", "2026 · Precision dark", "left rail, list in a sub-window"),
-        ("design-use-email-archive-03", "1990 · Amiga Workbench", "bottom dock, notes on the right"),
-        ("design-use-email-archive-04", "1999 · BeOS", "title bar only, lower inspector")]
+WIDTH = 888  # content width; the figure adds 36px on each side
+FONTS = ("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500"
+         "&family=IBM+Plex+Sans:wght@400;500;600;700&display=block")
+CSS = """
+:root { --ink: #1d2b3a; --muted: #5d6877; --rule: #cfd6df; --grid: #e9edf2; --dash: #8b95a3;
+        --navy: #2b4c7e; --coral: #cf6a5c; --navy-tint: #f3f6fa; --coral-tint: #fcf3f1; }
+* { box-sizing: border-box; margin: 0; }
+body { background: #fff; }
+#figure { width: 960px; padding: 30px 36px 32px; background: #fff; color: var(--ink);
+          font-family: 'IBM Plex Sans', sans-serif; }
+h1 { font-size: 23px; font-weight: 700; letter-spacing: -0.01em; }
+.lede { font-size: 15px; color: var(--muted); margin: 6px 0 26px; }
+svg { display: block; overflow: visible; font-family: 'IBM Plex Sans', sans-serif; }
+svg text { fill: var(--ink); }
+.h { font-size: 16px; font-weight: 700; }
+.hs { font-size: 13px; fill: var(--muted); }
+.bt { font-size: 14px; font-weight: 600; }
+.bs { font-size: 12.5px; fill: var(--muted); }
+.m { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; fill: var(--muted); }
+.mc { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; fill: var(--coral); font-weight: 500; }
+.note { font-size: 14px; font-weight: 600; }
+.box { fill: #fff; stroke: var(--rule); }
+.rule { stroke: var(--rule); }
+.grid { stroke: var(--grid); }
+.navy { fill: var(--navy); } .coral { fill: var(--coral); }
+.edge { fill: none; stroke: var(--dash); stroke-width: 1.4; stroke-linejoin: round; }
+.dashed { stroke-dasharray: 4 3; }
+.zone-model { fill: var(--coral-tint); stroke: #f0d9d4; }
+.zone-code { fill: var(--navy-tint); stroke: #dce3ed; }
+.shots { display: grid; }
+.shot img { width: 100%; display: block; border: 1px solid var(--rule); }
+.cap { margin-top: 8px; font-size: 14px; font-weight: 600; }
+.cap span { font-weight: 400; color: var(--muted); }
+.mono { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); font-weight: 400; }
+.cap .mono { display: block; margin-top: 2px; white-space: pre; }
+.cap .mono span { color: var(--muted); }
+"""
 
 
-def shoot(site: str, view: str | None = None) -> Image.Image:
+def render(name: str, title: str, lede: str, body: str, folder: Path | None = None) -> None:
+    """Screenshot one figure page to docs/media/<name> (.png lossless, .webp lossy). Images in `body` are relative
+    to `folder`."""
+    from PIL import Image
+    from playwright.sync_api import sync_playwright
+
+    with tempfile.TemporaryDirectory() as tmp:
+        page_path = Path(folder or tmp) / f"_{Path(name).stem}.html"
+        page_path.write_text(f'<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="{FONTS}">'
+                             f'<style>{CSS}</style><div id="figure"><h1>{escape(title)}</h1>'
+                             f'<p class="lede">{escape(lede)}</p>{body}</div>')
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page(device_scale_factor=2, viewport={"width": 960, "height": 600})
+            page.goto(page_path.as_uri())
+            page.evaluate("document.fonts.ready")
+            page.wait_for_load_state("networkidle")
+            shot = Path(tmp) / "shot.png"
+            page.locator("#figure").screenshot(path=shot)
+            browser.close()
+        page_path.unlink()
+        out = MEDIA / name
+        if out.suffix == ".webp":
+            Image.open(shot).convert("RGB").save(out, quality=86, method=6)
+        else:
+            Image.open(shot).convert("RGB").quantize(256, dither=Image.Dither.NONE).save(out, optimize=True)
+    print(out)
+
+
+# ---- SVG pieces -----------------------------------------------------------------------------------------------
+
+ARROW = ('<defs><marker id="a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" '
+         'orient="auto-start-reverse"><path d="M1,1.5 L9,5 L1,8.5" fill="none" stroke="#8b95a3" stroke-width="1.6" '
+         'stroke-linecap="round" stroke-linejoin="round"/></marker></defs>')
+
+
+def svg(h: int, *parts: str) -> str:
+    return f'<svg width="{WIDTH}" height="{h}" viewBox="0 0 {WIDTH} {h}">{ARROW}{"".join(parts)}</svg>'
+
+
+def text(x, y, s, cls="bs", anchor="start") -> str:
+    return f'<text class="{cls}" x="{x}" y="{y}" text-anchor="{anchor}">{escape(s)}</text>'
+
+
+def label(x, y, s) -> str:
+    """A mono annotation centred above a line."""
+    return text(x, y, s, "m", "middle")
+
+
+def box(x, y, w, h, title, sub="", model=False, mono=False) -> str:
+    """A step: white, a thin rule, a 3px accent on the left (coral: a model; navy: code)."""
+    top = y + h / 2 + (-3 if sub else 5)
+    return (f'<rect class="box" x="{x}" y="{y}" width="{w}" height="{h}" rx="3"/>'
+            f'<rect class="{"coral" if model else "navy"}" x="{x}" y="{y}" width="3" height="{h}" rx="1"/>'
+            + text(x + 16, top, title, "bt") + (text(x + 16, top + 18, sub, "m" if mono else "bs") if sub else ""))
+
+
+def edge(d: str, dashed=False) -> str:
+    return f'<path class="edge{" dashed" if dashed else ""}" d="{d}" marker-end="url(#a)"/>'
+
+
+def header(x, title, sub, w=None, rule=True, n=None) -> str:
+    number = f'<tspan fill="#8b95a3">{n}</tspan><tspan dx="9">' if n else "<tspan>"
+    out = f'<text class="h" x="{x}" y="17">{number}{escape(title)}</tspan></text>' + text(x, 37, sub, "hs")
+    return out + (f'<line class="rule" x1="{x}" x2="{x + w}" y1="52.5" y2="52.5"/>' if rule else "")
+
+
+def legend(y) -> str:
+    return (f'<rect class="coral" x="0" y="{y - 11}" width="3" height="14" rx="1"/>'
+            + text(12, y, "model-driven step")
+            + f'<rect class="navy" x="152" y="{y - 11}" width="3" height="14" rx="1"/>'
+            + text(164, y, "deterministic code")
+            + text(318, y, "cheap model", "mc") + text(404, y, "which model tier runs it"))
+
+
+# ---- diagrams -------------------------------------------------------------------------------------------------
+
+def pipeline() -> None:
+    """Three columns, one per stage, read top to bottom; a loop on the right returns to the step it repeats."""
+    stages = [
+        ("Design", "an image the site can reproduce",
+         [("Plan", "least-used style + layout", None), ("Draw", "Codex image tool", "image model"),
+          ("Review", "accept, revise or redraw", "reviewer")], ["revise or", "redraw"]),
+        ("Build", "agents build, the gate decides",
+         [("Scaffold", "already passes the checker", None), ("Agent turn", "render + check tools", "cheap model"),
+          ("Gate", "oracle at 5 viewports", None)], ["retry on", "stronger", "model"]),
+        ("Polish", "raise fidelity, never break it",
+         [("Review", "fidelity 1-5, what differs", "other model"),
+          ("Polish", "works the differences", "strongest model"),
+          ("Keep or roll back", "gate passes, score held", None)], None),
+    ]
+    parts, w, bw, bh, top, step = [], 280, 192, 58, 86, 100
+    for k, (name, sub, steps, loop) in enumerate(stages):
+        x = k * (w + 24)
+        parts.append(header(x, name, sub, w, n=k + 1))
+        if k:
+            parts.append(edge(f"M{x - 22},12 H{x - 9}"))
+        for i, (title, note, model) in enumerate(steps):
+            y = top + i * step
+            parts.append(box(x, y, bw, bh, title, note, model=bool(model)))
+            if model:
+                parts.append(text(x + bw, y - 8, model, "mc", "end"))
+            if i:
+                parts.append(edge(f"M{x + 34},{y - step + bh + 1} V{y - 2}"))
+        if loop:
+            a, b, lx = top + 2 * step + bh / 2, top + step + bh / 2, x + bw + 22
+            parts.append(edge(f"M{x + bw + 1},{a} H{lx} V{b} H{x + bw + 3}"))
+            mid = (a + b) / 2 - 7 * (len(loop) - 1) + 4
+            parts += [text(lx + 9, mid + 14 * j, line, "m") for j, line in enumerate(loop)]
+    parts.append(legend(top + 2 * step + bh + 46))
+    render("pipeline.png", "Three stages, each with its own loop",
+           "Models do the creative work. Deterministic code decides what moves on.",
+           svg(top + 2 * step + bh + 54, *parts))
+
+
+def gate() -> None:
+    """The checks in order, then the five training viewports the oracle plays at, drawn to scale."""
+    checks = [("Files", "the expected files exist", False), ("Syntax", "node --check", True),
+              ("Lint", "megawob.lint", True), ("Oracle", "megawob.check", True)]
+    parts, bw, gap = [], 198, 32
+    for i, (title, sub, mono) in enumerate(checks):
+        x = i * (bw + gap)
+        parts.append(box(x, 0, bw, 60, title, sub, mono=mono))
+        if i:
+            parts.append(edge(f"M{x - gap + 1},30 H{x - 3}"))
+    sizes = [(1024, 640), (1280, 720), (1366, 768), (1440, 900), (1536, 864)]
+    quick = {(1024, 640), (1366, 768), (1536, 864)}
+    scale, base, vgap = 0.12, 254, 24
+    widths = [w * scale for w, _ in sizes]
+    x = (WIDTH - sum(widths) - vgap * 4) / 2
+    centers = []
+    parts.append(f'<line class="grid" x1="0" x2="{WIDTH}" y1="{base + 0.5}" y2="{base + 0.5}"/>')
+    for (w, h), sw in zip(sizes, widths, strict=True):
+        sh, top = h * scale, base - h * scale
+        parts += [f'<rect class="box" x="{x}" y="{top}" width="{sw}" height="{sh}" rx="3"/>',
+                  f'<rect fill="#e9edf2" x="{x + 0.5}" y="{top + 0.5}" width="{sw - 1}" height="9" rx="2.5"/>',
+                  f'<rect fill="#dce3ed" x="{x + sw * 0.2}" y="{top + 19}" width="{sw * 0.6}" height="{sh - 29}" '
+                  'rx="2"/>',
+                  text(x + sw / 2, base + 20, f"{w}×{h}", "m", "middle")]
+        if (w, h) in quick:
+            parts.append(f'<circle class="coral" cx="{x + 7}" cy="{top + 5}" r="2.6"/>')
+        centers.append(x + sw / 2)
+        x += sw + vgap
+    oracle, bracket = 3 * (bw + gap) + bw / 2, 118
+    parts += [f'<path class="edge dashed" d="M{oracle},61 V{bracket}"/>',
+              f'<path class="edge dashed" d="M{centers[0]},{bracket + 16} V{bracket} H{centers[-1]} '
+              f'V{bracket + 16}"/>',
+              *[f'<path class="edge dashed" d="M{c},{bracket} V{bracket + 16}"/>' for c in centers[1:-1]],
+              text(0, 98, "Every seed and random setting, at all five training viewports", "note"),
+              text(0, base + 64, "Any failure goes back to the agent, word for word, as a fix round.", "note"),
+              f'<circle class="coral" cx="{WIDTH - 226}" cy="{base + 59.5}" r="2.6"/>',
+              text(WIDTH - 216, base + 64, "also in the agent's own quick check()")]
+    render("gate.png", "The gate every site must pass",
+           "Deterministic checks, run outside the agent's reach after every turn.", svg(base + 72, *parts))
+
+
+def architecture() -> None:
+    """Three zones side by side: the harness that decides, the agent's sandbox, and the tools server."""
+    zones = [(0, 228, "Harness", "decides after every turn", "code"),
+             (312, 264, "Agent sandbox", "writes only the site folder", "model"),
+             (648, 240, "Tools server", "outside the sandbox, over MCP", "code")]
+    parts, top, bottom = [], 64, 312
+    for x, w, title, sub, kind in zones:
+        parts += [header(x, title, sub, rule=False),
+                  f'<rect class="zone-{kind}" x="{x}" y="{top}" width="{w}" height="{bottom - top}" rx="6"/>']
+    hx, hw, sx, sw, tx, tw = 16, 196, 328, 232, 664, 208
+    parts += [box(hx, 84, hw, 56, "Fix rounds", "to a stronger model"),
+              box(hx, 168, hw, 56, "Full gate", "decides acceptance"),
+              box(hx, 236, hw, 56, "Reviewer", "other model, no tools", model=True),
+              box(sx, 84, sw, 56, "Coding agent", "Codex or Claude", model=True),
+              f'<rect class="box" x="{sx}" y="168" width="{sw}" height="124" rx="3"/>',
+              f'<rect class="navy" x="{sx}" y="168" width="3" height="124" rx="1"/>',
+              text(sx + 16, 194, "Site files", "bt"), text(sx + 16, 213, "html/sites/design-…/", "m"),
+              text(sx + 16, 232, "site.js, site.css, manifest", "bs"),
+              box(tx, 84, tw, 56, "render()", "headless Chromium"),
+              box(tx, 168, tw, 56, "check()", "lint + oracle, 3 viewports"),
+              text(tx, 262, "reads the site files,", "m"), text(tx, 279, "never writes them", "m"),
+              edge(f"M{sx + 40},141 V166"), text(sx + 50, 158, "edits", "m"),
+              edge(f"M{hx + hw + 1},112 H{sx - 3}"), label(270, 106, "failures"),
+              edge(f"M{hx + hw + 1},196 H{sx - 3}"), label(270, 190, "checks"),
+              edge(f"M{sx - 1},264 H{hx + hw + 3}", dashed=True), label(270, 258, "screenshots"),
+              edge(f"M{sx + sw + 1},104 H{tx - 3}"), label(612, 98, "MCP"),
+              edge(f"M{sx + sw + 1},122 H594 V196 H{tx - 3}")]
+    render("architecture.png", "Who writes, and who decides",
+           "The agent can change only its site folder. Everything that judges it runs outside the sandbox.",
+           svg(bottom + 2, *parts))
+
+
+def diagrams() -> None:
+    pipeline()
+    gate()
+    architecture()
+
+
+# ---- screenshots of built sites (need a megawob checkout) -------------------------------------------------------
+
+FOUR = [("design-use-email-archive-01", "Material paper", "2014", "tabs above a centred card"),
+        ("design-use-email-archive-02", "Precision dark", "2026", "left rail, list in a sub-window"),
+        ("design-use-email-archive-03", "Amiga Workbench", "1990", "bottom dock, notes on the right"),
+        ("design-use-email-archive-04", "BeOS", "1999", "title bar only, lower inspector")]
+# (caption, the setting it shows) per MODES entry; finishByMessage is 0 unless shown
+MODE_CAPTIONS = [("Header", "instructionDisplay=header"), ("Panel", "instructionDisplay=panel"),
+                 ("Toast", "instructionDisplay=toast"), ("Hidden, finish by message", "finishByMessage=1")]
+
+
+def shoot(site: str, size=(1536, 864), params: dict | None = None):
+    from megawob import catalog
+    from PIL import Image
+
+    from megawob_harness.render import Renderer
+
     desc = json.loads((catalog.HTML / "sites" / site / "manifest.json").read_text())["description"]
     task, scenario = desc.split("/")[:2]
     with tempfile.TemporaryDirectory() as tmp:
-        blank = Path(tmp) / "blank.png"  # the design image, unused by these views
-        Image.new("RGB", (1536, 864), "white").save(blank)
+        blank = Path(tmp) / "blank.png"  # the design image, unused by a plain capture
+        Image.new("RGB", size, "white").save(blank)
         with Renderer(site, task, scenario, blank) as r:
-            return r.compare(0, view)[0] if view else r.capture(0, (1536, 864))[0]
+            return r.capture(0, size, params=params)[0]
 
 
-def four_designs() -> None:
-    w, h, pad, cap = 760, 428, 24, 64
-    out = Image.new("RGB", (2 * w + 3 * pad, 2 * (h + cap) + 3 * pad), "#f6f8fa")
-    draw = ImageDraw.Draw(out)
-    title, sub = ImageFont.truetype(BOLD, 22), ImageFont.truetype(FONT, 18)
-    for k, (site, style, layout) in enumerate(FOUR):
-        x, y = pad + (k % 2) * (w + pad), pad + (k // 2) * (h + cap + pad)
-        draw.rounded_rectangle((x - 1, y - 1, x + w, y + h + cap), 10, fill="white", outline="#d0d7de")
-        out.paste(shoot(site).resize((w - 2, h), Image.LANCZOS), (x, y))
-        draw.text((x + 16, y + h + 10), style, font=title, fill="#1f2328")
-        draw.text((x + 16, y + h + 38), layout, font=sub, fill="#59636e")
-    out.save(MEDIA / "one-task-four-designs.webp", quality=82)
+def collage_sites(n=20) -> list[tuple[str, str, str]]:
+    """(site, task, year) of n built sites, one per task, the years rotating through four eras."""
+    from megawob import catalog
+
+    eras, by_task = [(1980, 1995), (2006, 2015), (1996, 2005), (2016, 2026)], {}
+    for manifest in sorted((catalog.HTML / "sites").glob("design-*/manifest.json")):
+        m = re.match(r"([\w-]+)/[\w-]+/\d+-(\d{4})-", json.loads(manifest.read_text())["description"])
+        if m:  # task/scenario/NN-<year>-<style>-...; a few older sites describe themselves differently
+            by_task.setdefault(m[1], []).append((manifest.parent.name, int(m[2])))
+    tasks = sorted(by_task)
+    picked = []
+    for k, task in enumerate(tasks[i * len(tasks) // n] for i in range(n)):
+        lo, hi = eras[k % len(eras)]
+        site, year = next(((s, y) for s, y in by_task[task] if lo <= y <= hi), by_task[task][0])
+        picked.append((site, task, str(year)))
+    return picked
 
 
-def render_modes() -> None:
-    img = shoot("design-use-email-archive-01", "modes")
-    img.resize((1400, round(img.height * 1400 / img.width)), Image.LANCZOS).save(MEDIA / "render-modes.webp",
-                                                                                   quality=82)
+def grid(shots: list[tuple[str, str]], cols: int, gap="22px 18px") -> str:
+    cells = "".join(f'<div class="shot"><img src="{src}"><div class="cap">{cap}</div></div>' for src, cap in shots)
+    return f'<div class="shots" style="grid-template-columns: repeat({cols}, minmax(0, 1fr)); gap: {gap}">{cells}</div>'
 
 
-def sites_by_era() -> None:
-    decades: collections.Counter = collections.Counter()
-    for manifest in (catalog.HTML / "sites").glob("design-*/manifest.json"):
-        if m := re.match(r"[\w-]+/[\w-]+/\d+-(\d{4})-", json.loads(manifest.read_text()).get("description", "")):
-            decades[int(m[1]) // 10 * 10] += 1
-    bars = sorted(decades.items())
-    themes = {"light": {"bar": "#2a78d6", "ink": "#1f2328", "muted": "#59636e", "rule": "#d0d7de"},
-              "dark": {"bar": "#3987e5", "ink": "#f0efec", "muted": "#c3c2b7", "rule": "#3d444d"}}
-    W, H, left, base, top, bw, gap = 720, 280, 24, 236, 40, 96, 40
-    x0 = (W - len(bars) * bw - (len(bars) - 1) * gap) // 2  # the bars centred
-    peak = max(n for _, n in bars)
-    for name, t in themes.items():
-        parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-                 'font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">',
-                 f'<line x1="{left}" y1="{base}" x2="{W - left}" y2="{base}" stroke="{t["rule"]}" stroke-width="1"/>']
-        for i, (decade, n) in enumerate(bars):
-            x, bh = x0 + i * (bw + gap), round((base - top) * n / peak)
-            y, r = base - bh, 4
-            top_edge = f"V{y + r} Q{x},{y} {x + r},{y} H{x + bw - r} Q{x + bw},{y} {x + bw},{y + r}"  # rounded ends
-            parts += [f'<path d="M{x},{base} {top_edge} V{base} Z" fill="{t["bar"]}">'
-                      f'<title>{decade}s: {n:,} sites</title></path>',
-                      f'<text x="{x + bw / 2}" y="{y - 8}" text-anchor="middle" font-size="15" font-weight="600" '
-                      f'fill="{t["ink"]}">{n:,}</text>',
-                      f'<text x="{x + bw / 2}" y="{base + 22}" text-anchor="middle" font-size="14" '
-                      f'fill="{t["muted"]}">{decade}s</text>']
-        (MEDIA / f"sites-by-era-{name}.svg").write_text("\n".join([*parts, "</svg>"]) + "\n")
-    print(f"{sum(decades.values())} sites by decade: {bars}")
+def shots() -> None:
+    from megawob_harness.render import MODES, MODES_SIZE
 
+    with tempfile.TemporaryDirectory() as tmp:
+        folder = Path(tmp)
 
-TRUST_THEMES = {
-    "light": {"ink": "#1f2328", "muted": "#59636e", "node": "#ffffff", "edge": "#59636e", "node_line": "#8c959f",
-              "agent": ("#fff1e5", "#fb8f44"), "trusted": ("#ddf4ff", "#54aeff")},
-    "dark": {"ink": "#e6edf3", "muted": "#9198a1", "node": "#161b22", "edge": "#9198a1", "node_line": "#6e7681",
-             "agent": ("#2d1b0e", "#bd561d"), "trusted": ("#0c2d4a", "#1f6feb")},
-}
-#: zones: (x, y, w, h, title, note, kind); nodes: name -> (x, y, w, h, label, sublabel)
-ZONES = [(20, 20, 380, 250, "Agent sandbox", "writes only the site folder", "agent"),
-         (480, 20, 380, 250, "Tools server", "outside the sandbox (MCP)", "trusted"),
-         (20, 310, 840, 120, "Harness", "after every turn, whatever the agent reports", "trusted")]
-NODES = {"agent": (60, 84, 240, 58, "Coding agent", "Codex or Claude"),
-         "site": (60, 186, 240, 52, "site files", "html/sites/design-…/"),
-         "render": (530, 74, 300, 56, "render()", "headless Chromium, design image beside the page"),
-         "check": (530, 164, 300, 56, "check()", "lint + oracle at 3 viewports"),
-         "gate": (50, 352, 170, 56, "Full gate", "5 viewports, more seeds"),
-         "review": (240, 352, 170, 56, "Reviewer", "no tools, other model"),
-         "fix": (450, 352, 180, 56, "Fix rounds", "failures to a stronger model"),
-         "record": (650, 352, 190, 56, "Run record", "every turn, gate, review")}
-#: edges: (from point, to point, label, dashed)
-EDGES = [((300, 104), (530, 102), "MCP", False), ((300, 124), (530, 192), "MCP", False),
-         ((180, 142), (180, 186), "edits", False),
-         ((135, 352), (135, 238), "decides", False), ((325, 352), (260, 238), "screenshots", True)]
+        def save(img, name: str, width: int) -> str:
+            img.resize((width, round(img.height * width / img.width))).save(folder / name, quality=92)
+            return name
 
+        sites = collage_sites()
+        cells = [(save(shoot(site), f"c{i}.jpg", 340),
+                  f'<span class="mono" style="color:#1d2b3a">{escape(task)} <span>{year}</span></span>')
+                 for i, (site, task, year) in enumerate(sites)]
+        render("collage.webp", "A sample of the 2,942 shipped sites",
+               f"One site for each of {len(sites)} tasks, in styles from 1984 to 2026, each passing the same gate.",
+               grid(cells, 5, "16px 12px"), folder)
 
-def trust_boundaries() -> None:
-    for name, t in TRUST_THEMES.items():
-        parts = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" '
-                 'font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">',
-                 f'<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" '
-                 f'orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{t["edge"]}"/></marker></defs>']
-        for x, y, w, h, title, note, kind in ZONES:
-            fill, line = t[kind]
-            parts += [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="{fill}" stroke="{line}" '
-                      'stroke-width="1.5"/>',
-                      f'<text x="{x + 16}" y="{y + 26}" font-size="15" font-weight="600" fill="{t["ink"]}">{title}'
-                      f'<tspan font-weight="400" fill="{t["muted"]}">  ·  {note}</tspan></text>']
-        for x, y, w, h, label, sub in NODES.values():
-            parts += [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{t["node"]}" '
-                      f'stroke="{t["node_line"]}"/>',
-                      f'<text x="{x + w / 2}" y="{y + h / 2 - 3}" text-anchor="middle" font-size="14" '
-                      f'font-weight="600" fill="{t["ink"]}">{label}</text>',
-                      f'<text x="{x + w / 2}" y="{y + h / 2 + 15}" text-anchor="middle" font-size="12" '
-                      f'fill="{t["muted"]}">{sub}</text>']
-        for (x1, y1), (x2, y2), label, dashed in EDGES:
-            dash = ' stroke-dasharray="5 4"' if dashed else ""
-            parts.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{t["edge"]}" stroke-width="1.5"'
-                         f'{dash} marker-end="url(#arrow)"/>')
-            if label:
-                parts.append(f'<text x="{(x1 + x2) / 2 + 8}" y="{(y1 + y2) / 2 - 6}" font-size="12" '
-                             f'fill="{t["muted"]}">{label}</text>')
-        (MEDIA / f"trust-boundaries-{name}.svg").write_text("\n".join([*parts, "</svg>"]) + "\n")
+        cells = [(save(shoot(site), f"d{i}.jpg", 860), f"{style} <span>· {year} · {layout}</span>")
+                 for i, (site, style, year, layout) in enumerate(FOUR)]
+        render("one-task-four-designs.webp", "Same task, same seed, four structures",
+               "use-email / archive at the same seed, built from four different design images.", grid(cells, 2),
+               folder)
 
-
-STOP_GATE = Path(__file__).resolve().parent.parent / "experiments" / "stop-gate" / "summary.json"
-LABELS = {"set-slider": "Slider", "fill-form": "Form", "use-email": "Email app"}
-PAIR = {"light": {"stop-gate": "#2a78d6", "no-stop-gate": "#eb6834", "ink": "#1f2328", "muted": "#59636e",
-                  "rule": "#d0d7de", "surface": "#ffffff"},
-        "dark": {"stop-gate": "#3987e5", "no-stop-gate": "#d95926", "ink": "#f0efec", "muted": "#c3c2b7",
-                 "rule": "#3d444d", "surface": "#0d1117"}}
-
-
-def stop_gate_minutes() -> None:
-    """A dumbbell per design: minutes to an accepted site with and without the Stop gate, and the fix rounds."""
-    data = json.loads(STOP_GATE.read_text())
-    sites = sorted({r["site"] for r in data})
-    by = {(r["site"], r["condition"]): r for r in data}
-    W, top, row, left, right, xmax = 760, 70, 52, 120, 200, 25
-    H = top + row * len(sites) + 40
-
-    def x(minutes: float) -> float:
-        return left + (W - left - right) * minutes / xmax
-
-    for theme, t in PAIR.items():
-        out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-               'font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">']
-        for i, (condition, label) in enumerate([("stop-gate", "with Stop hook"), ("no-stop-gate", "without")]):
-            lx = left + i * 150
-            out += [f'<circle cx="{lx + 6}" cy="22" r="6" fill="{t[condition]}"/>',
-                    f'<text x="{lx + 18}" y="27" font-size="14" fill="{t["ink"]}">{label}</text>']
-        out.append(f'<text x="{W - right + 24}" y="56" font-size="13" fill="{t["muted"]}">fix rounds</text>')
-        for m in range(0, xmax + 1, 5):
-            out += [f'<line x1="{x(m)}" y1="{top - 14}" x2="{x(m)}" y2="{H - 34}" stroke="{t["rule"]}"/>',
-                    f'<text x="{x(m)}" y="{H - 14}" text-anchor="middle" font-size="12" fill="{t["muted"]}">'
-                    f'{m}{" min" if m == xmax else ""}</text>']
-        for k, site in enumerate(sites):
-            y = top + row * k + row / 2 - 10
-            on, off = by[(site, "stop-gate")], by[(site, "no-stop-gate")]
-            task = next(name for slug, name in LABELS.items() if site.startswith(f"design-{slug}-"))
-            out += [f'<text x="{left - 16}" y="{y + 5}" text-anchor="end" font-size="14" fill="{t["ink"]}">{task}'
-                    '</text>',
-                    f'<line x1="{x(on["minutes"])}" y1="{y}" x2="{x(off["minutes"])}" y2="{y}" '
-                    f'stroke="{t["muted"]}" stroke-width="2"/>']
-            for r, condition in ((on, "stop-gate"), (off, "no-stop-gate")):
-                out += [f'<circle cx="{x(r["minutes"])}" cy="{y}" r="7" fill="{t[condition]}" '
-                        f'stroke="{t["surface"]}" stroke-width="2"><title>{task}, {condition}: {r["minutes"]} min, '
-                        f'{r["fix_rounds"]} fix rounds</title></circle>',
-                        f'<text x="{x(r["minutes"])}" y="{y - 13 if condition == "stop-gate" else y + 24}" '
-                        f'text-anchor="middle" font-size="12" fill="{t["ink"]}">{r["minutes"]}</text>']
-            out.append(f'<text x="{W - right + 24}" y="{y + 5}" font-size="14" fill="{t["ink"]}">'
-                       f'{on["fix_rounds"]} <tspan fill="{t["muted"]}">vs</tspan> {off["fix_rounds"]}</text>')
-        (MEDIA / f"stop-gate-minutes-{theme}.svg").write_text("\n".join([*out, "</svg>"]) + "\n")
+        site = FOUR[0][0]
+        cells = []
+        for i, ((_, params), (caption, setting)) in enumerate(zip(MODES, MODE_CAPTIONS, strict=True)):
+            cells.append((save(shoot(site, MODES_SIZE, params), f"m{i}.png", 440),
+                          f'{caption}<span class="mono">{escape(setting)}</span>'))
+        render("render-modes.webp", "One frame, four instruction settings",
+               'What the build agent\'s render(view="modes") shows it, at the tightest training viewport (1024×640).',
+               grid(cells, 4, "0 14px"), folder)
 
 
 if __name__ == "__main__":
     MEDIA.mkdir(exist_ok=True)
-    four_designs()
-    render_modes()
-    sites_by_era()
-    trust_boundaries()
-    stop_gate_minutes()
+    {"diagrams": diagrams, "shots": shots}[sys.argv[1] if len(sys.argv) > 1 else "diagrams"]()
