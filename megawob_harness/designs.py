@@ -29,6 +29,7 @@ from pathlib import Path
 from megawob import catalog, describe, driver
 from PIL import Image, ImageStat
 
+from .jsonio import prompt, write_json
 from .runtime import AgentError, Runtime
 
 HERE = Path(__file__).resolve().parent
@@ -67,10 +68,6 @@ REVIEW_SCHEMA = {
 }
 
 
-def template(name: str) -> str:
-    return (HERE / "prompts" / f"{name}.txt").read_text()
-
-
 def squeeze(text: str) -> str:
     return re.sub(r"\n{3,}", "\n\n", "\n".join(line.rstrip() for line in text.splitlines())).strip() + "\n"
 
@@ -79,12 +76,13 @@ def seeded(*parts) -> random.Random:
     return random.Random(hashlib.sha256("/".join(map(str, parts)).encode()).hexdigest())
 
 
+def task_index(task: str) -> dict:
+    """The task's entry in html/scenarios.json: its "scenarios", "startModes", ..."""
+    return catalog.scenarios_index()["tasks"].get(task, {})
+
+
 def scenarios(task: str) -> list[str]:
-    return catalog.scenarios_index()["tasks"].get(task, {}).get("scenarios", [])
-
-
-def start_modes(task: str) -> list[str]:
-    return catalog.scenarios_index()["tasks"].get(task, {}).get("startModes", [])
+    return task_index(task).get("scenarios", [])
 
 
 def task_doc(task: str) -> str:
@@ -119,18 +117,18 @@ def make_card(agent: Runtime, task: str) -> Path:
     (`hint`) of an existing card are kept: they are hand-written guidance."""
     row = catalog_row(task, 2)
     listing = "\n".join(f"- {s}: e.g. " + " | ".join(goals) for s, goals in row["scenarios"].items())
-    prompt = template("card").format(task=task, description=row["description"], doc=task_doc(task)[:40000],
-                                     start_modes=", ".join(start_modes(task)), scenarios=listing)
-    card = agent.ask(prompt, CARD_SCHEMA)
-    old = ({s["name"]: s for s in json.loads(card_path(task).read_text())["scenarios"]}
-           if card_path(task).is_file() else {})
-    for s in card["scenarios"]:
-        s["hint"] = old.get(s["name"], {}).get("hint", "")
+    card = agent.ask(prompt("card.txt", task=task, description=row["description"], doc=task_doc(task)[:40000],
+                            start_modes=", ".join(task_index(task).get("startModes", [])), scenarios=listing),
+                     CARD_SCHEMA)
     missing = set(scenarios(task)) - {s["name"] for s in card["scenarios"]}
     if missing:
         raise AgentError(f"{task}: the card misses scenarios {sorted(missing)}")
-    driver.write_json(card_path(task), {"task": task, **card})
-    return card_path(task)
+    path = card_path(task)
+    hints = {s["name"]: s.get("hint", "") for s in json.loads(path.read_text())["scenarios"]} if path.is_file() else {}
+    for s in card["scenarios"]:
+        s["hint"] = hints.get(s["name"], "")
+    write_json(path, {"task": task, **card})
+    return path
 
 
 # ---- planning ------------------------------------------------------------------------------------------------
@@ -168,8 +166,6 @@ def plan(task: str, scenario: str, out: Path, profile: str | None = None) -> Pat
     """Allocate the next design of task/scenario and write <out>/designs/<task>/<scenario>/<NN>/design.json."""
     if scenario not in scenarios(task):
         raise SystemExit(f"{task} has no scenario {scenario!r}; it has {', '.join(scenarios(task))}")
-    if profile and profile not in PROFILES:
-        raise SystemExit(f"unknown style {profile!r}; see styles.json")
     card = load_card(task)
     caps = next((s for s in card["scenarios"] if s["name"] == scenario), None)
     if caps is None:
@@ -195,7 +191,7 @@ def plan(task: str, scenario: str, out: Path, profile: str | None = None) -> Pat
     arrange = options[(index - 1) % len(options)] if options else None
     row = catalog_row(task, 12)
     goals = row["scenarios"].get(scenario) or [""]
-    scene = "scene" in start_modes(task) and bool(caps["scene"]) and rng.random() < SCENE_SHARE
+    scene = "scene" in task_index(task).get("startModes", []) and bool(caps["scene"]) and rng.random() < SCENE_SHARE
     p = PROFILES[profile]
     design = {
         "id": f"{task}/{scenario}/{index:02d}-{p['era']}-{profile}-{arrangement_slug(combo)}",
@@ -208,7 +204,7 @@ def plan(task: str, scenario: str, out: Path, profile: str | None = None) -> Pat
         "size": list(SIZE), "planned": datetime.now().isoformat(timespec="seconds"),
     }
     path = out / "designs" / task / scenario / f"{index:02d}" / "design.json"
-    driver.write_json(path, design)
+    write_json(path, design)
     return path
 
 
@@ -247,8 +243,8 @@ def draw(design_path: Path, painter: Runtime, reviewer: Runtime, attempts: int =
     design.json, design.png when accepted, and the outcome in design.json ("status", "attempts")."""
     d = json.loads(design_path.read_text())
     folder, f = design_path.parent, fields(d)
-    prompt = squeeze(template("image").format(**f))
-    (folder / "prompt.txt").write_text(prompt)
+    image_prompt = squeeze(prompt("image.txt", **f))
+    (folder / "prompt.txt").write_text(image_prompt)
     # current: the image a revise edits (None: draw fresh); correction: the open review correction. An edit fixes
     # one thing and keeps the rest; a fresh image (after a reject, and always last) carries the correction along.
     history, current, correction = [], None, ""
@@ -256,9 +252,9 @@ def draw(design_path: Path, painter: Runtime, reviewer: Runtime, attempts: int =
         shot = folder / f"attempt-{n:02d}.png"
         fresh = current is None or n == attempts
         if fresh:
-            ask = prompt + (f"\nAlso make sure: {correction}\n" if correction else "")
+            ask = image_prompt + (f"\nAlso make sure: {correction}\n" if correction else "")
         else:
-            ask = squeeze(template("revise").format(note=correction, original=prompt))
+            ask = squeeze(prompt("revise.txt", note=correction, original=image_prompt))
         try:
             meta = painter.image(ask, shot, refs=[] if fresh else [current])
         except AgentError as exc:
@@ -270,7 +266,7 @@ def draw(design_path: Path, painter: Runtime, reviewer: Runtime, attempts: int =
             current = None
             continue
         try:
-            review = reviewer.ask(squeeze(template("review").format(**f)), REVIEW_SCHEMA, images=[shot])
+            review = reviewer.ask(squeeze(prompt("review.txt", **f)), REVIEW_SCHEMA, images=[shot])
         except AgentError as exc:
             history.append({"attempt": n, "image": shot.name, "review_error": str(exc)})
             continue
@@ -282,5 +278,5 @@ def draw(design_path: Path, painter: Runtime, reviewer: Runtime, attempts: int =
         current = shot if review["verdict"] == "revise" and correction else None
     d["status"] = "accepted" if (folder / "design.png").is_file() else "failed"
     d["attempts"] = history
-    driver.write_json(design_path, d)
+    write_json(design_path, d)
     return d

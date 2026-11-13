@@ -1,6 +1,6 @@
 """The runtime interface: what the pipeline needs from an agent, whichever product runs it.
 
-- `Session`: a multi-turn coding agent in one workspace, with MCP tools and an optional Stop gate. A later turn
+- `Session`: a multi-turn coding agent in one workspace, with MCP tools. A later turn
   continues the same thread and may switch the model (a cheaper model builds, a stronger one fixes).
 - `ask`: one JSON answer from a read-only turn that sees some images (reviews, plans). The reviewer never has tools,
   so it cannot grade work it did itself.
@@ -14,7 +14,6 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from ..checks import StopGate
 from ..jsonio import parse_json, schema_prompt
 
 
@@ -37,10 +36,14 @@ class SessionSpec:
     cwd: Path
     #: MCP servers by name: the command line of a stdio server
     mcp: dict[str, list[str]] = field(default_factory=dict)
-    stop_gate: StopGate | None = None
 
 
 class Session(ABC):
+    """One agent thread in one workspace; use it as a context manager."""
+
+    def __init__(self, runtime: Runtime, spec: SessionSpec):
+        self.runtime, self.spec, self.model = runtime, spec, runtime.model
+
     def __enter__(self) -> Session:
         return self
 
@@ -49,12 +52,7 @@ class Session(ABC):
 
     def turn(self, text: str, images=(), seconds: float = 3600, model: str | None = None) -> Turn:
         """One turn; `model` switches the model from this turn on (the thread keeps its context)."""
-        gate = self.spec.stop_gate
-        if gate:
-            gate.start_turn(seconds)
         return self._turn(text, [Path(p) for p in images], seconds, model)
-
-    spec: SessionSpec
 
     @abstractmethod
     def _turn(self, text: str, images: list[Path], seconds: float, model: str | None) -> Turn: ...
@@ -62,12 +60,13 @@ class Session(ABC):
 
 class Runtime(ABC):
     name = "runtime"
+    session_class: type[Session]
 
     def __init__(self, model: str | None = None, effort: str | None = None):
         self.model, self.effort = model, effort
 
-    @abstractmethod
-    def session(self, spec: SessionSpec) -> Session: ...
+    def session(self, spec: SessionSpec) -> Session:
+        return self.session_class(self, spec)
 
     @abstractmethod
     def _answer(self, prompt: str, images: list[Path], seconds: float) -> Turn:

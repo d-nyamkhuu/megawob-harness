@@ -38,21 +38,17 @@ def design(tmp_path):
     INDEX.write_bytes(index)
 
 
-def report(token=None, done=True):
-    return json.dumps({"done": done, "fidelity": 3, "remaining_differences": [], "deviations": [], "notes": "",
-                       "check_token": token})
-
-
-def token_of(result: str):
-    return result.split("check_token: ")[1].strip() if "check_token: " in result else None
+def report(done=True):
+    return json.dumps({"done": done, "fidelity": 3, "remaining_differences": [], "deviations": [], "notes": ""})
 
 
 def checked(ctx):
-    return report(token_of(ctx.call("check")))
+    assert ctx.call("check") == "check passed"
+    return report()
 
 
-def claim(ctx):
-    return report(None)
+def stopped_early(ctx):
+    return report(done=False)
 
 
 def run(design, tmp_path, builder, **kw):
@@ -68,23 +64,16 @@ def test_a_checked_build_passes_in_one_turn(design, tmp_path):
 
     rec = run(design, tmp_path, ReplayRuntime([look_then_check]))
     assert rec["passed"] and len(rec["turns"]) == 1
-    turn = rec["turns"][0]
-    assert turn["proof"] and turn["stop_blocks"] == 0 and turn["tool_calls"] == {"render": 1, "check": 1}
+    assert rec["turns"][0]["tool_calls"] == {"render": 1, "check": 1}
     assert json.loads((tmp_path / "out" / "runs" / f"{SITE}.json").read_text())["passed"]
 
 
-def test_the_stop_gate_makes_the_agent_check_inside_the_turn(design, tmp_path):
-    builder = ReplayRuntime([claim, checked])
+def test_a_first_turn_that_is_not_done_goes_back_even_though_the_scaffold_passes(design, tmp_path):
+    builder = ReplayRuntime([stopped_early, stopped_early])
     rec = run(design, tmp_path, builder)
-    assert rec["passed"] and len(rec["turns"]) == 1 and rec["turns"][0]["stop_blocks"] == 1
-    assert "You have not called check() yet" in builder.prompts[1]
-
-
-def test_without_the_stop_gate_an_unchecked_claim_costs_a_fix_round(design, tmp_path):
-    rec = run(design, tmp_path, ReplayRuntime([claim, checked]),
-              settings=build.Settings(seeds=1, minutes=5, stop_gate=False))
     assert rec["passed"] and [t["stage"] for t in rec["turns"]] == ["build", "build fix"]
-    assert rec["turns"][0]["gate"] == [build.NO_PROOF]
+    assert rec["turns"][0]["gate"] == [build.NOT_DONE]
+    assert rec["turns"][1]["gate"] == []  # a fix round only has to make the gate pass
 
 
 def test_a_broken_site_goes_back_as_a_fix_round_on_the_fix_model(design, tmp_path):
@@ -94,15 +83,14 @@ def test_a_broken_site_goes_back_as_a_fix_round_on_the_fix_model(design, tmp_pat
     def break_it(ctx):
         saved["js"] = site_js.read_text()
         site_js.write_text(saved["js"] + "\nenv.site({ name: \n")
-        return claim(ctx)
+        return report()
 
     def mend(ctx):
         site_js.write_text(saved["js"])
         return checked(ctx)
 
     builder = ReplayRuntime([break_it, mend])
-    rec = run(design, tmp_path, builder, settings=build.Settings(seeds=1, minutes=5, stop_gate=False),
-              fix_model="stronger")
+    rec = run(design, tmp_path, builder, fix_model="stronger")
     assert rec["passed"] and rec["turns"][1]["model"] == "stronger"
     assert any("node --check site.js" in f for f in rec["turns"][0]["gate"])
     assert "node --check site.js" in builder.prompts[1]

@@ -1,13 +1,12 @@
 """Claude through the Claude Agent SDK (`claude-agent-sdk`): Claude Code's agent loop and file tools as a library.
 
 - Sessions get the file tools only (Read, Write, Edit, Glob, Grep) plus the MCP tools, auto-approved, and no shell:
-  without an OS sandbox a shell could write anywhere. A PreToolUse hook denies any write outside the workspace,
-  which is what keeps the check ledger out of the agent's reach (Codex gets the same from its sandbox).
-- The Stop gate is a Stop hook callback in this process; a block's reason becomes the agent's next instruction.
+  without an OS sandbox a shell could write anywhere. A PreToolUse hook denies any write outside the workspace
+  (Codex gets the same from its sandbox).
 - No user or project settings are loaded (no CLAUDE.md, no user hooks, no other MCP servers): a scripted agent
   sees only its brief and its tools.
-- The SDK is async; each session runs it on an event loop thread of its own, so the pipeline stays synchronous and
-  can run several builds in threads.
+- The SDK is async; each session runs it on an event loop thread of its own (a one-off answer on `asyncio.run`), so
+  the pipeline stays synchronous and can run several builds in threads.
 
 Sign in with `claude login` or set ANTHROPIC_API_KEY.
 """
@@ -31,7 +30,7 @@ from claude_agent_sdk import (
     ToolUseBlock,
 )
 
-from .base import AgentError, Runtime, Session, SessionSpec, Turn
+from .base import AgentError, Runtime, Session, Turn
 
 FILE_TOOLS = ["Read", "Write", "Edit", "Glob", "Grep"]
 WRITE_TOOLS = "Write|Edit|MultiEdit|NotebookEdit"
@@ -70,13 +69,6 @@ def write_guard(root: Path):
                                            "permissionDecisionReason": f"writes are limited to {root}"}}
         return {}
     return guard
-
-
-def stop_hook(gate):
-    async def stop(data, tool_use_id, context):
-        reason = gate.decide()
-        return {"decision": "block", "reason": reason} if reason else {}
-    return stop
 
 
 def _message(text: str, images: list[Path]) -> dict:
@@ -121,42 +113,15 @@ async def _turn(client: ClaudeSDKClient, text: str, images: list[Path], seconds:
                 result.total_cost_usd)
 
 
-class ClaudeRuntime(Runtime):
-    name = "claude"
-
-    def _options(self, cwd: Path, **kw) -> ClaudeAgentOptions:
-        return ClaudeAgentOptions(cwd=str(cwd), model=self.model, effort=self.effort, setting_sources=[],
-                                  strict_mcp_config=True, **kw)
-
-    def session(self, spec: SessionSpec) -> ClaudeSession:
-        return ClaudeSession(self, spec)
-
-    def _answer(self, prompt: str, images: list[Path], seconds: float) -> Turn:
-        loop = _Loop()
-        try:
-            with tempfile.TemporaryDirectory(prefix="harness-") as cwd:
-                async def answer():
-                    async with ClaudeSDKClient(self._options(Path(cwd), tools=[], max_turns=1)) as client:
-                        return await _turn(client, prompt, images, seconds)
-                return loop.run(answer())
-        finally:
-            loop.close()
-
-
 class ClaudeSession(Session):
-    def __init__(self, runtime: ClaudeRuntime, spec: SessionSpec):
-        self.runtime, self.spec = runtime, spec
-        self.model = runtime.model
-        self._loop = self._client = None
+    runtime: ClaudeRuntime
 
     def __enter__(self) -> ClaudeSession:
         hooks = {"PreToolUse": [HookMatcher(matcher=WRITE_TOOLS, hooks=[write_guard(self.spec.cwd)])]}
-        if self.spec.stop_gate:
-            hooks["Stop"] = [HookMatcher(hooks=[stop_hook(self.spec.stop_gate)], timeout=600)]
         servers = {name: {"type": "stdio", "command": cmd[0], "args": cmd[1:]} for name, cmd in self.spec.mcp.items()}
-        options = self.runtime._options(self.spec.cwd, tools=FILE_TOOLS, mcp_servers=servers, hooks=hooks,
-                                        allowed_tools=[*FILE_TOOLS, *(f"mcp__{n}" for n in servers)],
-                                        permission_mode="dontAsk")
+        options = self.runtime.options(self.spec.cwd, tools=FILE_TOOLS, mcp_servers=servers, hooks=hooks,
+                                       allowed_tools=[*FILE_TOOLS, *(f"mcp__{n}" for n in servers)],
+                                       permission_mode="dontAsk")
         self._loop = _Loop()
         self._client = ClaudeSDKClient(options)
         self._loop.run(self._client.connect())
@@ -164,11 +129,9 @@ class ClaudeSession(Session):
 
     def __exit__(self, *exc) -> None:
         try:
-            if self._client:
-                self._loop.run(self._client.disconnect())
+            self._loop.run(self._client.disconnect())
         finally:
-            if self._loop:
-                self._loop.close()
+            self._loop.close()
 
     def _turn(self, text: str, images: list[Path], seconds: float, model: str | None) -> Turn:
         async def go():
@@ -177,3 +140,19 @@ class ClaudeSession(Session):
                 self.model = model
             return await _turn(self._client, text, images, seconds)
         return self._loop.run(go())
+
+
+class ClaudeRuntime(Runtime):
+    name = "claude"
+    session_class = ClaudeSession
+
+    def options(self, cwd: Path, **kw) -> ClaudeAgentOptions:
+        return ClaudeAgentOptions(cwd=str(cwd), model=self.model, effort=self.effort, setting_sources=[],
+                                  strict_mcp_config=True, **kw)
+
+    def _answer(self, prompt: str, images: list[Path], seconds: float) -> Turn:
+        async def answer():
+            with tempfile.TemporaryDirectory(prefix="harness-") as cwd:
+                async with ClaudeSDKClient(self.options(Path(cwd), tools=[], max_turns=1)) as client:
+                    return await _turn(client, prompt, images, seconds)
+        return asyncio.run(answer())

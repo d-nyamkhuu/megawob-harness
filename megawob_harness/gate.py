@@ -19,6 +19,8 @@ ROOT = catalog.HTML.parent
 SITES = catalog.HTML / "sites"
 TRAIN_VIEWPORTS = ["1024x640", "1280x720", "1366x768", "1440x900", "1536x864"]
 QUICK_VIEWPORTS = ["1024x640", "1366x768", "1536x864"]
+#: files the agent may leave in the site folder that are not part of the site (not hashed, moved out after the build)
+IGNORE = ("KIT_REQUESTS.md",)
 
 
 def _megawob(*args: str, timeout: int = 900) -> subprocess.CompletedProcess:
@@ -64,7 +66,7 @@ def lint(site: str) -> list[str]:
                                                                        f"{out.stderr[-300:]}"]
 
 
-def oracle(site: str, seeds: int = 1, viewports=QUICK_VIEWPORTS[:1], fail_fast: int = 3) -> list[str]:
+def oracle(site: str, seeds: int, viewports: list[str], fail_fast: int = 3) -> list[str]:
     """megawob.check on the site: `seeds` plain seeds plus the parameter sweep in each viewport; one line per
     failure."""
     out = _megawob("megawob.check", "--site", site, "--seeds", str(seeds), "--jobs", str(min(len(viewports), 3)),
@@ -86,8 +88,7 @@ def oracle(site: str, seeds: int = 1, viewports=QUICK_VIEWPORTS[:1], fail_fast: 
 
 def quick(site: str) -> list[str]:
     """The build agent's check: lint, then the oracle at the smallest viewport, then at a middle and the largest."""
-    return (lint(site) or oracle(site, 1, QUICK_VIEWPORTS[:1])
-            or oracle(site, 1, QUICK_VIEWPORTS[1:]))
+    return lint(site) or oracle(site, 1, QUICK_VIEWPORTS[:1]) or oracle(site, 1, QUICK_VIEWPORTS[1:])
 
 
 def full(site: str, task: str, seeds: int = 5) -> list[str]:

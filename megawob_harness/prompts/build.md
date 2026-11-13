@@ -181,8 +181,7 @@ Workflow:
 4. Before finishing, render `view="small"` (1280x720 and 1024x640), `seed=3`, and `view="modes"` at two seeds
    to make sure nothing overflows or breaks. Fix any ERROR lines.
 5. Last, call `check()` (the lint plus the oracle at three viewports) and fix what it prints until it says
-   `check passed`; call it again after any later edit. You cannot end your turn before a check has passed on your
-   final files, and your report carries the `check_token` that check printed. The final gate runs the same checks on more seeds and every
+   `check passed`; call it again after any later edit. The final gate runs the same checks on more seeds and every
    training viewport, and a failed gate costs a whole extra round. When it fails, look before editing: reproduce
    the printed seed and parameters with `render(seed=N, params={...}, play=K)` (K = actions before the stuck one;
    params such as `{"popups": "chat"}` or `{"pageFaults": "revert"}`) to see what the stuck click hits, and change

@@ -4,23 +4,26 @@ import tomllib
 
 import pytest
 
-from megawob_harness.checks import StopGate
-from megawob_harness.jsonio import parse_json
-from megawob_harness.runtime.base import SessionSpec
+from megawob_harness.jsonio import fill, parse_json
 
 
-def test_codex_overrides_are_valid_toml(tmp_path):
+def test_codex_mcp_overrides_are_valid_toml():
     codex = pytest.importorskip("megawob_harness.runtime.codex")
-    spec = SessionSpec(cwd=tmp_path, stop_gate=StopGate(tmp_path, tmp_path / "s", ["NOTES.md"]))
-    command = codex.stop_hook_command(spec)
-    key, _, value = codex.stop_hook_override(command).partition("=")
-    hooks = tomllib.loads(f"v = {value}")["v"]
-    assert key == "hooks.Stop" and hooks[0]["hooks"][0] == {"type": "command", "command": command, "timeout": 120}
-    assert "--ignore NOTES.md" in command
-    trust = tomllib.loads(codex.trust_entry("/<session-flags>/config.toml:stop:0:0", "sha256:ab"))
-    assert trust["hooks"]["state"]["/<session-flags>/config.toml:stop:0:0"] == {"trusted_hash": "sha256:ab"}
     for override in codex.mcp_overrides({"harness": ["python", "-m", "x", "spec.json"]}):
         tomllib.loads(override.replace("mcp_servers.harness.", "", 1))
+
+
+def test_codex_runs_in_a_home_with_only_the_login(tmp_path, monkeypatch):
+    codex = pytest.importorskip("megawob_harness.runtime.codex")
+    user = tmp_path / "user"
+    user.mkdir()
+    for name in ("auth.json", "config.toml", "AGENTS.md"):
+        (user / name).write_text("x")
+    monkeypatch.setenv("CODEX_HOME", str(user))
+    with codex.isolated_home() as home:
+        assert sorted(p.name for p in home.iterdir()) == ["auth.json", "config.toml"]
+        assert (home / "auth.json").resolve() == user / "auth.json" and (home / "config.toml").read_text() == ""
+    assert not home.exists()
 
 
 def test_claude_write_guard(tmp_path):
@@ -28,7 +31,7 @@ def test_claude_write_guard(tmp_path):
     assert claude.inside(tmp_path, "a/b.txt") and claude.inside(tmp_path, str(tmp_path / "x"))
     assert not claude.inside(tmp_path, "../escape") and not claude.inside(tmp_path, "/etc/passwd")
     guard = claude.write_guard(tmp_path)
-    denied = asyncio.run(guard({"tool_input": {"file_path": str(tmp_path.parent / "ledger")}}, None, None))
+    denied = asyncio.run(guard({"tool_input": {"file_path": str(tmp_path.parent / "outside.txt")}}, None, None))
     assert denied["hookSpecificOutput"]["permissionDecision"] == "deny"
     assert asyncio.run(guard({"tool_input": {"file_path": "ok.txt"}}, None, None)) == {}
 
@@ -38,3 +41,7 @@ def test_parse_json_accepts_wrapped_objects():
     assert parse_json('Here:\n```json\n{"a": 1}\n```', schema) == {"a": 1}
     with pytest.raises(ValueError):
         parse_json('{"a": "x"}', schema)
+
+
+def test_fill_is_one_pass_and_leaves_other_braces():
+    assert fill("{a} {b} {c} {}", a="{b}", b='{"x": 1}') == '{b} {"x": 1} {c} {}'

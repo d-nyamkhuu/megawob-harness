@@ -3,10 +3,13 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import tempfile
 from pathlib import Path
 
 import jsonschema
+
+PROMPTS = Path(__file__).resolve().parent / "prompts"
 
 
 def parse_json(text: str, schema: dict) -> dict:
@@ -37,10 +40,14 @@ def schema_prompt(prompt: str, schema: dict) -> str:
 
 
 def fill(text: str, **values) -> str:
-    """Fill `{name}` placeholders without str.format, so briefs can quote code and JSON braces."""
-    for key, value in values.items():
-        text = text.replace("{" + key + "}", str(value))
-    return text
+    """Fill `{name}` placeholders in one pass. Unlike str.format, other braces stay as they are, so briefs can quote
+    code and JSON, and a value is never filled in again."""
+    return re.sub(r"\{(\w+)\}", lambda m: str(values[m[1]]) if m[1] in values else m[0], text)
+
+
+def prompt(name: str, **values) -> str:
+    """prompts/<name>, filled."""
+    return fill((PROMPTS / name).read_text(), **values)
 
 
 def write_json(path: Path, obj) -> None:

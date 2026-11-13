@@ -1,9 +1,9 @@
 """The build agent's tools for one site, `render` and `check`, served over MCP (stdio) in a process of their own.
 
 Both runtimes start this server outside the agent's sandbox, so it can run Chromium and the checker while the agent
-itself can only write in the site folder. The check ledger it writes lives outside that folder.
+itself can only write in the site folder.
 
-    python -m megawob_harness.tools <spec.json>    # spec: site, task, scenario, image, state
+    python -m megawob_harness.tools <spec.json>    # spec: site, task, scenario, image
 
 `build(spec)` returns the same functions in-process (the replay runtime and the tests call them directly).
 """
@@ -19,15 +19,15 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from mcp.server.mcpserver import Image, MCPServer
-from megawob import catalog
 
 from . import gate
-from .checks import Ledger, check_tool
 from .render import Renderer
 
 
 def build(spec: dict) -> dict[str, Callable]:
-    renderer: list[Renderer] = []
+    @functools.cache
+    def renderer() -> Renderer:  # started on the first render, on the tool thread
+        return Renderer(spec["site"], spec["task"], spec["scenario"], Path(spec["image"]))
 
     def render(seed: int = 0, view: str = "design", crop: list[int] | None = None, popups: str | None = None,
                params: dict[str, str] | None = None, play: int = 0) -> list:
@@ -43,24 +43,23 @@ def build(spec: dict) -> dict[str, Callable]:
         play: first follow the oracle for this many actions (to see a checker failure mid-episode); lists them.
         seed: content and the per-episode frame choices (end-control placement and label, decoys) vary by seed.
         """
-        if not renderer:
-            renderer.append(Renderer(spec["site"], spec["task"], spec["scenario"], Path(spec["image"])))
-        r = renderer[0]
-        params = dict(params or {})
-        if play:
-            params["play"] = play
-        img, errors = r.compare(seed, view, tuple(crop) if crop else None, popups, params)
+        r = renderer()
+        img, errors = r.compare(seed, view, tuple(crop) if crop else None, popups, {**(params or {}), "play": play})
         buf = io.BytesIO()
         img.save(buf, "PNG")
         text = "\n".join([*(f"PLAY {n}" for n in r.notes), *(f"ERROR {e}" for e in errors)]) or "no page errors"
         return [Image(data=buf.getvalue(), format="png"), text]
 
-    ws = catalog.HTML / "sites" / spec["site"]
-    check = check_tool(lambda: gate.quick(spec["site"]), ws, Ledger(Path(spec["state"])), ("KIT_REQUESTS.md",))
-    check.__doc__ = ("The static lint, then the oracle checker (1 seed plus its parameter sweep at 1024x640, then "
-                     "1366x768 and 1536x864): up to 3 failures per viewport, each with its seed and parameters, or "
-                     "\"check passed\" with a check_token. About 1-2 minutes. The final gate runs the same checks "
-                     "with more seeds at all five training viewports. " + check.__doc__)
+    def check() -> str:
+        """The static lint, then the oracle checker (1 seed plus its parameter sweep at 1024x640, then 1366x768 and
+        1536x864): up to 3 failures per viewport, each with its seed and parameters, or "check passed". About 1-2
+        minutes. The final gate runs the same checks with more seeds at all five training viewports."""
+        try:
+            failures = gate.quick(spec["site"])
+        except Exception as exc:  # a crashing check is a failure the agent should see, not a protocol error
+            failures = [f"the check crashed: {type(exc).__name__}: {exc}"[:400]]
+        return "\n".join(f"FAIL {f}" for f in failures) if failures else "check passed"
+
     return {"render": render, "check": check}
 
 

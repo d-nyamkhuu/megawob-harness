@@ -1,7 +1,7 @@
 """Render a site in headless Chromium and compose the shots with its design image.
 
 One Renderer per thread (Playwright's sync API is bound to the thread that started it). Used by the build agent's
-render tool (`MegawobSite.tools()` in build.py) and by the site review.
+render tool (tools.py) and by the site review (build.py).
 """
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from megawob import catalog, check
 from PIL import Image, ImageDraw
 from playwright.sync_api import sync_playwright
 
-LABEL, SCALE = 28, 0.6
+LABEL, SCALE, GAP, BACKGROUND = 28, 0.6, 12, (40, 40, 40)
 SMALL = [(1280, 720), (1024, 640)]
 # The instruction display and finish settings a frame must handle, at the tightest training viewport.
 MODES = [("instruction header", {"instructionDisplay": "header", "finishByMessage": "0"}),
@@ -50,6 +50,12 @@ class Renderer:
         self._pw = sync_playwright().start()
         self.browser = self._pw.chromium.launch()
         self.notes: list[str] = []  # the oracle actions of the last play
+
+    def __enter__(self) -> Renderer:
+        return self
+
+    def __exit__(self, *exc) -> None:
+        self.close()
 
     def close(self) -> None:
         self.browser.close()
@@ -114,20 +120,17 @@ class Renderer:
         """view "design": design image | render at the image's size (scaled to 0.6, or one region at full size with
         crop); "small": renders at 1280x720 and 1024x640; "modes": the four MODES at 1024x640."""
         self.notes = []
-        if view == "modes":
+        params = params or {}
+        if view in ("modes", "small"):
+            shots = ([(name, MODES_SIZE, {**params, **mode}) for name, mode in MODES] if view == "modes"
+                     else [("render", size, params) for size in SMALL])
             panels, errors = [], []
-            for name, mode in MODES:
-                img, errs = self.capture(seed, MODES_SIZE, popups, {**(params or {}), **mode})
-                panels.append((f"{name}  {MODES_SIZE[0]}x{MODES_SIZE[1]}", img))
-                errors += [f"{name}: {e}" for e in errs]
+            for name, size, shot_params in shots:
+                label = f"{name}  {size[0]}x{size[1]}"
+                img, errs = self.capture(seed, size, popups, shot_params)
+                panels.append((label, img))
+                errors += [f"{label}: {e}" for e in errs]
             return grid(panels, 2), errors
-        if view == "small":
-            panels, errors = [], []
-            for size in SMALL:
-                img, errs = self.capture(seed, size, popups, params)
-                panels.append((f"render {size[0]}x{size[1]}", img))
-                errors += [f"{size[0]}x{size[1]} {e}" for e in errs]
-            return side_by_side(panels), errors
         ref = Image.open(self.image).convert("RGB")
         img, errors = self.capture(seed, ref.size, popups, params)
         if crop:
@@ -140,24 +143,22 @@ class Renderer:
 
 
 def side_by_side(panels: list[tuple[str, Image.Image]], note: str = "") -> Image.Image:
-    gap = 12
-    out = Image.new("RGB", (sum(im.width for _, im in panels) + gap * (len(panels) - 1),
-                            max(im.height for _, im in panels) + LABEL), (40, 40, 40))
+    out = Image.new("RGB", (sum(im.width for _, im in panels) + GAP * (len(panels) - 1),
+                            max(im.height for _, im in panels) + LABEL), BACKGROUND)
     draw, x = ImageDraw.Draw(out), 0
     for name, im in panels:
         out.paste(im, (x, LABEL))
         draw.text((x + 6, 8), f"{name}  {note}".strip(), fill=(255, 255, 255))
-        x += im.width + gap
+        x += im.width + GAP
     return out
 
 
 def grid(panels: list[tuple[str, Image.Image]], cols: int) -> Image.Image:
     rows = [side_by_side(panels[i:i + cols]) for i in range(0, len(panels), cols)]
-    gap = 12
-    out = Image.new("RGB", (max(r.width for r in rows), sum(r.height for r in rows) + gap * (len(rows) - 1)),
-                    (40, 40, 40))
+    out = Image.new("RGB", (max(r.width for r in rows), sum(r.height for r in rows) + GAP * (len(rows) - 1)),
+                    BACKGROUND)
     y = 0
     for r in rows:
         out.paste(r, (0, y))
-        y += r.height + gap
+        y += r.height + GAP
     return out
