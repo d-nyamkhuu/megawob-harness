@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-harness"
+version = "0.1.0"
+description = "A verifier-gated harness for coding agents: deterministic gates decide, an independent reviewer scores, and a Stop hook makes the agent check its own work before it may finish"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{name = "Nyamkhuu Demberelsuren"}]
+dependencies = ["jsonschema>=4", "mcp>=2.3,<3"]
+
+[project.optional-dependencies]
+codex = ["openai-codex>=0.167"]
+claude = ["claude-agent-sdk>=0.2.181"]
+example = ["playwright==1.58.0", "pillow"]
+all = ["agent-harness[codex,claude,example]"]
+dev = ["agent-harness[all]", "pytest>=8", "ruff==0.17.2"]
+
+[project.scripts]
+agent-harness = "agent_harness.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["agent_harness*", "examples*"]
+
+[tool.setuptools.package-data]
+"examples.static_page" = ["*.md", "targets/*.png", "jobs/*.json"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["B027"]  # optional no-op hooks on the ABCs are deliberate
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["browser: needs Playwright's Chromium (playwright install chromium)"]
