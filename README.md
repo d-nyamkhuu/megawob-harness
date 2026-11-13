@@ -70,7 +70,7 @@ Designs of the same task differ in structure, not only in colour: four of the si
 | The agent grades its own work | A reviewer on another model, with no tools, scores the page against the image |
 | A polish makes the site worse | A polish is kept only if the gate still passes and the review score did not drop; otherwise the files are restored |
 | The agent writes outside its site, or sees the operator's tools | Each runtime is sandboxed to the site folder and starts with none of the user's settings ([Architecture](#architecture)) |
-| A long batch dies halfway | Every stage is resumable from files on disk; builds run in parallel (`--jobs`); the shared scenario index is updated under a lock |
+| A long batch stops at one bad design, or dies halfway | A design's error is reported and the rest go on; every stage is resumable from files on disk (`build --pending` picks up accepted designs); the shared scenario index is updated under a lock |
 | Nobody knows what a build cost | Every turn's model, time, tokens, cost, tool calls, report and gate result go to a JSON run record |
 
 ## Architecture
@@ -85,20 +85,6 @@ Designs of the same task differ in structure, not only in colour: four of the si
   that holds only the user's login. Claude gets file tools and no shell, and a `PreToolUse` hook denies writes
   outside the folder. The reviewer has no tools at all. Neither runtime loads the user's settings, instructions,
   plugins or MCP servers, so a build depends only on its brief and its tools.
-
-## Engineering notes
-
-- **"Not done" is never accepted.** The scaffold already passes the gate, so a first turn that reports it is not done
-  goes back as a fix round even though the gate passes.
-- **JSON answers without strict output schemas.** Some reasoning models stalled after their reasoning item when given
-  a strict schema, so the schema goes in the prompt and is validated locally, with a retry.
-- **Testing agents without models.** A replay runtime scripts the agent's moves as Python functions behind the same
-  interface. The pipeline tests build a real site through the real gate, with no API key.
-- **MCP servers start in the agent's working directory** in both SDKs, which broke relative paths, so the tools
-  server takes absolute paths from its spec.
-- **Playwright's sync API is bound to one thread,** so the tools server runs all browser work on one worker thread,
-  off the MCP event loop.
-- **No agent framework.** The pipeline is a plain loop over files: a site folder and a run record per build.
 
 ## Quick start
 
@@ -120,6 +106,16 @@ megawob-harness design use-email archive --count 3  # only design images (review
 megawob-harness build data/sitegen/designs/use-email/archive/07/design.json
 megawob-harness card use-email                      # rebuild a task's capability card
 megawob-harness status
+```
+
+Batches plan everything in one process, so each design's style and layout account for the rest of the batch, then
+draw and build `--jobs` designs at a time; a site is built as soon as its image is accepted, and one design's error
+does not stop the others:
+
+```bash
+megawob-harness card my-task && megawob-harness --jobs 4 new my-task --count 3  # a new task: 3 designs per scenario
+megawob-harness --jobs 8 new --all          # one more design for every task and scenario (434 today)
+megawob-harness --jobs 8 build --pending    # resume: build every accepted design that has no site yet
 ```
 
 <details>
@@ -157,11 +153,12 @@ Its run record, trimmed:
 | Stage | Output |
 |---|---|
 | `card <task>...` | `megawob_harness/cards/<task>.json`: what the task renders at the start of each scenario, what it never renders, 2-4 ways to lay out the task area |
-| `design <task> <scenario>` | `<out>/designs/<task>/<scenario>/<NN>/`: `design.json`, `prompt.txt`, `attempt-*.png`, `design.png` |
-| `build <design.json or site>...` | `html/sites/design-<task>-<scenario>-<NN>/`, `<out>/runs/<site>.json` |
-| `new <task> <scenario>` | design, then build every accepted design |
+| `design <task> [<scenario>...]` or `design --all` | `<out>/designs/<task>/<scenario>/<NN>/`: `design.json`, `prompt.txt`, `attempt-*.png`, `design.png` |
+| `build <design.json or site>...` or `build --pending` | `html/sites/design-<task>-<scenario>-<NN>/`, `<out>/runs/<site>.json` |
+| `new <task> [<scenario>...]` or `new --all` | design, then build each design as soon as it is accepted |
 
-`<out>` is `data/sitegen/` unless `--out` says otherwise. `--jobs N` runs designs or builds in parallel.
+`<out>` is `data/sitegen/` unless `--out` says otherwise. Without scenarios, `design` and `new` cover every scenario
+of the task; `--count N` makes N designs per scenario; `--jobs N` (before the command) runs N designs at a time.
 
 </details>
 
@@ -185,7 +182,7 @@ Its run record, trimmed:
 ## Tests
 
 ```bash
-pytest -m "not megawob"            # runtime config, isolation, write guard, JSON parsing: seconds, no model
+pytest -m "not megawob"            # runtime config, isolation, write guard, JSON, batch selection: seconds
 pytest -m megawob                  # the pipeline on a real site with a scripted agent: ~3 minutes
 ```
 
