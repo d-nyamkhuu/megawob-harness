@@ -5,5 +5,3 @@ __pycache__/
 .ruff_cache/
 /runs/
 /out/
-experiments/*/build/
-experiments/*/designs/**/*.png

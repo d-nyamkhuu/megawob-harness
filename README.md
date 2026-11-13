@@ -11,10 +11,6 @@ accepts the site only when deterministic checks pass. It produced every `design-
 [MegaWoB](https://github.com/d-nyamkhuu/megawob), a benchmark of seeded web tasks for training computer-use agents:
 each site is a playable task with seeded content, randomized episode settings and an oracle solver.
 
-**Skills on show:** architecture of an agent pipeline at scale, deterministic verification of LLM output, multi-model
-orchestration and cost tiering, sandboxing and isolation, MCP tool servers, headless-browser rendering, testing
-non-deterministic agents deterministically.
-
 [How it works](#how-it-works) · [The gate](#the-gate) · [What makes it reliable](#what-makes-it-reliable) ·
 [Architecture](#architecture) · [Quick start](#quick-start) · [Repository layout](#repository-layout)
 
@@ -129,15 +125,15 @@ megawob-harness status
 <details>
 <summary><b>What a build prints and records</b></summary>
 
-One build from the [Stop-hook experiment](experiments/stop-gate/) (a 20-minute limit and no polish, so the review
-score is low). The cheap model's turn left a control the oracle must click below the smallest viewport; the gate
-sent the exact failures back, and the fix model passed in one more turn:
+One build with a 20-minute limit and no polish, so the review score is low. The cheap model's turn left a control
+the oracle must click below the smallest viewport; the gate sent the exact failures back, and the fix model passed in
+one more turn:
 
 ```text
 design-fill-form-invoice-13: PASSED in 7.8 min (2 turns), review fidelity 2; record data/sitegen/runs/design-fill-form-invoice-13.json
 ```
 
-[Its run record](experiments/stop-gate/runs/design-fill-form-invoice-13.no-stop-gate.json), trimmed:
+Its run record, trimmed:
 
 ```json
 {
@@ -228,7 +224,6 @@ megawob_harness/
 ├── styles.json       74 era and visual-language profiles
 └── arrangements.json window arrangement axes
 docs/figures.py       regenerates the diagrams and screenshots in this README
-experiments/          run records behind design decisions (why the Stop hook was removed)
 ```
 
 | To change | Edit |
@@ -237,13 +232,6 @@ experiments/          run records behind design decisions (why the Stop hook was
 | Add a task | run `megawob-harness card <task>`, and add a widget template in MegaWoB |
 | More styles or window layouts | `styles.json`, `arrangements.json` |
 | What the agents are told | `prompts/` |
-
-## Background reading
-
-- OpenAI, [Harness engineering](https://openai.com/index/harness-engineering) (February 2026)
-- Anthropic, [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
-- [Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents](https://arxiv.org/abs/2609.00006)
-- [Agentic Harness Engineering](https://arxiv.org/abs/2604.25850)
 
 ## License
 
